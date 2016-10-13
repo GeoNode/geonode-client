@@ -11,10 +11,10 @@
     "build": "node_modules/.bin/npm-run-all createdir build:js",
     "createzip": "node createpackage.js",
     "package": "node_modules/.bin/npm-run-all build createzip",
-    "test:watch": "mochify --require intl --recursive --watch tests/**/*.test.js",
-    "test:phantom": "mochify --require intl --recursive tests/**/*.test.js",
-    "test:wd": "mochify --require intl --recursive --wd tests/**/*.test.js",
     "test:cover": "mochify --cover tests/**/*.test.js",
+    "test:watch": "node_modules/.bin/mochify --require intl --recursive --watch tests/**/*.test.js",
+    "test:phantom": "node_modules/.bin/mochify --reporter list --require intl --recursive tests/**/*.test.js",
+    "test:wd": "node_modules/.bin/mochify --require intl --recursive --wd tests/**/*.test.js",
     "test": "npm run test:phantom"
   },
   "dependencies": {
