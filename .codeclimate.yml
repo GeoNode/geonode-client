@@ -1,0 +1,22 @@
+engines:
+  eslint:
+    enabled: true
+  csslint:
+    enabled: true
+  duplication:
+    enabled: true
+    config:
+      languages:
+      - javascript
+ratings:
+  paths:
+  - "**.jsx"
+  - "**.js"
+exclude_paths:
+- tests/**/*
+- helper/**/*
+- resources/**/*
+- coverage/**/*
+- "debug-server.js"
+- "createbuild.js"
+- "createpackage.js"
