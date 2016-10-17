@@ -78,6 +78,8 @@ var map = new ol.Map({
 class GeoNodeViewer extends React.Component {
   constructor(props) {
     super(props);
+  }
+  componentWillMount() {
     MapConfigService.load(MapConfigTransformService.transform(this.props.config), map);
   }
   getChildContext() {
