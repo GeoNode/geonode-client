@@ -1,18 +1,26 @@
 sudo: false
-
 language: node_js
-
 node_js:
-  - "6"
-
+- '6'
 script:
-  - npm run test
-  - codeclimate-test-reporter < coverage/lcov.info
-
+- npm run test
+- codeclimate-test-reporter < coverage/lcov.info
+branches:
+  only:
+  - master
+before_script:
+- git config --global user.email "mila.frerichs@gmail.com"
+- git config --global user.name "Mila Frerichs"
+- git remote rm origin
+- git remote add origin https://milafrerichs:${GH_TOKEN}@github.com/GeoNode/ol3-react-geonode.git
+after_success:
+- npm run deploy
 cache:
   directories:
-    - node_modules
-
+  - node_modules
 addons:
   code_climate:
     repo_token: 00c5fb58ac00b89d8a342c343ddae17abe6f9070f962eccbba5174b4f9a68ea8
+env:
+  global:
+    secure: DPq7+qJnkDPeIwNrGZuObzhGBlSdY+8MDRH69iFEO+KKfZqvKr1WPW066+3n584kFFgfyBsieVjB8hAYcED4yOazW0+SdtRWCqYzQUzPs7Xperomym8GO1cmWmxq5VvUUxPAViWj5HtEzu4E8EnI2oKwTfPqWADBJoyq+snMb9sZOXHmYvXKH4ubRvGKMChMRh0SWBQfVxCdfkHGnXW53ANTrlwxtlow3MiQk+GKBTc0e7wjAwI79kSw29U/9WFmcIF7AOftxr48W2UXa1DebuquuUpSW5WDVDXj1hs9cFPgPfJLbQlj/Nvwdu/f0LNRRnlT8TrjxoyXLxekIlpfTu8yQWzlKqCM0DogQBpWzxQcynVw/djPn5Vu+6TTuJoHXBODOVm5caspga3oppHEZ1gRfoZRTsjQUUeGSTCLhSE7sVdJvnfauvH8m5fyEVA6wm70H8sap0b37UBW7JW+f87tVcdOq3zxvRj2xmEoyy2FrE484fB42/KdUEsxevvICp7URPzo1kz29QzwpwdM++U535joa3jzoMM1HMJzlai6rs3E5s/eZrKb+9XUSzBw54IvjHHshWcRkchhTThyXijdT/1o5/eRAHPU8OoA5eXj1f1ZSUl9N1PA9RfyCbNOQpoCJI2mZAi5gHCKV+yqwOsgEVlqWvjq3QX0wZ7EBk0=

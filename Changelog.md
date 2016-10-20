@@ -8,6 +8,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 ### Added
 - added documentation
 - added tests & test setup
+- added CD via travis
+- added a `index-gh.html` with aboslute paths for repo
 
 ### Changed
 - moved viewer setup into `componentWillMount`
