@@ -11,7 +11,7 @@
     "build:gh-copy": "cp index-gh.html _build/index.html && cp build/app.js _build/js/app.js && cp resources/ol3-cesium/Cesium.js _build/js/Cesium.js && cp ./node_modules/boundless-sdk/dist/css/components.css _build/css/component.css && cp app.css _build/css/app.css",
     "build:gh-clean": "rm -rf _build/* ",
     "build:gh-makedir": "mkdir -p _build && mkdir -p _build/js && mkdir -p _build/css",
-    "build:gh-pages": "npm run build && npm run build:gh-clean && npm run build:gh-makedir && build:gh-copy",
+    "build:gh-pages": "npm run build && npm run build:gh-clean && npm run build:gh-makedir && npm run build:gh-copy",
     "build": "node_modules/.bin/npm-run-all createdir build:js",
     "createzip": "node createpackage.js",
     "package": "node_modules/.bin/npm-run-all build createzip",
