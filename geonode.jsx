@@ -87,6 +87,9 @@ class GeoNodeViewer extends React.Component {
       muiTheme: getMuiTheme()
     };
   }
+  componentWillReceiveProps(props) {
+    MapConfigService.load(MapConfigTransformService.transform(props.config), map);
+  }
   render() {
     return (
        <div id='content'>
