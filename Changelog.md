@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 - added tests & test setup
 - added CD via travis
 - added a `index-gh.html` with aboslute paths for repo
+- added abstraction `viewer` to easy the usage
+- added `componentWillReceiveProps` to geonodeViewer component
 
 ### Changed
 - moved viewer setup into `componentWillMount`
