@@ -8,7 +8,7 @@
     "build:js": "node_modules/.bin/browserify -g [envify --NODE_ENV production] -p [minifyify --no-map --exclude node_modules/openlayers/dist/ol.js] app.jsx -o build/app.js",
     "build:lib": "node_modules/.bin/browserify -g [envify --NODE_ENV production] -p [minifyify --no-map --exclude node_modules/openlayers/dist/ol.js] geonode.jsx -o build/geonode.js",
     "build:lib:debug": "node_modules/.bin/browserify -g [envify --NODE_ENV development] geonode.jsx -o build/geonode-debug.js",
-    "build:gh-pages": "npm run build && mkdir -p _build && mkdir -p _build/js && mkdir -p _build/css && cp index-gh.html _build/index.html && cp build/app-debug.js _build/js/app-debug.js && cp resources/ol3-cesium/Cesium.js _build/js/Cesium.js && cp ./node_modules/boundless-sdk/dist/css/components.css _build/css/component.css && cp app.css _build/css/app.css",
+    "build:gh-pages": "npm run build && mkdir -p _build && mkdir -p _build/js && mkdir -p _build/css && cp index-gh.html _build/index.html && cp build/app.js _build/js/app.js && cp resources/ol3-cesium/Cesium.js _build/js/Cesium.js && cp ./node_modules/boundless-sdk/dist/css/components.css _build/css/component.css && cp app.css _build/css/app.css",
     "build": "node_modules/.bin/npm-run-all createdir build:js",
     "createzip": "node createpackage.js",
     "package": "node_modules/.bin/npm-run-all build createzip",
