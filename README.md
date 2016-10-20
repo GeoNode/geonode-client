@@ -18,3 +18,12 @@ Run `node start` to start the development server. Visit your browser at `http://
 During development run `npm run test:watch` to run tests on every file change.  
 
 Run `npm test` to run the full test suite with code coverage report.  
+
+## Deployment to GH-pages
+
+Automated deployment via travis is enabled for the master branch. 
+
+If you want to deploy manually to gh-pages use `npm run deploy`
+
+### Important
+The deplyoment uses the `index-gh.html` please keep this file in sync with `index.html` and change the path once the repo changes it's name. The `.travis.yml` needs to be changed as well.
