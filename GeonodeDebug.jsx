@@ -14,9 +14,13 @@ class GeoNodeViewerDebug extends React.Component {
   }
   fetchConfigFromUrl(url) {
     fetch(url).then((response) => {
-      return response.json();
+      if(response.status == 200) {
+        return response.json();
+      }
     }).then((json) => {
-      this.setState( { config: json});
+      if(json) {
+        this.setState( { config: json});
+      }
     });
   }
   configUrlChange(config) {
