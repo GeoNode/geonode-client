@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import GeoNodeViewer from './geonode.jsx';
 import enMessages from 'boundless-sdk/locale/en.js';
 import {IntlProvider} from 'react-intl';
+import 'whatwg-fetch';
 
 class GeoNodeViewerDebug extends React.Component {
   constructor(props) {
