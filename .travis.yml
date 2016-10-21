@@ -10,11 +10,8 @@ before_script:
 - git config --global user.name "Mila Frerichs"
 - git remote rm origin
 - git remote add origin https://milafrerichs:${GH_TOKEN}@github.com/GeoNode/ol3-react-geonode.git
-deploy:
-  provider: script
-  script: .travis/deploy.sh
-  on:
-    branch: master
+after_success:
+  - './deploy.sh'
 cache:
   directories:
   - node_modules
