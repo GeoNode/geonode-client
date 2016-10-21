@@ -30,7 +30,8 @@
     "react": "^15.3.2",
     "react-dom": "^15.3.2",
     "react-intl": "2.0.0-rc-1",
-    "react-tap-event-plugin": "^1.0.0"
+    "react-tap-event-plugin": "^1.0.0",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "archiver": "0.21.0",

@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import GeoNodeViewer from './geonode.jsx';
 import enMessages from 'boundless-sdk/locale/en.js';
 import {IntlProvider} from 'react-intl';
+import 'whatwg-fetch';
 
 class GeoNodeViewerDebug extends React.Component {
   constructor(props) {
@@ -13,9 +14,13 @@ class GeoNodeViewerDebug extends React.Component {
   }
   fetchConfigFromUrl(url) {
     fetch(url).then((response) => {
-      return response.json();
+      if(response.status == 200) {
+        return response.json();
+      }
     }).then((json) => {
-      this.setState( { config: json});
+      if(json) {
+        this.setState( { config: json});
+      }
     });
   }
   configUrlChange(config) {
