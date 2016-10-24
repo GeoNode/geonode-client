@@ -51,7 +51,7 @@ class GeoNodeViewerDebug extends React.Component {
     return (
       <div>
         <div id="debug">
-          <label for="debug">Debug URL</label>
+          <label htmlFor="debug">Debug URL</label>
             <input
             type="text"
             value={this.configUrl}
