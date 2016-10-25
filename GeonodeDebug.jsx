@@ -58,7 +58,7 @@ class GeoNodeViewerDebug extends React.Component {
             onChange={(event) => { this.configUrlChange(event.target.value)}}
           />
         </div>
-        <GeoNodeViewer config={this.state.config} />
+        <GeoNodeViewer config={this.state.config} proxy='https://cors-anywhere.herokuapp.com/'/>
       </div>
     )
   }

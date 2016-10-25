@@ -79,8 +79,11 @@ class GeoNodeViewer extends React.Component {
   constructor(props) {
     super(props);
   }
+  updateMap(props) {
+    MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy), map);
+  }
   componentWillMount() {
-    MapConfigService.load(MapConfigTransformService.transform(this.props.config), map);
+    this.updateMap(this.props);
   }
   getChildContext() {
     return {
@@ -88,7 +91,7 @@ class GeoNodeViewer extends React.Component {
     };
   }
   componentWillReceiveProps(props) {
-    MapConfigService.load(MapConfigTransformService.transform(props.config), map);
+    this.updateMap(props);
   }
   render() {
     return (
@@ -116,7 +119,8 @@ class GeoNodeViewer extends React.Component {
 }
 
 GeoNodeViewer.props = {
-  config: React.PropTypes.object.isRequired
+  config: React.PropTypes.object.isRequired,
+  proxy: React.PropTypes.string
 };
 
 GeoNodeViewer.childContextTypes = {
