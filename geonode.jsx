@@ -80,11 +80,7 @@ class GeoNodeViewer extends React.Component {
     super(props);
   }
   updateMap(props) {
-    if(props.proxy) {
-      MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy), map);
-    } else {
-      MapConfigService.load(MapConfigTransformService.transform(props.config), map);
-    }
+    MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy), map);
   }
   componentWillMount() {
     this.updateMap(this.props);
