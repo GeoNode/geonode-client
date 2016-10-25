@@ -21,7 +21,7 @@ html, body {
 /* end Dead Simple Grid */
 #map {
   width: 100%;
-  height: calc(100% - 56px);
+  height: 100%;
 }
 #content, #main {
   width: 100%;
