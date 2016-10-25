@@ -88,7 +88,7 @@ class GeoNodeViewer extends React.Component {
     };
   }
   componentWillReceiveProps(props) {
-    MapConfigService.load(MapConfigTransformService.transform(props.config), map);
+    MapConfigService.load(MapConfigTransformService.transform(props.config, 'https://cors-anywhere.herokuapp.com/'), map);
   }
   render() {
     return (
