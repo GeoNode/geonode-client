@@ -68,7 +68,7 @@ addLocaleData(
 );
 
 var map = new ol.Map({
-  controls: [new ol.control.Attribution({collapsible: false})],
+  controls: [new ol.control.Attribution({collapsible: false}), new ol.control.ScaleLine()],
   view: new ol.View({
     center: [0, 0],
     zoom: 4
