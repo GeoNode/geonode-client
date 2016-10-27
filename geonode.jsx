@@ -109,7 +109,7 @@ class GeoNodeViewer extends React.Component {
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div><PanelButton className='legenddiv' contentClassName='legendcontent' buttonClassName='legend-button' icon={<LegendIcon />} tooltipPosition='top-left' buttonTitle='Show legend' map={map} content={<Legend map={map} />}/></div>
         <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
-        <div><LayerList tooltipPosition='top-left' allowStyling={true} map={map} /></div>
+        <div><LayerList allowRemove={false} tooltipPosition='top-left' allowStyling={true} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
         <div id='rotate-button'><Rotate tooltipPosition='top-left' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
