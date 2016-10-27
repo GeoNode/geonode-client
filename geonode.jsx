@@ -105,7 +105,7 @@ class GeoNodeViewer extends React.Component {
             <Measure toggleGroup='navigation' map={map}/>
           </ToolbarGroup>
         </Toolbar>
-        <MapPanel useHistory={false} id='map' map={map} />
+        <MapPanel useHistory={true} id='map' map={map} />
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div><PanelButton className='legenddiv' contentClassName='legendcontent' buttonClassName='legend-button' icon={<LegendIcon />} tooltipPosition='top-left' buttonTitle='Show legend' map={map} content={<Legend map={map} />}/></div>
         <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
