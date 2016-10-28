@@ -21,7 +21,7 @@ html, body {
 /* end Dead Simple Grid */
 #map {
   width: 100%;
-  height: calc(100% - 56px);
+  height: 100%;
 }
 #content, #main {
   width: 100%;
@@ -33,31 +33,31 @@ html, body {
 #zoom-buttons {
   margin-left: 20px;
   position: absolute;
-  top: 76px;
+  top: 20px;
 }
 .layer-list {
-  top: 130px !important;
+  top: 74px !important;
 }
 #rotate-button {
-  top: 74px;
+  top: 18px;
   right: 20px;
   position: absolute;
 }
 #home-button {
   margin-left: 20px;
   position: absolute;
-  top: 190px;
+  top: 134px;
 }
 #print-button {
   position: absolute;
   margin-left: 20px;
-  top: 300px;
+  top: 244px;
 }
 .legend-button {
   float: right;
 }
 .legenddiv {
-  top: 200px;
+  top: 144px;
   right: 20px;
   position: absolute;
 }
@@ -69,7 +69,7 @@ html, body {
 #globe-button {
   position: absolute;
   margin-left: 20px;
-  top: 245px;
+  top: 189px;
 }
 #debug {
 	position: absolute;

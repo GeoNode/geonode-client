@@ -17,13 +17,11 @@ import MapPanel from 'boundless-sdk/js/components/MapPanel.jsx';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import LayerList from 'boundless-sdk/js/components/LayerList.jsx';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import enLocaleData from 'react-intl/locale-data/en.js';
 import InfoPopup from 'boundless-sdk/js/components/InfoPopup.jsx';
 import MapConfigTransformService from 'boundless-sdk/js/services/MapConfigTransformService.js';
 import MapConfigService from 'boundless-sdk/js/services/MapConfigService.js';
 import Navigation from 'boundless-sdk/js/components/Navigation.jsx';
-import Measure from 'boundless-sdk/js/components/Measure.jsx';
 import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
@@ -96,14 +94,6 @@ class GeoNodeViewer extends React.Component {
   render() {
     return (
        <div id='content'>
-        <Toolbar>
-          <ToolbarGroup firstChild={true}>
-            <Navigation secondary={true} toggleGroup='navigation' toolId='nav' />
-          </ToolbarGroup>
-          <ToolbarGroup lastChild={true}>
-            <Measure toggleGroup='navigation' map={map}/>
-          </ToolbarGroup>
-        </Toolbar>
         <MapPanel useHistory={true} id='map' map={map} />
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div><PanelButton className='legenddiv' contentClassName='legendcontent' buttonClassName='legend-button' icon={<LegendIcon />} tooltipPosition='top-left' buttonTitle='Show legend' map={map} content={<Legend map={map} />}/></div>
