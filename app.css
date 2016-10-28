@@ -48,6 +48,11 @@ html, body {
   position: absolute;
   top: 190px;
 }
+#print-button {
+  position: absolute;
+  margin-left: 20px;
+  top: 300px;
+}
 .legend-button {
   float: right;
 }

@@ -100,7 +100,6 @@ class GeoNodeViewer extends React.Component {
           <ToolbarGroup firstChild={true}>
             <Navigation secondary={true} toggleGroup='navigation' toolId='nav' />
           </ToolbarGroup>
-          <QGISPrint map={map} layouts={printLayouts} />
           <ToolbarGroup lastChild={true}>
             <Measure toggleGroup='navigation' map={map}/>
           </ToolbarGroup>
@@ -108,6 +107,7 @@ class GeoNodeViewer extends React.Component {
         <MapPanel useHistory={true} id='map' map={map} />
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div><PanelButton className='legenddiv' contentClassName='legendcontent' buttonClassName='legend-button' icon={<LegendIcon />} tooltipPosition='top-left' buttonTitle='Show legend' map={map} content={<Legend map={map} />}/></div>
+        <div id='print-button'><QGISPrint menu={false} map={map} layouts={printLayouts} /></div>
         <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
         <div><LayerList allowRemove={false} tooltipPosition='top-left' allowStyling={false} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
