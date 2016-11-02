@@ -63,11 +63,7 @@ addLocaleData(
 );
 
 var map = new ol.Map({
-  controls: [new ol.control.Attribution({collapsible: false}), new ol.control.ScaleLine()],
-  view: new ol.View({
-    center: [0, 0],
-    zoom: 4
-  })
+  controls: [new ol.control.Attribution({collapsible: false}), new ol.control.ScaleLine()]
 });
 
 class GeoNodeViewer extends React.Component {
@@ -75,7 +71,9 @@ class GeoNodeViewer extends React.Component {
     super(props);
   }
   updateMap(props) {
-    MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy), map);
+    if (props.config) {
+      MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy), map);
+    }
   }
   componentWillMount() {
     this.updateMap(this.props);
@@ -105,7 +103,7 @@ class GeoNodeViewer extends React.Component {
 }
 
 GeoNodeViewer.props = {
-  config: React.PropTypes.object.isRequired,
+  config: React.PropTypes.object,
   proxy: React.PropTypes.string
 };
 
