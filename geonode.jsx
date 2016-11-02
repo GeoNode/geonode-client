@@ -6,9 +6,6 @@ import ol from 'openlayers';
 import {addLocaleData, IntlProvider} from 'react-intl';
 global.IntlProvider = IntlProvider;
 import Globe from 'boundless-sdk/js/components/Globe.jsx';
-import LegendIcon from 'material-ui/svg-icons/image/image';
-import Legend from 'boundless-sdk/js/components/Legend.jsx';
-import PanelButton from 'boundless-sdk/js/components/PanelButton.jsx';
 import QGISPrint from 'boundless-sdk/js/components/QGISPrint.jsx';
 import Zoom from 'boundless-sdk/js/components/Zoom.jsx';
 import Rotate from 'boundless-sdk/js/components/Rotate.jsx';
@@ -96,12 +93,11 @@ class GeoNodeViewer extends React.Component {
        <div id='content'>
         <MapPanel useHistory={true} id='map' map={map} />
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
-        <div><PanelButton className='legenddiv' contentClassName='legendcontent' buttonClassName='legend-button' icon={<LegendIcon />} tooltipPosition='top-left' buttonTitle='Show legend' map={map} content={<Legend map={map} />}/></div>
         <div id='print-button'><QGISPrint menu={false} map={map} layouts={printLayouts} /></div>
         <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
-        <div><LayerList allowRemove={false} tooltipPosition='top-left' allowStyling={false} map={map} /></div>
+        <div><LayerList allowReordering={true} includeLegend={true} allowRemove={false} tooltipPosition='left' allowStyling={false} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
-        <div id='rotate-button'><Rotate tooltipPosition='top-left' map={map} /></div>
+        <div id='rotate-button'><Rotate autoHide={false} tooltipPosition='left' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
       </div>
     );

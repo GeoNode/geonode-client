@@ -53,19 +53,6 @@ html, body {
   margin-left: 20px;
   top: 244px;
 }
-.legend-button {
-  float: right;
-}
-.legenddiv {
-  top: 144px;
-  right: 20px;
-  position: absolute;
-}
-.legendcontent {
-  background-color: white;
-  margin-right: 42px;
-  overflow: auto;
-}
 #globe-button {
   position: absolute;
   margin-left: 20px;
