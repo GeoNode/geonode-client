@@ -97,7 +97,7 @@ class GeoNodeViewer extends React.Component {
         <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
         <div><LayerList allowReordering={true} includeLegend={true} allowRemove={false} tooltipPosition='left' allowStyling={false} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
-        <div id='rotate-button'><Rotate autoHide={false} tooltipPosition='left' map={map} /></div>
+        <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
       </div>
     );
