@@ -12,6 +12,7 @@ import Rotate from 'boundless-sdk/js/components/Rotate.jsx';
 import HomeButton from 'boundless-sdk/js/components/HomeButton.jsx';
 import MapPanel from 'boundless-sdk/js/components/MapPanel.jsx';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Snackbar from 'material-ui/Snackbar';
 import LayerList from 'boundless-sdk/js/components/LayerList.jsx';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import enLocaleData from 'react-intl/locale-data/en.js';
@@ -73,10 +74,29 @@ var map = new ol.Map({
 class GeoNodeViewer extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      errors: [],
+      errorOpen: false
+    };
   }
   updateMap(props) {
     if (props.config) {
-      MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy), map);
+      var errors = [];
+      var filteredErrors = [];
+      MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy, errors), map);
+      for (var i = 0, ii = errors.length; i < ii; ++i) {
+        // ignore the empty baselayer since we have checkbox now for base layer group
+        if (errors[i].layer.type !== 'OpenLayers.Layer') {
+          if (window.console && window.console.warn) {
+            window.console.warn(errors[i]);
+          }
+          filteredErrors.push(errors[i]);
+        }
+      }
+      this.setState({
+        errors: filteredErrors,
+        errorOpen: true
+      });
     }
   }
   componentWillMount() {
@@ -90,9 +110,28 @@ class GeoNodeViewer extends React.Component {
   componentWillReceiveProps(props) {
     this.updateMap(props);
   }
+  _handleRequestClose() {
+    this.setState({
+      errorOpen: false
+    });
+  }
   render() {
+    var error;
+    if (this.state.errors.length > 0) {
+      var msg = '';
+      for (var i = 0, ii = this.state.errors.length; i < ii; i++) {
+        msg += this.state.errors[i].msg + '. ';
+      }
+      error = (<Snackbar
+        autoHideDuration={5000}
+        open={this.state.errorOpen}
+        message={msg}
+        onRequestClose={this._handleRequestClose.bind(this)}
+      />);
+    }
     return (
        <div id='content'>
+        {error}
         <MapPanel useHistory={true} id='map' map={map} />
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div id='print-button'><QGISPrint menu={false} map={map} layouts={printLayouts} /></div>
