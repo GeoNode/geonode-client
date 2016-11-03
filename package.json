@@ -23,7 +23,7 @@
     "deploy": "npm run build:gh-pages && git-directory-deploy --directory _build --branch gh-pages"
   },
   "dependencies": {
-    "boundless-sdk": "^0.9.10",
+    "boundless-sdk": "^0.9.11",
     "material-ui": "0.15.4",
     "ol3-cesium": "3.9.4",
     "openlayers": "3.19.0",
