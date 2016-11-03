@@ -63,7 +63,11 @@ addLocaleData(
 );
 
 var map = new ol.Map({
-  controls: [new ol.control.Attribution({collapsible: false}), new ol.control.ScaleLine()]
+  controls: [new ol.control.Attribution({collapsible: false}), new ol.control.ScaleLine()],
+  layers: [
+    new ol.layer.Tile({title: 'OpenStreetMap', source: new ol.source.OSM()})
+  ],
+  view: new ol.View({center: [0, 0], zoom: 1})
 });
 
 class GeoNodeViewer extends React.Component {
