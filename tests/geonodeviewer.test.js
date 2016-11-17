@@ -54,7 +54,7 @@ describe('GeoNodeViewer', () => {
     it('the layer list includes layers name', () => {
 			const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer config={config}/></IntlProvider>);
       var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-item');
-			assert.equal(contents[0].textContent,'Sprint_85Remove layer');
+			assert.equal(contents[0].textContent,'Sprint_85');
     });
 		describe('two layers', () => {
 			beforeEach(() => {

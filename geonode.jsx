@@ -6,24 +6,20 @@ import ol from 'openlayers';
 import {addLocaleData, IntlProvider} from 'react-intl';
 global.IntlProvider = IntlProvider;
 import Globe from 'boundless-sdk/js/components/Globe.jsx';
-import LegendIcon from 'material-ui/svg-icons/image/image';
-import Legend from 'boundless-sdk/js/components/Legend.jsx';
-import PanelButton from 'boundless-sdk/js/components/PanelButton.jsx';
 import QGISPrint from 'boundless-sdk/js/components/QGISPrint.jsx';
 import Zoom from 'boundless-sdk/js/components/Zoom.jsx';
 import Rotate from 'boundless-sdk/js/components/Rotate.jsx';
 import HomeButton from 'boundless-sdk/js/components/HomeButton.jsx';
 import MapPanel from 'boundless-sdk/js/components/MapPanel.jsx';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import Snackbar from 'material-ui/Snackbar';
 import LayerList from 'boundless-sdk/js/components/LayerList.jsx';
 import injectTapEventPlugin from 'react-tap-event-plugin';
-import {Toolbar, ToolbarGroup} from 'material-ui/Toolbar';
 import enLocaleData from 'react-intl/locale-data/en.js';
 import InfoPopup from 'boundless-sdk/js/components/InfoPopup.jsx';
 import MapConfigTransformService from 'boundless-sdk/js/services/MapConfigTransformService.js';
 import MapConfigService from 'boundless-sdk/js/services/MapConfigService.js';
 import Navigation from 'boundless-sdk/js/components/Navigation.jsx';
-import Measure from 'boundless-sdk/js/components/Measure.jsx';
 import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
@@ -69,18 +65,39 @@ addLocaleData(
 
 var map = new ol.Map({
   controls: [new ol.control.Attribution({collapsible: false}), new ol.control.ScaleLine()],
-  view: new ol.View({
-    center: [0, 0],
-    zoom: 4
-  })
+  layers: [
+    new ol.layer.Tile({title: 'OpenStreetMap', source: new ol.source.OSM()})
+  ],
+  view: new ol.View({center: [0, 0], zoom: 3})
 });
 
 class GeoNodeViewer extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      errors: [],
+      errorOpen: false
+    };
   }
   updateMap(props) {
-    MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy), map);
+    if (props.config) {
+      var errors = [];
+      var filteredErrors = [];
+      MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy, errors), map);
+      for (var i = 0, ii = errors.length; i < ii; ++i) {
+        // ignore the empty baselayer since we have checkbox now for base layer group
+        if (errors[i].layer.type !== 'OpenLayers.Layer') {
+          if (window.console && window.console.warn) {
+            window.console.warn(errors[i]);
+          }
+          filteredErrors.push(errors[i]);
+        }
+      }
+      this.setState({
+        errors: filteredErrors,
+        errorOpen: true
+      });
+    }
   }
   componentWillMount() {
     this.updateMap(this.props);
@@ -93,25 +110,35 @@ class GeoNodeViewer extends React.Component {
   componentWillReceiveProps(props) {
     this.updateMap(props);
   }
+  _handleRequestClose() {
+    this.setState({
+      errorOpen: false
+    });
+  }
   render() {
+    var error;
+    if (this.state.errors.length > 0) {
+      var msg = '';
+      for (var i = 0, ii = this.state.errors.length; i < ii; i++) {
+        msg += this.state.errors[i].msg + '. ';
+      }
+      error = (<Snackbar
+        autoHideDuration={5000}
+        open={this.state.errorOpen}
+        message={msg}
+        onRequestClose={this._handleRequestClose.bind(this)}
+      />);
+    }
     return (
        <div id='content'>
-        <Toolbar>
-          <ToolbarGroup firstChild={true}>
-            <Navigation secondary={true} toggleGroup='navigation' toolId='nav' />
-          </ToolbarGroup>
-          <QGISPrint map={map} layouts={printLayouts} />
-          <ToolbarGroup lastChild={true}>
-            <Measure toggleGroup='navigation' map={map}/>
-          </ToolbarGroup>
-        </Toolbar>
-        <MapPanel useHistory={false} id='map' map={map} />
+        {error}
+        <MapPanel useHistory={true} id='map' map={map} />
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
-        <div><PanelButton className='legenddiv' contentClassName='legendcontent' buttonClassName='legend-button' icon={<LegendIcon />} tooltipPosition='top-left' buttonTitle='Show legend' map={map} content={<Legend map={map} />}/></div>
+        <div id='print-button'><QGISPrint menu={false} map={map} layouts={printLayouts} /></div>
         <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
-        <div><LayerList allowRemove={false} tooltipPosition='top-left' allowStyling={true} map={map} /></div>
+        <div><LayerList allowReordering={true} includeLegend={true} allowRemove={false} tooltipPosition='left' allowStyling={false} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
-        <div id='rotate-button'><Rotate tooltipPosition='top-left' map={map} /></div>
+        <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
       </div>
     );
@@ -119,7 +146,7 @@ class GeoNodeViewer extends React.Component {
 }
 
 GeoNodeViewer.props = {
-  config: React.PropTypes.object.isRequired,
+  config: React.PropTypes.object,
   proxy: React.PropTypes.string
 };
 
