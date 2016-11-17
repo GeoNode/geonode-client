@@ -6,18 +6,18 @@ import {IntlProvider} from 'react-intl';
 
 class Viewer {
   constructor(domId, config) {
-    this.domId = domId;
-    this.mapConfig = config;
-    this.proxy = undefined;
+    this._domId = domId;
+    this._mapConfig = config;
+    this._proxy = undefined;
   }
-  set config(value) {
-    this.mapConfig = value;
+  set mapConfig(value) {
+    this._mapConfig = value;
   }
-  set setProxy(value) {
-    this.proxy = value;
+  set proxy(value) {
+    this._proxy = value;
   }
   view() {
-    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer config={this.mapConfig} proxy={this.proxy} /></IntlProvider>, document.getElementById(this.domId));
+    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer config={this._mapConfig} proxy={this._proxy} /></IntlProvider>, document.getElementById(this._domId));
   }
 }
 
