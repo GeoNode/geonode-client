@@ -4,8 +4,6 @@ npm update
 
 VERSION=$(node --eval "console.log(require('./package.json').version);")
 
-npm test || exit 1
-
 git checkout -b build
 
 npm run dist
