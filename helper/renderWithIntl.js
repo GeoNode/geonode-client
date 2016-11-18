@@ -1,6 +1,4 @@
-import React from 'react';
 import ReactTestUtils from 'react-addons-test-utils';
-import { IntlProvider } from 'react-intl';
 
 function renderWithIntl(element) {
   let instance;

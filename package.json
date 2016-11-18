@@ -1,6 +1,6 @@
 {
   "name": "geonode-viewer",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "scripts": {
     "createdir": "node createbuild.js",
     "start:debug": "node debug-server.js",
@@ -13,7 +13,7 @@
     "build:gh-makedir": "mkdir -p _build && mkdir -p _build/js && mkdir -p _build/css && mkdir -p _build/js/cesium",
     "build:gh-pages": "npm run build && npm run build:gh-clean && npm run build:gh-makedir && npm run build:gh-copy",
     "build": "node_modules/.bin/npm-run-all createdir build:js",
-		"dist": "npm run build && cp build/viewer.js dist/viewer.js && cp app.css dist/css/app.css && cp -r resources/ol3-cesium dist/js/ && cp ./node_modules/boundless-sdk/dist/css/components.css dist/css/component.css ",
+    "dist": "npm run build && cp build/viewer.js dist/viewer.js && cp app.css dist/css/app.css && cp -r resources/ol3-cesium dist/js/ && cp ./node_modules/boundless-sdk/dist/css/components.css dist/css/component.css ",
     "createzip": "node createpackage.js",
     "package": "node_modules/.bin/npm-run-all build createzip",
     "test:watch": "node_modules/.bin/mochify --require intl --recursive --watch tests/**/*.test.js",
@@ -23,24 +23,27 @@
     "test": "npm run test:phantom && npm run test:cover",
     "deploy": "npm run build:gh-pages && git-directory-deploy --directory _build --branch gh-pages"
   },
-	"main": "dist/viewer.js",
-	"browser": "dist/viewer.js",
-	"style": [
-		"dist/css/app.css",
-		"dist/css/component.css"
-	],
-	"files": [
-		"dist/js/ol3-cesium"
-	],
+  "main": "dist/viewer.js",
+  "browser": "dist/viewer.js",
+  "style": [
+    "dist/css/app.css",
+    "dist/css/component.css"
+  ],
+  "files": [
+    "dist/js/ol3-cesium",
+    "dist/css/"
+  ],
+  "engines": {
+    "node": ">6"
+  },
   "dependencies": {
     "boundless-sdk": "^0.9.11",
-    "material-ui": "0.15.4",
+    "material-ui": "0.16.4",
     "ol3-cesium": "3.9.4",
     "openlayers": "3.19.0",
-    "react": "^15.3.2",
-    "react-dom": "^15.3.2",
+    "react-dom": "^15.4.0",
     "react-intl": "2.0.0-rc-1",
-    "react-tap-event-plugin": "^1.0.0",
+		"react-tap-event-plugin":"^2.0.0",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
@@ -67,8 +70,8 @@
     "phantomjs-polyfill-object-assign": "0.0.2",
     "phantomjs-prebuilt": "^2.1.13",
     "raf": "^3.3.0",
-    "react-addons-test-utils": "^15.3.2",
-    "react-test-renderer": "^15.3.2",
+    "react-addons-test-utils": "^15.4.0",
+    "react-test-renderer": "^15.4.0",
     "react-tools": "0.12.0",
     "readline": "1.3.0",
     "replacestream": "4.0.0",
