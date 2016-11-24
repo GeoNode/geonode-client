@@ -12,13 +12,16 @@ module.exports = {
 		library:'Viewer',
     libraryTarget:'var'
 	},
+  node: {fs: "empty"},
 	module: {
 		loaders: [
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
-        exclude: /node_modules\/(?!(boundless-sdk)\/).*/
-      }
+        exclude: /node_modules/
+      },
+      { test: /\.css$/, loader: "style-loader!css-loader" },
+      { test: /\.json$/, loader: "json-loader" }
     ]
 	}
 };
