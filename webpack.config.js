@@ -7,10 +7,10 @@ var APP_DIR = path.resolve(__dirname, '.');
 module.exports = {
 	entry: APP_DIR + '/src/viewer.jsx',
 	output: {
-		path: BUILD_DIR,
-		filename: 'viewer.js',
-		library:'Viewer',
-    libraryTarget:'var'
+		filename: BUILD_DIR + '/viewer.js',
+    library: 'viewer',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
 	},
   node: {fs: "empty"},
 	module: {

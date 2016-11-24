@@ -21,4 +21,4 @@ class Viewer {
   }
 }
 
-export default Viewer;
+module.exports = Viewer;
