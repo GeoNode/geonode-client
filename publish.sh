@@ -9,7 +9,7 @@ npm test || exit 1
 git checkout -b build
 
 npm run dist
-git add dist/viewer.js dist/js dist/css -f
+git add dist/viewer.min.js dist/js dist/css -f
 
 git commit -m "v$VERSION"
 
