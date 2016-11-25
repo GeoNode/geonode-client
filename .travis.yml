@@ -4,7 +4,6 @@ node_js:
 - '6'
 script:
 - npm run test
-- codeclimate-test-reporter < reports/coverage/lcov.info
 before_script:
 - git config --global user.email "mila.frerichs@gmail.com"
 - git config --global user.name "Mila Frerichs"
