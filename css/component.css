@@ -905,7 +905,7 @@
     font-style: normal;
 
     src: url('slick-carousel-dr-frankenstyle/slick.eot');
-    src: url('./fonts/slick.eot?#iefix') format('embedded-opentype'), url('slick-carousel-dr-frankenstyle/slick.woff') format('woff'), url('slick-carousel-dr-frankenstyle/slick.ttf') format('truetype'), url('slick-carousel-dr-frankenstyle/slick.svg#slick') format('svg');
+    src: url('slick-carousel-dr-frankenstyle/slick.eot?#iefix') format('embedded-opentype'), url('slick-carousel-dr-frankenstyle/slick.woff') format('woff'), url('slick-carousel-dr-frankenstyle/slick.ttf') format('truetype'), url('slick-carousel-dr-frankenstyle/slick.svg#slick') format('svg');
 }
 /* Arrows */
 .slick-prev,
