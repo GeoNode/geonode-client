@@ -23,6 +23,9 @@ import Navigation from 'boundless-sdk/components/Navigation';
 import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
+import './css/app.css'
+import 'boundless-sdk/dist/css/components.css';
+
 // Needed for onTouchTap
 // Can go away when react 1.0 release
 // Check this repo:
