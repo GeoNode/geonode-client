@@ -28,7 +28,7 @@ module.exports = {
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
-        exclude: /node_modules/
+        exclude: [/node_modules/, /ol3-cesium/]
       },
       { test: /\.css$/, loader: "style-loader!css-loader" },
       { test: /\.json$/, loader: "json-loader" }
