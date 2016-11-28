@@ -6,7 +6,7 @@ import ol from 'openlayers';
 
 import ReactTestUtils from 'react-addons-test-utils';
 
-import GeoNodeViewer from '../geonode.jsx';
+import GeoNodeViewer from '../src/geonode.jsx';
 import rendererWithIntl from '../helper/renderWithIntl.js';
 
 describe('GeoNodeViewer', () => {
