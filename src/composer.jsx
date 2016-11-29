@@ -16,8 +16,18 @@ class Composer {
   set proxy(value) {
     this._proxy = value;
   }
+  compose(layerSources) {
+    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider>, document.getElementById(this._domId));
+  }
   view() {
-    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider>, document.getElementById(this._domId));
+    let layerSources = [
+      {
+        title: 'Test',
+        url: 'http://exchange-dev.boundlessps.com/geoserver/wms',
+        type: 'WMS'
+      }
+    ];
+    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider>, document.getElementById(this._domId));
   }
 }
 

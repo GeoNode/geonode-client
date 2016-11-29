@@ -11,6 +11,7 @@ import rendererWithIntl from '../helper/renderWithIntl.js';
 
 describe('GeoNodeViewer', () => {
 	let config;
+  let layerSources;
 	beforeEach(() => {
 		config = { map: { layers: [] }};
 	});
@@ -78,6 +79,7 @@ describe('GeoNodeViewer', () => {
       },
       sources: { "1": {"ptype": "gxp_wmscsource", "url": "http://exchange-dev.boundlessps.com/geoserver/wms", "restUrl": "/gs/rest", "isVirtualService": false, "title": "Local Geoserver"}}
       };
+      layerSources = [{title: '', url: '', type: '' }];
     });
     describe('viewer (default)', () => {
       it('the layer list includes layers name', () => {
@@ -88,7 +90,7 @@ describe('GeoNodeViewer', () => {
     });
     describe('composer', () => {
       it('the layer list includes layers name', () => {
-        const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer mode='composer' config={config}/></IntlProvider>);
+        const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer mode='composer' addLayerSources={layerSources} config={config}/></IntlProvider>);
         var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-item');
         assert.equal(contents[0].textContent,'Sprint_85Remove layer');
       });

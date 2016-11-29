@@ -131,6 +131,12 @@ class GeoNodeViewer extends React.Component {
         onRequestClose={this._handleRequestClose.bind(this)}
       />);
     }
+    let layerList = undefined;
+    if(this.edit) {
+      layerList = {
+        sources: this.props.addLayerSources
+      };
+    }
     return (
        <div id='content'>
         {error}
@@ -138,7 +144,7 @@ class GeoNodeViewer extends React.Component {
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div id='print-button'><QGISPrint menu={false} map={map} layouts={printLayouts} /></div>
         <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
-        <div><LayerList allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit} map={map} /></div>
+        <div><LayerList addLayer={layerList} allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
         <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
@@ -150,7 +156,12 @@ class GeoNodeViewer extends React.Component {
 GeoNodeViewer.props = {
   config: React.PropTypes.object,
   proxy: React.PropTypes.string,
-  mode: React.PropTypes.string
+  mode: React.PropTypes.string,
+  addLayerSources: React.PropTypes.arrayOf(React.PropTypes.shape({
+    title: React.PropTypes.string.isRequired,
+    url: React.PropTypes.string.isRequired,
+    type: React.PropTypes.string.isRequired
+  }))
 };
 
 GeoNodeViewer.childContextTypes = {
