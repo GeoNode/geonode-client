@@ -101,6 +101,8 @@ class GeoNodeViewer extends React.Component {
   }
   componentWillMount() {
     this.updateMap(this.props);
+    this.mode = this.props.mode || 'viewer';
+    this.edit = (this.mode === 'composer');
   }
   getChildContext() {
     return {
@@ -136,7 +138,7 @@ class GeoNodeViewer extends React.Component {
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div id='print-button'><QGISPrint menu={false} map={map} layouts={printLayouts} /></div>
         <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
-        <div><LayerList allowReordering={true} includeLegend={true} allowRemove={false} tooltipPosition='left' allowStyling={false} map={map} /></div>
+        <div><LayerList allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
         <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
@@ -147,7 +149,8 @@ class GeoNodeViewer extends React.Component {
 
 GeoNodeViewer.props = {
   config: React.PropTypes.object,
-  proxy: React.PropTypes.string
+  proxy: React.PropTypes.string,
+  mode: React.PropTypes.string
 };
 
 GeoNodeViewer.childContextTypes = {
