@@ -13,6 +13,7 @@ if(PROD) {
   filename = BUILD_DIR + '/[name].min.js';
 }
 
+
 module.exports = {
 	entry: {
     Viewer: APP_DIR + '/src/viewer.jsx',

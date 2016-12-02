@@ -9,10 +9,17 @@
 </head>
 <body>
   <div id='main'></div>
-  <script src="dist/viewer.js"></script>
+  <script src="dist/Composer.js"></script>
   <script >
-		var v = new this.viewer('main');
-		v.view();
+		var c = new this.Composer('main');
+    var layerSources = [
+      {
+        title: 'Test',
+        url: 'http://exchange-dev.boundlessps.com/geoserver/wms',
+        type: 'WMS'
+      }
+    ];
+		c.compose(layerSources);
 	</script>
 </body>
 </html>
