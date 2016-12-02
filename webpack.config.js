@@ -10,7 +10,7 @@ var PROD = JSON.parse(process.env.BUILD_PROD || false);
 if(PROD) {
   plugins.push(new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': JSON.stringify('production') } }));
   plugins.push(new webpack.optimize.UglifyJsPlugin({ compress:{ warnings: true } }));
-  filename = BUILD_DIR + '/[name]';
+  filename = BUILD_DIR + '/[name].min.js';
 }
 
 
