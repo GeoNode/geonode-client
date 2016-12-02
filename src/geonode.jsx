@@ -23,6 +23,9 @@ import Navigation from 'boundless-sdk/components/Navigation';
 import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
+import './css/app.css'
+import 'boundless-sdk/dist/css/components.css';
+
 // Needed for onTouchTap
 // Can go away when react 1.0 release
 // Check this repo:
@@ -144,7 +147,7 @@ class GeoNodeViewer extends React.Component {
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div id='print-button'><QGISPrint menu={false} map={map} layouts={printLayouts} /></div>
         <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
-        <div><LayerList addLayer={layerList} allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit} map={map} /></div>
+        <div><LayerList addLayer={layerList} showTable={true} allowReordering={true} includeLegend={true} allowRemove={false} tooltipPosition='left' allowStyling={false} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
         <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
