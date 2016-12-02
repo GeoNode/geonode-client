@@ -5,19 +5,22 @@ var BUILD_DIR = path.resolve(__dirname, 'dist');
 var APP_DIR = path.resolve(__dirname, '.');
 
 var plugins = [];
-var filename = BUILD_DIR + '/viewer.js';
+var filename = BUILD_DIR + '/[name].js';
 var PROD = JSON.parse(process.env.BUILD_PROD || false);
 if(PROD) {
   plugins.push(new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': JSON.stringify('production') } }));
   plugins.push(new webpack.optimize.UglifyJsPlugin({ compress:{ warnings: true } }));
-  filename = BUILD_DIR + '/viewer.min.js';
+  filename = BUILD_DIR + '/[name].min.js';
 }
 
 module.exports = {
-	entry: APP_DIR + '/src/viewer.jsx',
+	entry: {
+    Viewer: APP_DIR + '/src/viewer.jsx',
+    Composer: APP_DIR + '/src/composer.jsx'
+  },
 	output: {
     filename: filename,
-    library: 'viewer',
+    library: '[name]',
     libraryTarget: 'umd',
     umdNamedDefine: true
 	},
