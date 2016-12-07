@@ -5,12 +5,12 @@ var BUILD_DIR = path.resolve(__dirname, 'dist');
 var APP_DIR = path.resolve(__dirname, '.');
 
 var plugins = [];
-var filename = '/[name].js';
+var filename = '[name].js';
 var PROD = JSON.parse(process.env.BUILD_PROD || false);
 if(PROD) {
   plugins.push(new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': JSON.stringify('production') } }));
   plugins.push(new webpack.optimize.UglifyJsPlugin({ compress:{ warnings: true } }));
-  filename = '/[name].min.js';
+  filename = '[name].min.js';
 }
 
 
