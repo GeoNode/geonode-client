@@ -23,6 +23,8 @@ import Navigation from 'boundless-sdk/components/Navigation';
 import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
+import Save from './save.jsx';
+
 import './css/app.css'
 import 'boundless-sdk/dist/css/components.css';
 
@@ -151,6 +153,7 @@ class GeoNodeViewer extends React.Component {
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
         <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
+        <div id='save' className='ol-save'><Save map={map} /></div>
       </div>
     );
   }
