@@ -1,4 +1,6 @@
+var webpack = require('webpack');
 var webpackConfig = require('./webpack.config');
+webpackConfig.plugins.push(new webpack.DefinePlugin({ 'process.env': { 'NODE_ENV': JSON.stringify('test') } }));
 webpackConfig.devtool = 'inline-source-map';
 
 module.exports = function (config) {
