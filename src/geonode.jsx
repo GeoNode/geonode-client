@@ -137,7 +137,8 @@ class GeoNodeViewer extends React.Component {
     let layerList = undefined;
     if(this.edit) {
       layerList = {
-        sources: this.props.addLayerSources
+        sources: this.props.addLayerSources,
+        allowUserInput: true
       };
     }
     return (
