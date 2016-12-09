@@ -89,10 +89,16 @@ describe('GeoNodeViewer', () => {
       });
     });
     describe('composer', () => {
-      it('the layer list includes layers name', () => {
+      it('can remove layers', () => {
         const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer mode='composer' addLayerSources={layerSources} config={config}/></IntlProvider>);
         var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-item');
-        assert.equal(contents[0].textContent,'Sprint_85Remove layer');
+        var node = ReactDOM.findDOMNode(contents[0]).getElementsByClassName('layer-list-item-remove');
+				assert.equal(node.length, 1);
+      });
+      it('can add layers', () => {
+        const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer mode='composer' addLayerSources={layerSources} config={config}/></IntlProvider>);
+        var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-add');
+				assert.equal(contents.length, 1);
       });
     });
   });
