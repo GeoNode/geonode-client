@@ -4,6 +4,7 @@ import MapConfigService from 'boundless-sdk/services/MapConfigService';
 import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransformService';
 import enMessages from 'boundless-sdk/locale/en.js';
 import {IntlProvider} from 'react-intl';
+import {getCRSFToken} from './helper';
 import 'whatwg-fetch';
 
 class Save extends React.Component {
@@ -13,10 +14,23 @@ class Save extends React.Component {
     this.state = { config: {} };
      this._saveMap = this._saveMap.bind(this);
   }
+  _saveToGeoNode(config) {
+		var myInit = {
+      method: 'POST',
+      credentials: 'same-origin',
+      headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': getCRSFToken()
+      },
+      body: JSON.stringify(config)
+    };
+    fetch(this.props.geonodeServer+'/maps/new/data',myInit).then((response) => {
+    });
+  }
   _saveMap(event) {
     const config = MapConfigService.save(this.props.map);
-    console.log(MapConfigTransformService.write(config));
     this.setState({config: { map: { }}});
+    this._saveToGeoNode(MapConfigTransformService.write(config));
   }
   render() {
     return (
@@ -35,6 +49,7 @@ Save.propTypes = {
    *    * Css class name to apply on the button.
    *       */
   className: React.PropTypes.string,
+  geonodeServer: React.PropTypes.string.isRequired
 }
 
 export default Save;

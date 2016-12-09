@@ -10,20 +10,21 @@ import Save from '../src/save.jsx';
 import rendererWithIntl from '../helper/renderWithIntl.js';
 
 describe('Save', () => {
-  let map;
+  let map, server;
   beforeEach(function() {
     map = new ol.Map({});
+    server = '';
   });
 	it('exists', () => {
-		const saveComponent = rendererWithIntl( <Save map={map}/> );
+		const saveComponent = rendererWithIntl( <Save geonodeServer={server} map={map}/> );
 		assert.isDefined(ReactTestUtils.isCompositeComponent(saveComponent));
 	});
 	it('state config is empty', () => {
-    const saveComponent = ReactTestUtils.renderIntoDocument(<Save map={map} />);
+    const saveComponent = ReactTestUtils.renderIntoDocument(<Save geonodeServer={server} map={map} />);
     assert.deepEqual(saveComponent.state.config, {});
 	});
   it('has a save button', () => {
-    const saveComponent = ReactTestUtils.renderIntoDocument(<Save map={map} />);
+    const saveComponent = ReactTestUtils.renderIntoDocument(<Save geonodeServer={server} map={map} />);
     var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(saveComponent, 'save-item');
     var node = ReactDOM.findDOMNode(contents[0]).getElementsByTagName('button');
     assert.equal(node.length, 1);
@@ -47,7 +48,7 @@ describe('Save', () => {
       document.body.removeChild(target);
     });
     it('gets a config', () => {
-      const saveComponent = ReactTestUtils.renderIntoDocument(<Save map={map}/>);
+      const saveComponent = ReactTestUtils.renderIntoDocument(<Save geonodeServer={server} map={map}/>);
       var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(saveComponent, 'save-item');
       var node = ReactDOM.findDOMNode(contents[0]).getElementsByTagName('button');
       ReactTestUtils.Simulate.click(node[0]);

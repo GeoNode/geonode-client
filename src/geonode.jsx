@@ -136,12 +136,15 @@ class GeoNodeViewer extends React.Component {
         onRequestClose={this._handleRequestClose.bind(this)}
       />);
     }
-    let layerList = undefined;
+    let layerList, save = undefined;
     if(this.edit) {
       layerList = {
         sources: this.props.addLayerSources,
         allowUserInput: true
       };
+      if(this.props.server) {
+        save = (<div id='save-button' className='ol-save'><Save geonodeServer={this.props.server} map={map} /></div>);
+      }
     }
     return (
        <div id='content'>
@@ -154,7 +157,7 @@ class GeoNodeViewer extends React.Component {
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
         <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
-        <div id='save' className='ol-save'><Save map={map} /></div>
+        {save}
       </div>
     );
   }
@@ -168,7 +171,8 @@ GeoNodeViewer.props = {
     title: React.PropTypes.string.isRequired,
     url: React.PropTypes.string.isRequired,
     type: React.PropTypes.string.isRequired
-  }))
+  })),
+  server: React.PropTypes.string
 };
 
 GeoNodeViewer.childContextTypes = {

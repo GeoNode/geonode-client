@@ -29,6 +29,9 @@ module.exports = {
 	},
   node: {fs: "empty"},
   plugins: plugins,
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
 	module: {
 		loaders: [
       {
