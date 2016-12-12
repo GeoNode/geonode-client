@@ -9,10 +9,11 @@
     "build:gh-makedir": "mkdir -p _build && mkdir -p _build/js && mkdir -p _build/css && mkdir -p _build/js/cesium && mkdir -p _build/composer",
     "build:gh-pages": "npm run build && npm run build:gh-clean && npm run build:gh-makedir && npm run build:gh-copy",
     "build": "mkdir -p dist && npm run build:js",
+    "dist:clean": "rm -rf dist/*",
     "dist:build": "BUILD_PROD=1 webpack",
     "dist:createdir": "mkdir -p dist && mkdir -p dist/css && mkdir -p dist/js",
-    "dist:cp": "cp app.css dist/css/app.css && cp -r resources/ol3-cesium dist/js/ && cp ./node_modules/boundless-sdk/dist/css/components.css dist/css/component.css",
-    "dist": "npm run dist:createdir && npm run dist:build && npm run dist:cp",
+    "dist:cp": "cp -r resources/ol3-cesium dist/cesium/",
+    "dist": "npm run dist:createdir && npm run dist:clean && npm run dist:build && npm run dist:cp",
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
     "test:unit": "./node_modules/karma/bin/karma start --browsers PhantomJS --auto-watch",
     "deploy": "npm run build:gh-pages && git-directory-deploy --directory _build --branch gh-pages"
