@@ -23,7 +23,7 @@ Run `npm test` to run the full test suite with code coverage report.
 ## Building
 
 Building is done via webpack and the command is `npm build`  
-The dist folder is where the minfied versions of these files are stored.  
+The dist folder is where the minified versions of these files are stored.  
 
 ## Deployment to GH-pages
 
