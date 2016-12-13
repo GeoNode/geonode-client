@@ -1,6 +1,6 @@
 {
   "name": "geonode-viewer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "start": "mkdir -p dist && node_modules/.bin/webpack-dev-server --progress --colors --hot --inline",
     "build:js": "webpack",
@@ -16,7 +16,10 @@
     "dist": "npm run dist:createdir && npm run dist:clean && npm run dist:build && npm run dist:cp",
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
     "test:unit": "./node_modules/karma/bin/karma start --browsers PhantomJS --auto-watch",
-    "deploy": "npm run build:gh-pages && git-directory-deploy --directory _build --branch gh-pages"
+    "deploy": "npm run build:gh-pages && git-directory-deploy --directory _build --branch gh-pages",
+		"geonode:mkdir": "mkdir -p geonode-client/static && mkdir -p geonode-client/static/geonode-client && mkdir -p geonode-client/static/geonode-client/js && mkdir -p geonode-client/static/geonode-client/cesium",
+		"geonode:cp": "cp dist/Viewer.min.js geonode-client/static/geonode-client/js/viewer.min.js && cp dist/Composer.min.js geonode-client/static/geonode-client/js/composer.min.js && cp -r dist/cesium/* geonode-client/static/geonode-client/cesium/",
+		"geonode:deploy": "npm run geonode:mkdir && npm run geonode:cp"
   },
   "main": "dist/viewer.js",
   "browser": "dist/viewer.js",
@@ -36,7 +39,7 @@
     "react-dom": "^15.3.0",
     "react-intl": "^2.1.5",
     "react-tap-event-plugin": "2.0.0",
-    "boundless-sdk": "^0.10.5",
+    "boundless-sdk": "^0.10.8",
     "material-ui": "0.16.4",
     "ol3-cesium": "3.9.4",
     "openlayers": "3.19.0",

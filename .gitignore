@@ -2,3 +2,5 @@ node_modules/
 build/
 _build/
 *.swp
+geonode-client/static/geonode-client
+dist/

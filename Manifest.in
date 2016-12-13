@@ -1,3 +1,2 @@
 include README.md
-recursive-include dist *.js
-recursive-include dist/cesium *
+recursive-include geonode-client/static *
