@@ -1,4 +1,5 @@
-# ol3-react-geonode [![Build Status](https://travis-ci.org/GeoNode/geonode-client.svg?branch=master)](https://travis-ci.org/GeoNode/geonode-client) [![Code Climate](https://codeclimate.com/github/GeoNode/geonode-viewer/badges/gpa.svg)](https://codeclimate.com/github/GeoNode/geonode-viewer) [![Test Coverage](https://codeclimate.com/github/GeoNode/geonode-viewer/badges/coverage.svg)](https://codeclimate.com/github/GeoNode/geonode-viewer/coverage)
+# geonode-client [![Build Status](https://travis-ci.org/GeoNode/geonode-client.svg?branch=master)](https://travis-ci.org/GeoNode/geonode-client) [![Code Climate](https://codeclimate.com/github/GeoNode/geonode-viewer/badges/gpa.svg)](https://codeclimate.com/github/GeoNode/geonode-viewer) [![Test Coverage](https://codeclimate.com/github/GeoNode/geonode-viewer/badges/coverage.svg)](https://codeclimate.com/github/GeoNode/geonode-viewer/coverage)
+
 OL3 - React map viewer for GeoNode
 
 ## Installation

@@ -1,0 +1,3 @@
+include README.md
+recursive-include dist *.js
+recursive-include dist/cesium *
