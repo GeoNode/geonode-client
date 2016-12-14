@@ -15,30 +15,37 @@ if(PROD) {
 
 
 module.exports = {
-	entry: {
+  entry: {
     Viewer: APP_DIR + '/src/viewer.jsx',
     Composer: APP_DIR + '/src/composer.jsx'
   },
-	output: {
+  output: {
     path: BUILD_DIR,
     filename: filename,
     library: '[name]',
     libraryTarget: 'umd',
     umdNamedDefine: true,
     publicPath: "/dist/"
-	},
+  },
   node: {fs: "empty"},
   plugins: plugins,
-	module: {
-		loaders: [
+  module: {
+    loaders: [
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',
         exclude: /node_modules/
-      },
-      { test: /\.css$/, loader: "style-loader!css-loader" },
-      { test: /\.json$/, loader: "json-loader" },
-      { test: /\.(png|gif|jpg|jpeg|svg|otf|ttf|eot|woff)$/, loader: 'file-loader' }
-    ]
-	}
+      }, {
+        test: /\.css$/,
+        loader: "style-loader!css-loader"
+      }, {
+        test: /\.json$/,
+        loader: "json-loader"
+      }, {
+        test: /\.(png|gif|jpg|jpeg|svg|otf|ttf|eot|woff)$/,
+        loader: 'file-loader'
+      }
+    ],
+    noParse: [/dist\/ol.js/, /dist\/jspdf.debug.js/]
+  }
 };
