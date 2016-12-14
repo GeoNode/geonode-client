@@ -23,9 +23,9 @@ import Navigation from 'boundless-sdk/components/Navigation';
 import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
-import Save from './save.jsx';
+import Save from './save';
 
-import './css/app.css'
+import '../css/app.css'
 import 'boundless-sdk/dist/css/components.css';
 
 // Needed for onTouchTap
@@ -143,7 +143,7 @@ class GeoNodeViewer extends React.Component {
         allowUserInput: true
       };
       if(this.props.server) {
-        save = (<div id='save-button' className='ol-save'><Save geonodeServer={this.props.server} map={map} /></div>);
+        save = (<div id='save-button' className='ol-save'><Save map={map} /></div>);
       }
     }
     return (
@@ -172,7 +172,6 @@ GeoNodeViewer.props = {
     url: React.PropTypes.string.isRequired,
     type: React.PropTypes.string.isRequired
   })),
-  server: React.PropTypes.string
 };
 
 GeoNodeViewer.childContextTypes = {

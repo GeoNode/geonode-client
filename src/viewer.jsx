@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GeoNodeViewer from './geonode.jsx';
+import GeoNodeViewer from './components/geonode';
 import enMessages from 'boundless-sdk/locale/en.js';
 import {IntlProvider} from 'react-intl';
 
