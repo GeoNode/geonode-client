@@ -6,10 +6,21 @@ import 'whatwg-fetch'
 
 import * as types from '../constants/actiontypes'
 
+export function resetMap() {
+  return {
+    type: types.RESET_MAP
+  }
+}
 export function saveMapSuccess(body) {
   return {
     type: types.SAVE_MAP_SUCCESS,
     body
+  }
+}
+export function saveMapError(error) {
+  return {
+    type: types.SAVE_MAP_ERROR,
+    error
   }
 }
 export function setAbout(about) {
@@ -47,6 +58,6 @@ export const saveMap = (map) => {
     return fetch(state.server+'/maps/new/data',myInit)
     .then((response) => response.json())
     .then((json) => dispatch(saveMapSuccess(json)))
-    .catch(ex => console.error('Failed request %j', ex));
+    .catch(ex => dispatch(saveMapError(ex)));
   }
 }
