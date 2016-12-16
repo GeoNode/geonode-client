@@ -1,22 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import enMessages from 'boundless-sdk/locale/en.js';
-import {IntlProvider} from 'react-intl';
+import {injectIntl} from 'react-intl';
+import SaveDetailModal from './savedetailmodal';
 import {setMapConfig, saveMap} from '../reducers/actions'
-import { connect } from 'react-redux'
+import { connectAdvanced } from 'react-redux'
 
 export class Save extends React.Component {
   constructor(props) {
     super(props);
   }
+  _openSaveModal() {
+    this.props.onClick();
+    this.refs.savemapmodal.getWrappedInstance().refs.wrappedInstance.open();
+  }
   render() {
-    let {onClick, map} = this.props;
+    let {map} = this.props;
     return (
       <div className="save-item">
-        <button className={this.props.className} onClick={e => {
-                 e.preventDefault()
-                 onClick()
-               }}>Save</button>
+        <button className={this.props.className} onTouchTap={this._openSaveModal.bind(this)}>Save</button>
+        <SaveDetailModal ref='savemapmodal' />
       </div>
     );
   }
@@ -27,19 +30,21 @@ Save.propTypes = {
    *    * Css class name to apply on the button.
    *       */
   className: React.PropTypes.string,
-  onClick: React.PropTypes.func.isRequired
 }
-const mapStateToProps = (state, ownProps) => {
-  return {
+function selectorFactory(dispatch) {
+  let state = {};
+  let ownProps = {};
+  let result = {};
+  const onClick = () => {
+    dispatch(setMapConfig(ownProps.map));
+  }
+  return (nextState, nextOwnProps) => {
+    const nextResult = Object.assign({}, nextOwnProps, { onClick });
+    state = nextState;
+    ownProps = nextOwnProps;
+    result = nextResult;
+    return result;
   }
 }
-const mapDispatchToProps = (dispatch, ownProps) => {
-  return {
-    onClick: () => {
-      dispatch(setMapConfig(ownProps.map))
-      dispatch(saveMap())
-    }
-  }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(Save);
+export const SaveIntl = injectIntl(Save, { withRef: true});
+export default connectAdvanced(selectorFactory, { withRef: true})(SaveIntl);
