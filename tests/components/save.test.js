@@ -24,6 +24,6 @@ describe('Save', () => {
 	});
   it('has a save button', () => {
     const output = shallowRenderOutput(<Save.WrappedComponent intl={intl} map={map} /> )
-    assert.equal(output.props.children[0].props.children, 'Save')
+    assert.include(output.props.children[0].props.className, 'save')
   });
 });
