@@ -1,4 +1,5 @@
-# ol3-react-geonode [![Build Status](https://travis-ci.org/GeoNode/geonode-viewer.svg?branch=master)](https://travis-ci.org/GeoNode/geonode-viewer) [![Code Climate](https://codeclimate.com/github/GeoNode/geonode-viewer/badges/gpa.svg)](https://codeclimate.com/github/GeoNode/geonode-viewer) [![Test Coverage](https://codeclimate.com/github/GeoNode/geonode-viewer/badges/coverage.svg)](https://codeclimate.com/github/GeoNode/geonode-viewer/coverage)
+# geonode-client [![Build Status](https://travis-ci.org/GeoNode/geonode-client.svg?branch=master)](https://travis-ci.org/GeoNode/geonode-client) [![Code Climate](https://codeclimate.com/github/GeoNode/geonode-viewer/badges/gpa.svg)](https://codeclimate.com/github/GeoNode/geonode-viewer) [![Test Coverage](https://codeclimate.com/github/GeoNode/geonode-viewer/badges/coverage.svg)](https://codeclimate.com/github/GeoNode/geonode-viewer/coverage)
+
 OL3 - React map viewer for GeoNode
 
 ## Installation
@@ -11,13 +12,18 @@ Run `npm install` to install all dependencies.
 
 ## Development Server
 
-Run `node start` to start the development server. Visit your browser at `http://localhost:3000` to see the result.
+Run `npm start` to start the development server. Visit your browser at `http://localhost:8080` to see the result.
 
 ## Testing
 
 During development run `npm run test:watch` to run tests on every file change.  
 
 Run `npm test` to run the full test suite with code coverage report.  
+
+## Building
+
+Building is done via webpack and the command is `npm build`  
+The dist folder is where the minified versions of these files are stored.  
 
 ## Deployment to GH-pages
 

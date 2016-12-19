@@ -1,6 +1,6 @@
 {
   "name": "geonode-viewer",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "scripts": {
     "start": "mkdir -p dist && node_modules/.bin/webpack-dev-server --progress --colors --hot --inline",
     "build:js": "webpack",
@@ -9,13 +9,17 @@
     "build:gh-makedir": "mkdir -p _build && mkdir -p _build/js && mkdir -p _build/css && mkdir -p _build/js/cesium && mkdir -p _build/composer",
     "build:gh-pages": "npm run build && npm run build:gh-clean && npm run build:gh-makedir && npm run build:gh-copy",
     "build": "mkdir -p dist && npm run build:js",
+    "dist:clean": "rm -rf dist/*",
     "dist:build": "BUILD_PROD=1 webpack",
     "dist:createdir": "mkdir -p dist && mkdir -p dist/css && mkdir -p dist/js",
-    "dist:cp": "cp app.css dist/css/app.css && cp -r resources/ol3-cesium dist/js/ && cp ./node_modules/boundless-sdk/dist/css/components.css dist/css/component.css",
-    "dist": "npm run dist:createdir && npm run dist:build && npm run dist:cp",
+    "dist:cp": "cp -r resources/ol3-cesium dist/cesium/",
+    "dist": "npm run dist:createdir && npm run dist:clean && npm run dist:build && npm run dist:cp",
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
     "test:unit": "./node_modules/karma/bin/karma start --browsers PhantomJS --auto-watch",
-    "deploy": "npm run build:gh-pages && git-directory-deploy --directory _build --branch gh-pages"
+    "deploy": "npm run build:gh-pages && git-directory-deploy --directory _build --branch gh-pages",
+		"geonode:mkdir": "mkdir -p geonode-client/static && mkdir -p geonode-client/static/geonode-client && mkdir -p geonode-client/static/geonode-client/js && mkdir -p geonode-client/static/geonode-client/cesium",
+		"geonode:cp": "cp dist/Viewer.min.js geonode-client/static/geonode-client/js/viewer.min.js && cp dist/Composer.min.js geonode-client/static/geonode-client/js/composer.min.js && cp -r dist/cesium/* geonode-client/static/geonode-client/cesium/",
+		"geonode:deploy": "npm run geonode:mkdir && npm run geonode:cp"
   },
   "main": "dist/viewer.js",
   "browser": "dist/viewer.js",
@@ -31,15 +35,15 @@
     "node": ">6"
   },
   "dependencies": {
-    "boundless-sdk": "^0.10.5",
-    "material-ui": "0.16.4",
-    "ol3-cesium": "3.9.4",
-    "openlayers": "3.19.0",
     "react": "^15.3.0",
     "react-dom": "^15.3.0",
     "react-intl": "^2.1.5",
-    "react-redux": "^5.0.0",
     "react-tap-event-plugin": "2.0.0",
+    "boundless-sdk": "^0.10.8",
+    "material-ui": "0.16.4",
+    "ol3-cesium": "3.9.4",
+    "openlayers": "3.19.0",
+    "react-redux": "^5.0.0",
     "redux-thunk": "^2.1.0",
     "whatwg-fetch": "^1.0.0"
   },
