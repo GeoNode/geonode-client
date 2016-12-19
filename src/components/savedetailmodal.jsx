@@ -41,6 +41,11 @@ const messages = defineMessages({
     description: 'Title for new server url text field',
     defaultMessage: 'Error. {msg}'
   },
+  successmsg: {
+    id: 'savemap.successmsg',
+    description: 'Title for new server url text field',
+    defaultMessage: 'Map saved successfully'
+  },
   titleerrormsg: {
     id: 'savemap.titleerrormsg',
     description: 'Title for new server url text field',
@@ -95,11 +100,12 @@ export class SaveDetailModal extends React.Component {
     });
   }
   saveMap() {
+    const {formatMessage} = this.props.intl;
     if(this.refs.maptitle.getValue()) {
       this.setState({isSaving: true});
       this.props.onClick({ title: this.refs.maptitle.getValue(), abstract: this.refs.mapabstract.getValue()});
     }else {
-      this._setError(formatMessage(messages.titlerrormsg));
+      this._setError(formatMessage(messages.titleerrormsg));
     }
   }
   close() {
@@ -117,8 +123,8 @@ export class SaveDetailModal extends React.Component {
         autoHideDuration={5000}
         style={{transitionProperty : 'none'}}
         bodyStyle={{lineHeight: '24px', height: 'auto'}}
-        open={this.state.errorOpen}
-        message={formatMessage(messages.errormsg, {msg: this.state.msg})}
+        open={this.state.success}
+        message={formatMessage(messages.successmsg, {})}
         onRequestClose={this._handleRequestClose.bind(this)}
       />);
     }
