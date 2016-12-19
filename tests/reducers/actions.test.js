@@ -31,7 +31,7 @@ describe('actions', () => {
     afterEach(() => {
       fetchMock.restore();
     })
-    it('saves to Map', () => {
+    it('calls SAVE_MAP_SUCCESS', () => {
       fetchMock
       .mock('http://geonode.org/maps/new/data', {result: ''});
       const store = mockStore({ server: 'http://geonode.org', mapConfig: {data: '' } });
@@ -41,6 +41,15 @@ describe('actions', () => {
       return store.dispatch(actions.saveMap())
       .then(() => {
         assert.deepEqual(store.getActions(), expectedActions);
+      });
+    });
+    it('calls SAVE_MAP_ERROR', () => {
+      fetchMock
+      .mock('http://geonode.org/maps/new/data', 403);
+      const store = mockStore({ server: 'http://geonode.org', mapConfig: {data: '' } });
+      return store.dispatch(actions.saveMap())
+      .then(() => {
+        assert.deepEqual(store.getActions()[0].type, types.SAVE_MAP_ERROR);
       });
     });
   })
