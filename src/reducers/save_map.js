@@ -2,7 +2,13 @@ import {
   SAVE_MAP_SUCCESS
 } from './actions'
 
-const saveMap = (state = {}, action) => {
+const defaultState = {
+  body: undefined,
+  success: false,
+  error: false
+}
+
+const saveMap = (state = defaultState, action) => {
   switch(action.type) {
     case 'SAVE_MAP_SUCCESS':
       return Object.assign({}, state, {
@@ -15,7 +21,7 @@ const saveMap = (state = {}, action) => {
         error: action.error
       });
     case 'RESET_MAP':
-      return Object.assign({}, state, {body: undefined });
+      return Object.assign({}, state, defaultState);
     default:
       return state;
   }
