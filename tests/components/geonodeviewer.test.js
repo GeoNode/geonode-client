@@ -6,8 +6,8 @@ import ol from 'openlayers';
 
 import ReactTestUtils from 'react-addons-test-utils';
 
-import GeoNodeViewer from '../src/geonode.jsx';
-import rendererWithIntl from '../helper/renderWithIntl.js';
+import GeoNodeViewer from '../../src/components/geonode';
+import rendererWithIntl from '../../helper/renderWithIntl.js';
 
 describe('GeoNodeViewer', () => {
 	let config;

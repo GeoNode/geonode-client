@@ -1,14 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import GeoNodeViewer from './geonode.jsx';
+import GeonodeComposer from './components/geonodeLink';
 import enMessages from 'boundless-sdk/locale/en.js';
 import {IntlProvider} from 'react-intl';
+import {Provider} from 'react-redux';
+import configureStore from './configureStore';
+import {setServer} from './reducers/actions';
+
+const store = configureStore();
 
 class Composer {
-  constructor(domId, config) {
+  constructor(domId, server) {
     this._domId = domId;
-    this._mapConfig = config;
+    this._mapConfig = undefined;
+    this._server = server;
     this._proxy = undefined;
+  }
+  set server(value) {
+    this._server = value;
   }
   set mapConfig(value) {
     this._mapConfig = value;
@@ -17,17 +26,8 @@ class Composer {
     this._proxy = value;
   }
   compose(layerSources) {
-    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider>, document.getElementById(this._domId));
-  }
-  view() {
-    let layerSources = [
-      {
-        title: 'Test',
-        url: 'http://exchange-dev.boundlessps.com/geoserver/wms',
-        type: 'WMS'
-      }
-    ];
-    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider>, document.getElementById(this._domId));
+    store.dispatch(setServer(this._server));
+    ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider></Provider>, document.getElementById(this._domId));
   }
 }
 

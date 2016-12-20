@@ -53,6 +53,11 @@ html, body {
   margin-left: 20px;
   top: 244px;
 }
+#save-button {
+  position: absolute;
+  margin-left: 20px;
+  top: 310px;
+}
 #globe-button {
   position: absolute;
   margin-left: 20px;
