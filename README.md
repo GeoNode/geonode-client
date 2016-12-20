@@ -33,3 +33,23 @@ If you want to deploy manually to gh-pages use `npm run deploy`
 
 ### Important
 The deplyoment uses the `index-gh.html` please keep this file in sync with `index.html` and change the path once the repo changes it's name. The `.travis.yml` needs to be changed as well.
+
+## Integrating into GeoNode/Django
+
+Add `django-geonode-client` to your requirements.txt
+Add `geonode-client` to your `INSTALLED_APPS`
+
+### For GeoNode
+Change the `LAYER_PREVIEW_LIBRARY` to `react`
+
+### For Django
+We added templatetags you can use in your templates
+
+Add `{% client_viewer_js %}` to include the viewer javasricpt
+Add `{% client_composer_js %}` to include the composer javasricpt
+
+The following templates are available:
+`client_map_view_html` for the full map view
+`client_map_detail_view_html` for a smaller map view (as in the map preview)
+`client_map_new_html` create a new map with composer
+`client_layer_map_html` smaller map view for the layer preview
