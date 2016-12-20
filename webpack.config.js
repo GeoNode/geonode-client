@@ -29,8 +29,11 @@ module.exports = {
   },
   node: {fs: "empty"},
   plugins: plugins,
-  module: {
-    loaders: [
+  resolve: {
+    extensions: ['', '.js', '.jsx']
+  },
+	module: {
+		loaders: [
       {
         test: /\.(js|jsx)$/,
         loader: 'babel-loader',

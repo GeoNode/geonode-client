@@ -19,11 +19,12 @@ import enLocaleData from 'react-intl/locale-data/en.js';
 import InfoPopup from 'boundless-sdk/components/InfoPopup';
 import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransformService';
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
-import Navigation from 'boundless-sdk/components/Navigation';
 import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
-import './css/app.css'
+import Save from './save';
+
+import '../css/app.css'
 import 'boundless-sdk/dist/css/components.css';
 
 // Needed for onTouchTap
@@ -82,6 +83,19 @@ class GeoNodeViewer extends React.Component {
       errorOpen: false
     };
   }
+  getChildContext() {
+    return {
+      muiTheme: getMuiTheme()
+    };
+  }
+  componentWillMount() {
+    this.updateMap(this.props);
+    this.mode = this.props.mode || 'viewer';
+    this.edit = (this.mode === 'composer');
+  }
+  componentWillReceiveProps(props) {
+    this.updateMap(props);
+  }
   updateMap(props) {
     if (props.config) {
       var errors = [];
@@ -102,19 +116,6 @@ class GeoNodeViewer extends React.Component {
       });
     }
   }
-  componentWillMount() {
-    this.updateMap(this.props);
-    this.mode = this.props.mode || 'viewer';
-    this.edit = (this.mode === 'composer');
-  }
-  getChildContext() {
-    return {
-      muiTheme: getMuiTheme()
-    };
-  }
-  componentWillReceiveProps(props) {
-    this.updateMap(props);
-  }
   _handleRequestClose() {
     this.setState({
       errorOpen: false
@@ -134,12 +135,15 @@ class GeoNodeViewer extends React.Component {
         onRequestClose={this._handleRequestClose.bind(this)}
       />);
     }
-    let layerList = undefined;
+    let layerList, save = undefined;
     if(this.edit) {
       layerList = {
         sources: this.props.addLayerSources,
         allowUserInput: true
       };
+      if(this.props.server) {
+        save = (<div id='save-button' className='geonode-save'><Save map={map} /></div>);
+      }
     }
     return (
        <div id='content'>
@@ -152,6 +156,7 @@ class GeoNodeViewer extends React.Component {
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
         <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
+        {save}
       </div>
     );
   }
@@ -161,6 +166,7 @@ GeoNodeViewer.props = {
   config: React.PropTypes.object,
   proxy: React.PropTypes.string,
   mode: React.PropTypes.string,
+  server: React.PropTypes.string,
   addLayerSources: React.PropTypes.arrayOf(React.PropTypes.shape({
     title: React.PropTypes.string.isRequired,
     url: React.PropTypes.string.isRequired,
