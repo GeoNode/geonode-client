@@ -10,42 +10,42 @@ import {connectAdvanced} from 'react-redux';
 
 const messages = defineMessages({
   title: {
-    id: 'savedetaiomodal.title',
+    id: 'savedetailmodal.title',
     description: 'Modal Title',
     defaultMessage: 'Save the Map'
   },
   savemapbutton: {
-    id: 'savedetaiomodal.savemapbutton',
+    id: 'savedetailmodal.savemapbutton',
     description: 'Text for Save Button',
     defaultMessage: 'Save'
   },
   closebutton: {
-    id: 'savedetaiomodal.closebutton',
+    id: 'savedetailmodal.closebutton',
     description: 'Text for Close Button',
     defaultMessage: 'Close'
   },
   mapabstract: {
-    id: 'savedetaiomodal.mapabstract',
+    id: 'savedetailmodal.mapabstract',
     description: 'Text for Abstract Label',
     defaultMessage: 'Abstract'
   },
   maptitle: {
-    id: 'savedetaiomodal.maptitle',
+    id: 'savedetailmodal.maptitle',
     description: 'Text for Title Label',
     defaultMessage: 'Title'
   },
   errormsg: {
-    id: 'savedetaiomodal.errormsg',
+    id: 'savedetailmodal.errormsg',
     description: 'Text for Save Error message',
     defaultMessage: 'Error. {msg}'
   },
   successmsg: {
-    id: 'savedetaiomodal.successmsg',
+    id: 'savedetailmodal.successmsg',
     description: 'Text for Save Map Success Message',
     defaultMessage: 'Map saved successfully'
   },
   titleerrormsg: {
-    id: 'savedetaiomodal.titleerrormsg',
+    id: 'savedetailmodal.titleerrormsg',
     description: 'Text for Error message, if a title is missing',
     defaultMessage: 'Please add a title'
   }
