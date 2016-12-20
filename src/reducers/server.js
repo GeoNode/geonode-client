@@ -1,15 +1,12 @@
-import {
-  SETSERVER
-} from './actions'
+import {SETSERVER} from '../constants/actiontypes';
 
 const server = (state = 'http://localhost', action) => {
   switch(action.type) {
-    case 'SETSERVER':
+    case SETSERVER:
       return action.server;
     default:
       return state;
   }
-  return state;
-}
+};
 
 export default server;

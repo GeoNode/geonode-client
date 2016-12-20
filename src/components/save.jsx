@@ -1,19 +1,18 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ol from 'openlayers';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Button from 'boundless-sdk/components/Button';
 import classNames from 'classnames';
-import enMessages from 'boundless-sdk/locale/en.js';
 import SaveIcon from 'material-ui/svg-icons/content/save';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
-import SaveDetailModal from './savedetailmodal';
-import {setMapConfig, saveMap} from '../reducers/actions'
-import { connectAdvanced } from 'react-redux'
+import SaveDetailModal from './saveDetailModal';
+import {setMapConfig} from '../reducers/actions';
+import {connectAdvanced} from 'react-redux';
 
 const messages = defineMessages({
   savetext: {
-    id: 'savemap.savetext',
-    description: 'Text for Save Button',
+    id: 'save.savetext',
+    description: 'Tooltip for Save Button',
     defaultMessage: 'Save'
   }
 });
@@ -22,7 +21,7 @@ export class Save extends React.Component {
     super(props);
     this.state = {
       muiTheme: context.muiTheme || getMuiTheme()
-    }
+    };
   }
   _openSaveModal() {
     this.props.onClick();
@@ -39,43 +38,40 @@ export class Save extends React.Component {
   }
   render() {
     const {formatMessage} = this.props.intl;
-    let {map} = this.props;
     const tooltip = formatMessage(messages.savetext);
     const icon = <SaveIcon/>;
     let styles = this.getStyles();
     return (
       <div className="save-item">
-        <Button tooltipPosition={this.props.tooltipPosition} buttonType='Action' mini={true} secondary={true} className={classNames('sdk-component save', this.props.className)} style={styles.root} tooltip={tooltip} onTouchTap={this._openSaveModal.bind(this)}>{icon}</Button>
+        <Button tooltipPosition={this.props.tooltipPosition} buttonType='Action' mini={true} secondary={true} className={classNames('geonode-save', this.props.className)} style={styles.root} tooltip={tooltip} onTouchTap={this._openSaveModal.bind(this)}>{icon}</Button>
         <SaveDetailModal ref='savemapmodal' />
       </div>
     );
   }
 }
 Save.contextTypes = {
-	muiTheme: React.PropTypes.object
+  muiTheme: React.PropTypes.object
 };
 Save.propTypes = {
+  onClick: React.PropTypes.func,
   map: React.PropTypes.instanceOf(ol.Map).isRequired,
-  /**
-   *    * Css class name to apply on the button.
-   *       */
   className: React.PropTypes.string,
   tooltipPosition: React.PropTypes.oneOf(['bottom', 'bottom-right', 'bottom-left', 'right', 'left', 'top-right', 'top', 'top-left']),
+  style: React.PropTypes.object,
+  intl: intlShape.isRequired
 }
 function selectorFactory(dispatch) {
-  let state = {};
   let ownProps = {};
   let result = {};
   const onClick = () => {
     dispatch(setMapConfig(ownProps.map));
   }
   return (nextState, nextOwnProps) => {
-    const nextResult = Object.assign({}, nextOwnProps, { onClick });
-    state = nextState;
+    const nextResult = Object.assign({}, nextOwnProps, {onClick});
     ownProps = nextOwnProps;
     result = nextResult;
     return result;
   }
 }
-export const SaveIntl = injectIntl(Save, { withRef: true});
-export default connectAdvanced(selectorFactory, { withRef: true})(SaveIntl);
+export const SaveIntl = injectIntl(Save, {withRef: true});
+export default connectAdvanced(selectorFactory, {withRef: true})(SaveIntl);

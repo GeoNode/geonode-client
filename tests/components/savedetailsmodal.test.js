@@ -5,7 +5,7 @@ import {assert} from 'chai';
 
 import ReactTestUtils from 'react-addons-test-utils';
 
-import {SaveDetailModalIntl} from '../../src/components/savedetailmodal';
+import {SaveDetailModalIntl} from '../../src/components/saveDetailModal';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 
 import {renderWithIntl} from '../testhelper'

@@ -19,7 +19,6 @@ import enLocaleData from 'react-intl/locale-data/en.js';
 import InfoPopup from 'boundless-sdk/components/InfoPopup';
 import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransformService';
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
-import Navigation from 'boundless-sdk/components/Navigation';
 import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
@@ -84,6 +83,19 @@ class GeoNodeViewer extends React.Component {
       errorOpen: false
     };
   }
+  getChildContext() {
+    return {
+      muiTheme: getMuiTheme()
+    };
+  }
+  componentWillMount() {
+    this.updateMap(this.props);
+    this.mode = this.props.mode || 'viewer';
+    this.edit = (this.mode === 'composer');
+  }
+  componentWillReceiveProps(props) {
+    this.updateMap(props);
+  }
   updateMap(props) {
     if (props.config) {
       var errors = [];
@@ -103,19 +115,6 @@ class GeoNodeViewer extends React.Component {
         errorOpen: true
       });
     }
-  }
-  componentWillMount() {
-    this.updateMap(this.props);
-    this.mode = this.props.mode || 'viewer';
-    this.edit = (this.mode === 'composer');
-  }
-  getChildContext() {
-    return {
-      muiTheme: getMuiTheme()
-    };
-  }
-  componentWillReceiveProps(props) {
-    this.updateMap(props);
   }
   _handleRequestClose() {
     this.setState({
@@ -143,7 +142,7 @@ class GeoNodeViewer extends React.Component {
         allowUserInput: true
       };
       if(this.props.server) {
-        save = (<div id='save-button' className='ol-save'><Save map={map} /></div>);
+        save = (<div id='save-button' className='geonode-save'><Save map={map} /></div>);
       }
     }
     return (
@@ -167,11 +166,12 @@ GeoNodeViewer.props = {
   config: React.PropTypes.object,
   proxy: React.PropTypes.string,
   mode: React.PropTypes.string,
+  server: React.PropTypes.string,
   addLayerSources: React.PropTypes.arrayOf(React.PropTypes.shape({
     title: React.PropTypes.string.isRequired,
     url: React.PropTypes.string.isRequired,
     type: React.PropTypes.string.isRequired
-  })),
+  }))
 };
 
 GeoNodeViewer.childContextTypes = {

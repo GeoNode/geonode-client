@@ -46,16 +46,16 @@ export const setServer = (server) => {
 export const saveMap = (map) => {
   return (dispatch, getState) => {
     let state = getState();
-		var myInit = {
+    var myInit = {
       method: 'POST',
       credentials: 'same-origin',
       headers: {
-          'Content-Type': 'application/json',
-          'X-CSRFToken': getCRSFToken()
+        'Content-Type': 'application/json',
+        'X-CSRFToken': getCRSFToken()
       },
       body: JSON.stringify(state.mapConfig)
     };
-    return fetch(state.server+'/maps/new/data',myInit)
+    return fetch(state.server + '/maps/new/data',myInit)
     .then((response) => response.json())
     .then((json) => dispatch(saveMapSuccess(json)))
     .catch(ex => dispatch(saveMapError(ex)));

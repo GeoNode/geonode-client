@@ -1,54 +1,52 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
 import Dialog from 'material-ui/Dialog';
-import FlatButton from 'material-ui/FlatButton';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import Snackbar from 'material-ui/Snackbar';
+import Button from 'boundless-sdk/components/Button';
 import {setAbout, saveMap, resetMap} from '../reducers/actions';
-import { connectAdvanced } from 'react-redux';
+import {connectAdvanced} from 'react-redux';
 
 const messages = defineMessages({
   title: {
-    id: 'savemap.title',
-    description: 'Text for Save Button',
+    id: 'savedetaiomodal.title',
+    description: 'Modal Title',
     defaultMessage: 'Save the Map'
   },
   savemapbutton: {
-    id: 'savemap.savebutton',
+    id: 'savedetaiomodal.savemapbutton',
     description: 'Text for Save Button',
     defaultMessage: 'Save'
   },
   closebutton: {
-    id: 'savemap.closebutton',
-    description: 'Title for new server name text field',
+    id: 'savedetaiomodal.closebutton',
+    description: 'Text for Close Button',
     defaultMessage: 'Close'
   },
   mapabstract: {
-    id: 'savemap.mapabstract',
-    description: 'Title for new server name text field',
+    id: 'savedetaiomodal.mapabstract',
+    description: 'Text for Abstract Label',
     defaultMessage: 'Abstract'
   },
   maptitle: {
-    id: 'savemap.maptitle',
-    description: 'Title for new server url text field',
+    id: 'savedetaiomodal.maptitle',
+    description: 'Text for Title Label',
     defaultMessage: 'Title'
   },
   errormsg: {
-    id: 'savemap.errormsg',
-    description: 'Title for new server url text field',
+    id: 'savedetaiomodal.errormsg',
+    description: 'Text for Save Error message',
     defaultMessage: 'Error. {msg}'
   },
   successmsg: {
-    id: 'savemap.successmsg',
-    description: 'Title for new server url text field',
+    id: 'savedetaiomodal.successmsg',
+    description: 'Text for Save Map Success Message',
     defaultMessage: 'Map saved successfully'
   },
   titleerrormsg: {
-    id: 'savemap.titleerrormsg',
-    description: 'Title for new server url text field',
+    id: 'savedetaiomodal.titleerrormsg',
+    description: 'Text for Error message, if a title is missing',
     defaultMessage: 'Please add a title'
   }
 });
@@ -82,18 +80,18 @@ export class SaveDetailModal extends React.Component {
     this.setState({open: true});
   }
   _setError(msg) {
-    this.setState( {
+    this.setState({
       errorOpen: true,
       error: true,
       msg: msg
     });
   }
-	_handleRequestClose() {
+  _handleRequestClose() {
     this.setState({
       errorOpen: false
     });
   }
-	_handleSuccessClose() {
+  _handleSuccessClose() {
     this.setState({
       errorOpen: false,
       open: false
@@ -101,10 +99,11 @@ export class SaveDetailModal extends React.Component {
   }
   saveMap() {
     const {formatMessage} = this.props.intl;
-    if(this.refs.maptitle.getValue()) {
+    const mapTitle = this.refs.maptitle.getValue();
+    if(mapTitle) {
       this.setState({isSaving: true});
-      this.props.onClick({ title: this.refs.maptitle.getValue(), abstract: this.refs.mapabstract.getValue()});
-    }else {
+      this.props.onClick({title: mapTitle, abstract: this.refs.mapabstract.getValue()});
+    } else {
       this._setError(formatMessage(messages.titleerrormsg));
     }
   }
@@ -114,10 +113,10 @@ export class SaveDetailModal extends React.Component {
   render() {
     const {formatMessage} = this.props.intl;
     const actions = [
-      <FlatButton disableTouchRipple={true} primary={true} label={formatMessage(messages.savemapbutton)} onTouchTap={this.saveMap.bind(this)} />,
-      <FlatButton disableTouchRipple={true} label={formatMessage(messages.closebutton)} onTouchTap={this.close.bind(this)} />
+      <Button buttonType='Flat' primary={true} label={formatMessage(messages.savemapbutton)} onTouchTap={this.saveMap.bind(this)} />,
+      <Button buttonType='Flat' label={formatMessage(messages.closebutton)} onTouchTap={this.close.bind(this)} />
     ];
-		let success, error;
+    let success, error;
     if(this.state.success === true) {
       success = (<Snackbar
         autoHideDuration={5000}
@@ -149,6 +148,9 @@ export class SaveDetailModal extends React.Component {
   }
 }
 SaveDetailModal.propTypes = {
+  onClick: React.PropTypes.func,
+  reset: React.PropTypes.func,
+  intl: intlShape.isRequired
 }
 SaveDetailModal.childContextTypes = {
   muiTheme: React.PropTypes.object.isRequired
@@ -158,8 +160,6 @@ SaveDetailModal.contextTypes = {
 };
 
 function selectorFactory(dispatch) {
-  let state = {};
-  let ownProps = {};
   let result = {};
   const onClick = (about) => {
     dispatch(setAbout(about));
@@ -178,12 +178,10 @@ function selectorFactory(dispatch) {
       error = true;
       msg = nextState.saveMap.error.message;
     }
-    const nextResult = Object.assign({}, nextOwnProps, { reset, onClick, success, isSaving, error, msg });
-    state = nextState;
-    ownProps = nextOwnProps;
+    const nextResult = Object.assign({}, nextOwnProps, {reset, onClick, success, isSaving, error, msg});
     result = nextResult;
     return result;
   }
 }
-export const SaveDetailModalIntl = injectIntl(SaveDetailModal, { withRef: true});
-export default connectAdvanced(selectorFactory, { withRef: true})(SaveDetailModalIntl);
+export const SaveDetailModalIntl = injectIntl(SaveDetailModal, {withRef: true});
+export default connectAdvanced(selectorFactory, {withRef: true})(SaveDetailModalIntl);

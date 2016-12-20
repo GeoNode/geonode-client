@@ -3,7 +3,7 @@ import raf from 'raf';
 raf.polyfill();
 import {assert} from 'chai';
 
-import {getCRSFToken} from '../src/helper.jsx';
+import {getCRSFToken} from '../src/helper';
 
 describe('getCRSFToken', () => {
   let map;
