@@ -15,6 +15,7 @@
     "dist:cp": "cp -r resources/ol3-cesium dist/cesium/",
     "dist": "npm run dist:createdir && npm run dist:clean && npm run dist:build && npm run dist:cp",
     "test": "./node_modules/karma/bin/karma start --single-run --browsers PhantomJS",
+    "test:lint": "eslint src --ext .jsx,.js",
     "test:unit": "./node_modules/karma/bin/karma start --browsers PhantomJS --auto-watch",
     "deploy": "npm run build:gh-pages && git-directory-deploy --directory _build --branch gh-pages",
 		"geonode:mkdir": "mkdir -p geonode-client/static && mkdir -p geonode-client/static/geonode-client && mkdir -p geonode-client/static/geonode-client/js && mkdir -p geonode-client/static/geonode-client/cesium",
