@@ -1,0 +1,50 @@
+{% load geonode_client_tags %}
+{% load url from future %}
+
+{% client_viewer_js	%}
+
+<style>
+	#content {
+		margin-top: 50px;
+	}
+	#client-viewer-map {
+		height: 100%;
+		width: 100%;
+	}
+</style>
+
+<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', function () {
+    var defaultConfig = {
+        authStatus: {% if user.is_authenticated %} 200{% else %} 401{% endif %},
+        proxy: '{{ PROXY_URL }}',
+        {% if MAPFISH_PRINT_ENABLED %}
+        printService: "{{GEOSERVER_BASE_URL}}pdf/",
+        {% else %}
+        printService: "",
+        {% endif %}
+        /* The URL to a REST map configuration service.  This service 
+         * provides listing and, with an authenticated user, saving of 
+         * maps on the server for sharing and editing.
+         */
+        rest: "{% url "maps_browse" %}",
+        ajaxLoginUrl: "{% url "account_ajax_login" %}",
+        homeUrl: "{% url "home" %}",
+        portalItems: [{
+            xtype: "container",
+            layout: "fit",
+            height: 81,
+            region: "north"
+        }],
+        localGeoServerBaseUrl: "{{ GEOSERVER_BASE_URL }}",
+        localCSWBaseUrl: "{{ CATALOGUE_BASE_URL }}",
+        csrfToken: "{{ csrf_token }}",
+        tools: [{ptype: "gxp_getfeedfeatureinfo"}],
+		};
+		var config = Object.assign( defaultConfig, {{ config|safe }});
+    var viewer = new window.Viewer('client-viewer-map', config);
+    viewer.view();
+	});
+</script>
+<div id="client-viewer-map">
+</div>

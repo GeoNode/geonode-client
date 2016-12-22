@@ -1,2 +1,4 @@
 include README.md
+include VERSION
 recursive-include geonode-client/static *
+recursive-include geonode-client/templates *.html
