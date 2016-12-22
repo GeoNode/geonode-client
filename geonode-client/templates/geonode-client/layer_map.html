@@ -1,19 +1,18 @@
-{% include 'geonode/ext_header.html' %}
-{% include 'geonode/geo_header.html' %}
+{% load geonode_client_tags %}
 
-{% client_composer_js	%}
-
+{% client_viewer_js	%}
 <style>
 	#content {
 		position: relative;
-		margin-top: 50px;
+	}
+	#map {
+		height: 600px;
 	}
 </style>
 
 <script type="text/javascript">
-Ext.onReady(function() {
-{% autoescape off %}
-    var config = Ext.apply({
+	document.addEventListener('DOMContentLoaded', function () {
+    var defaultConfig = {
         authStatus: {% if user.is_authenticated %} 200{% else %} 401{% endif %},
         proxy: '{{ PROXY_URL }}',
         {% if MAPFISH_PRINT_ENABLED %}
@@ -38,14 +37,9 @@ Ext.onReady(function() {
         localCSWBaseUrl: "{{ CATALOGUE_BASE_URL }}",
         csrfToken: "{{ csrf_token }}",
         tools: [{ptype: "gxp_getfeedfeatureinfo"}],
-    }, {{ config }});
-		var composer = new this.Composer('map', "{% url "home" %}");
-    var layerSources = [
-      {title: 'Local GeoServer', url: "{{ GEOSERVER_BASE_URL }}ows/", type: 'WMS'}
-    ];
-    composer.compose(layerSources);
-{% endautoescape %}
+		};
+		var config = Object.assign( defaultConfig, {{ viewer|safe }});
+    var viewer = new window.Viewer('preview_map', config);
+    viewer.view();
 });
 </script>
-<div id="map">
-</div>

@@ -1,19 +1,22 @@
-{% include 'geonode/ext_header.html' %}
-{% include 'geonode/geo_header.html' %}
+{% load geonode_client_tags %}
+{% load url from future %}
 
-{% client_viewer_js	%}
+{% client_composer_js	%}
 
 <style>
 	#content {
 		position: relative;
-		margin-top: 50px;
+		margin-top: 15px;
+	}
+	#client-composer-map {
+		height: 100%;
+		width: 100%;
 	}
 </style>
 
 <script type="text/javascript">
-Ext.onReady(function() {
-{% autoescape off %}
-    var config = Ext.apply({
+	document.addEventListener('DOMContentLoaded', function () {
+    var defaultConfig = {
         authStatus: {% if user.is_authenticated %} 200{% else %} 401{% endif %},
         proxy: '{{ PROXY_URL }}',
         {% if MAPFISH_PRINT_ENABLED %}
@@ -38,9 +41,14 @@ Ext.onReady(function() {
         localCSWBaseUrl: "{{ CATALOGUE_BASE_URL }}",
         csrfToken: "{{ csrf_token }}",
         tools: [{ptype: "gxp_getfeedfeatureinfo"}],
-    }, {{ config }});
-    var viewer = new this.viewer('map', config);
-    viewer.view();
-{% endautoescape %}
-});
+    };
+		var config = Object.assign( defaultConfig, {{ config|safe }});
+		var composer = new window.Composer('client-composer-map', "http://192.168.99.100");
+    var layerSources = [
+      {title: 'Local GeoServer', url: "{{ GEOSERVER_BASE_URL }}ows/", type: 'WMS'}
+    ];
+    composer.compose(layerSources);
+	});
 </script>
+<div id="client-composer-map">
+</div>
