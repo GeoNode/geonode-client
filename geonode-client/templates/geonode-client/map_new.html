@@ -43,7 +43,7 @@
         tools: [{ptype: "gxp_getfeedfeatureinfo"}],
     };
 		var config = Object.assign( defaultConfig, {{ config|safe }});
-		var composer = new window.Composer('client-composer-map', "http://192.168.99.100");
+		var composer = new window.Composer('client-composer-map', "{{SITEURL}}");
     var layerSources = [
       {title: 'Local GeoServer', url: "{{ GEOSERVER_BASE_URL }}ows/", type: 'WMS'}
     ];
