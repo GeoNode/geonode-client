@@ -36,7 +36,7 @@ describe('GeoNodeViewer', () => {
     it('the layer list includes one layer', () => {
 			const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer config={config}/></IntlProvider>);
       var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list');
-			assert.equal(contents[0].textContent,'Base Mapsmapnik');
+			assert.equal(contents.length, 1);
     });
 	});
   describe('WMS Layer', () => {
