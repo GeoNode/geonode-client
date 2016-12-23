@@ -52,5 +52,19 @@ describe('actions', () => {
         assert.deepEqual(store.getActions()[0].type, types.SAVE_MAP_ERROR);
       });
     });
+    describe('server with trailing slash', () => {
+      it('calls SAVE_MAP_SUCCESS', () => {
+        fetchMock
+        .mock('http://geonode.org/maps/new/data', {result: ''});
+        const store = mockStore({ server: 'http://geonode.org/', mapConfig: {data: '' } });
+        const expectedActions = [
+          { type: types.SAVE_MAP_SUCCESS, body: { result: '' }}
+        ];
+        return store.dispatch(actions.saveMap())
+        .then(() => {
+          assert.deepEqual(store.getActions(), expectedActions);
+        });
+      });
+    });
   })
 });

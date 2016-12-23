@@ -1,6 +1,6 @@
 import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransformService';
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
-import {getCRSFToken} from '../helper'
+import {getCRSFToken, removeTrailingSlash} from '../helper'
 
 import 'whatwg-fetch'
 
@@ -55,7 +55,7 @@ export const saveMap = (map) => {
       },
       body: JSON.stringify(state.mapConfig)
     };
-    return fetch(state.server + '/maps/new/data',myInit)
+    return fetch(removeTrailingSlash(state.server) + '/maps/new/data',myInit)
     .then((response) => response.json())
     .then((json) => dispatch(saveMapSuccess(json)))
     .catch(ex => dispatch(saveMapError(ex)));
