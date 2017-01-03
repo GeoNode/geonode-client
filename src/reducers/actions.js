@@ -1,10 +1,8 @@
 import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransformService';
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
-import {getCRSFToken, removeTrailingSlash} from '../helper'
+import {saveToGeonode} from '../services/geonode';
 
-import 'whatwg-fetch'
-
-import * as types from '../constants/actiontypes'
+import * as types from '../constants/actiontypes';
 
 export function resetMap() {
   return {
@@ -43,20 +41,10 @@ export const setServer = (server) => {
     server
   }
 }
-export const saveMap = (map) => {
+export const saveMap = () => {
   return (dispatch, getState) => {
     let state = getState();
-    var myInit = {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCRSFToken()
-      },
-      body: JSON.stringify(state.mapConfig)
-    };
-    return fetch(removeTrailingSlash(state.server) + '/maps/new/data',myInit)
-    .then((response) => response.json())
+    return saveToGeonode(state.server, state.mapConfig, state.id)
     .then((json) => dispatch(saveMapSuccess(json)))
     .catch(ex => dispatch(saveMapError(ex)));
   }

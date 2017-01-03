@@ -18,9 +18,9 @@
     "test:lint": "eslint src --ext .jsx,.js",
     "test:unit": "./node_modules/karma/bin/karma start --browsers PhantomJS --auto-watch",
     "deploy": "npm run build:gh-pages && git-directory-deploy --directory _build --branch gh-pages",
-		"geonode:mkdir": "mkdir -p geonode-client/static && mkdir -p geonode-client/static/geonode-client && mkdir -p geonode-client/static/geonode-client/js && mkdir -p geonode-client/static/geonode-client/cesium",
-		"geonode:cp": "cp dist/Viewer.min.js geonode-client/static/geonode-client/js/viewer.min.js && cp dist/Composer.min.js geonode-client/static/geonode-client/js/composer.min.js && cp -r dist/cesium/* geonode-client/static/geonode-client/cesium/",
-		"geonode:deploy": "npm run geonode:mkdir && npm run geonode:cp"
+    "geonode:mkdir": "mkdir -p geonode-client/static && mkdir -p geonode-client/static/geonode-client && mkdir -p geonode-client/static/geonode-client/js && mkdir -p geonode-client/static/geonode-client/cesium",
+    "geonode:cp": "cp dist/Viewer.min.js geonode-client/static/geonode-client/js/viewer.min.js && cp dist/Composer.min.js geonode-client/static/geonode-client/js/composer.min.js && cp -r dist/cesium/* geonode-client/static/geonode-client/cesium/",
+    "geonode:deploy": "npm run geonode:mkdir && npm run geonode:cp"
   },
   "main": "dist/viewer.js",
   "browser": "dist/viewer.js",
@@ -55,6 +55,7 @@
     "babel-loader": "^6.2.8",
     "babel-plugin-istanbul": "^3.0.0",
     "babel-plugin-react-intl": "1.0.0-beta-5",
+    "babel-plugin-rewire": "^1.0.0",
     "babel-polyfill": "^6.20.0",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
