@@ -85,6 +85,7 @@ class GeoNodeViewer extends React.Component {
   }
   getChildContext() {
     return {
+      proxy: this.props.proxy,
       muiTheme: getMuiTheme()
     };
   }
@@ -175,6 +176,7 @@ GeoNodeViewer.props = {
 };
 
 GeoNodeViewer.childContextTypes = {
+  proxy: React.PropTypes.string,
   muiTheme: React.PropTypes.object
 };
 
