@@ -18,17 +18,6 @@ export function setMapId(id) {
     id: id
   }
 }
-export function getOl3Map() {
-  return {
-    type: types.GET_OL3_MAP
-  }
-}
-export function setOl3Map(map) {
-  return {
-    type: types.SET_OL3_MAP,
-    map: map
-  }
-}
 export function saveMapError(error) {
   return {
     type: types.SAVE_MAP_ERROR,

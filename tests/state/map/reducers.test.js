@@ -5,8 +5,6 @@ describe('map', () => {
   beforeEach(function() {
     defaultState = {
       id: undefined,
-      ol3Map: undefined,
-      server: undefined,
       save: {
         success: false,
         error: false,
@@ -46,25 +44,6 @@ describe('map', () => {
         let action = { type: GET_IS_EDITING};
         assert.equal(map({id: 1}, action), true);
       });
-    });
-  });
-  describe('GET_OL3_MAP', () => {
-    it('is undefined in initial state', () => {
-      let action = { type: GET_OL3_MAP};
-      assert.equal(map(undefined, action), undefined);
-    });
-    describe('ol3 map is set', () => {
-      it('returns map', () => {
-        let action = { type: GET_OL3_MAP};
-        assert.deepEqual(map({ol3map: {map: true}}, action), {map: true});
-      });
-    });
-  });
-  describe('SET_OL3_MAP', () => {
-    it('sets the ol3 map in state', () => {
-      let action = { type: SET_OL3_MAP, map: {map: true}};
-      let state = Object.assign({}, defaultState, { ol3Map: {map: true}});
-      assert.deepEqual(map(undefined, action), state);
     });
   });
   describe('SAVE_MAP_SUCCESS', () => {

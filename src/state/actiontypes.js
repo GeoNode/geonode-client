@@ -5,3 +5,5 @@ export const GET_OL3_MAP = 'GET_OL3_MAP';
 export const SET_OL3_MAP = 'SET_OL3_MAP';
 export const SAVE_MAP_ERROR = 'SAVE_MAP_ERROR';
 export const SAVE_MAP_SUCCESS = 'SAVE_MAP_SUCCESS';
+export const SAVE_SERVER = 'SAVE_SERVER';
+export const GET_SERVER = 'GET_SERVER';
