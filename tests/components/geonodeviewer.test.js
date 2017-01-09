@@ -91,9 +91,8 @@ describe('GeoNodeViewer', () => {
     describe('composer', () => {
       it('can remove layers', () => {
         const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer mode='composer' addLayerSources={layerSources} config={config}/></IntlProvider>);
-        var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-item');
-        var node = ReactDOM.findDOMNode(contents[0]).getElementsByClassName('layer-list-item-remove');
-				assert.equal(node.length, 1);
+        var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-item-remove');
+				assert.equal(contents.length, 1);
       });
       it('can add layers', () => {
         const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer mode='composer' addLayerSources={layerSources} config={config}/></IntlProvider>);

@@ -85,6 +85,7 @@ class GeoNodeViewer extends React.Component {
   }
   getChildContext() {
     return {
+      proxy: this.props.proxy,
       muiTheme: getMuiTheme()
     };
   }
@@ -100,7 +101,7 @@ class GeoNodeViewer extends React.Component {
     if (props.config) {
       var errors = [];
       var filteredErrors = [];
-      MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy, errors), map);
+      MapConfigService.load(MapConfigTransformService.transform(props.config, props.proxy, errors), map, this.props.proxy);
       for (var i = 0, ii = errors.length; i < ii; ++i) {
         // ignore the empty baselayer since we have checkbox now for base layer group
         if (errors[i].layer.type !== 'OpenLayers.Layer') {
@@ -175,6 +176,7 @@ GeoNodeViewer.props = {
 };
 
 GeoNodeViewer.childContextTypes = {
+  proxy: React.PropTypes.string,
   muiTheme: React.PropTypes.object
 };
 
