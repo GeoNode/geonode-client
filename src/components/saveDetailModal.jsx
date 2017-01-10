@@ -97,24 +97,28 @@ export class SaveDetailModal extends React.Component {
       open: false
     });
   }
-  saveMap() {
+  _setTitleError() {
     const {formatMessage} = this.props.intl;
+    this._setError(formatMessage(messages.titleerrormsg));
+  }
+  _handleSave() {
     const mapTitle = this.refs.maptitle.getValue();
     if(mapTitle) {
       this.setState({isSaving: true});
-      this.props.onClick({title: mapTitle, abstract: this.refs.mapabstract.getValue()});
+      this.props.setAbout({title: mapTitle, abstract: this.refs.mapabstract.getValue()});
+      this.props.saveMap();
     } else {
-      this._setError(formatMessage(messages.titleerrormsg));
+      this._setTitleError();
     }
   }
-  close() {
+  _handleClose() {
     this.setState({open: false});
   }
   render() {
     const {formatMessage} = this.props.intl;
     const actions = [
-      <Button buttonType='Flat' primary={true} label={formatMessage(messages.savemapbutton)} onTouchTap={this.saveMap.bind(this)} />,
-      <Button buttonType='Flat' label={formatMessage(messages.closebutton)} onTouchTap={this.close.bind(this)} />
+      <Button buttonType='Flat' primary={true} label={formatMessage(messages.savemapbutton)} onTouchTap={this._handleSave.bind(this)} />,
+      <Button buttonType='Flat' label={formatMessage(messages.closebutton)} onTouchTap={this._handleClose.bind(this)} />
     ];
     let success, error;
     if(this.state.success === true) {
@@ -138,7 +142,7 @@ export class SaveDetailModal extends React.Component {
       />);
     }
     return (
-      <Dialog className='save-map-modal'  actions={actions} autoScrollBodyContent={true} modal={true} title={formatMessage(messages.title)} open={this.state.open} onRequestClose={this.close.bind(this)}>
+      <Dialog className='save-map-modal'  actions={actions} autoScrollBodyContent={true} modal={true} title={formatMessage(messages.title)} open={this.state.open} onRequestClose={this._handleClose.bind(this)}>
         <TextField ref='maptitle' floatingLabelText={formatMessage(messages.maptitle)} /><br/>
         <TextField ref='mapabstract' floatingLabelText={formatMessage(messages.mapabstract)} />
 				{error}
@@ -148,7 +152,8 @@ export class SaveDetailModal extends React.Component {
   }
 }
 SaveDetailModal.propTypes = {
-  onClick: React.PropTypes.func,
+  setAbout: React.PropTypes.func,
+  saveMap: React.PropTypes.func,
   reset: React.PropTypes.func,
   intl: intlShape.isRequired
 }
@@ -161,8 +166,10 @@ SaveDetailModal.contextTypes = {
 
 function selectorFactory(dispatch) {
   let result = {};
-  const onClick = (about) => {
+  const setAbout = (about) => {
     dispatch(setAbout(about));
+  }
+  const saveMap = () => {
     dispatch(saveMap());
   }
   const reset = () => {
@@ -178,7 +185,7 @@ function selectorFactory(dispatch) {
       error = true;
       msg = nextState.saveMap.error.message;
     }
-    const nextResult = Object.assign({}, nextOwnProps, {reset, onClick, success, isSaving, error, msg});
+    const nextResult = Object.assign({}, nextOwnProps, {reset, setAbout, saveMap, success, isSaving, error, msg});
     result = nextResult;
     return result;
   }
