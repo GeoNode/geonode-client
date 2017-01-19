@@ -43,16 +43,15 @@
         tools: [{ptype: "gxp_getfeedfeatureinfo"}],
     };
 		var config = Object.assign( defaultConfig, {{ config|safe }});
-		var composer = new window.Composer('client-composer-map', "{{SITEURL}}");
-		composer.mapConfig = config;
-		composer.mapId = "{{mapId}}";
-    var layerSources = [
-      {title: 'Local GeoServer', url: "{{ GEOSERVER_BASE_URL }}ows/", type: 'WMS'}
-    ];
-    if(config.proxy !== '') {
-      composer.proxy = "{{PROXY_URL}}";
-    }
-    composer.compose(layerSources);
+		var options = {server: "{{SITEURL}}", mapConfig: config, mapId: "{{mapId}}"};
+		if (config.proxy !== '') {
+			options.proxy = "{{PROXY_URL}}";
+		}
+		var composer = new window.Composer('client-composer-map', options);
+		var layerSources = [
+			{title: 'Local GeoServer', url: "{{ GEOSERVER_BASE_URL }}ows/", type: 'WMS'}
+		];
+		composer.compose(layerSources);
 	});
 </script>
 <div id="client-composer-map">

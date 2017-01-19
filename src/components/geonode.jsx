@@ -101,6 +101,9 @@ class GeoNodeViewer extends React.Component {
     if (props.config) {
       var errors = [];
       var filteredErrors = [];
+      if (props.zoomToLayer && props.config.map.layers[props.config.map.layers.length - 1].bbox) {
+        this._extent = props.config.map.layers[props.config.map.layers.length - 1].bbox;
+      }
       MapConfigService.load(MapConfigTransformService.transform(props.config, errors), map, this.props.proxy);
       for (var i = 0, ii = errors.length; i < ii; ++i) {
         // ignore the empty baselayer since we have checkbox now for base layer group
@@ -149,7 +152,7 @@ class GeoNodeViewer extends React.Component {
     return (
        <div id='content'>
         {error}
-        <MapPanel useHistory={true} id='map' map={map} />
+        <MapPanel useHistory={true} id='map' map={map} extent={this._extent} />
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div id='print-button'><QGISPrint menu={false} map={map} layouts={printLayouts} /></div>
         <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
