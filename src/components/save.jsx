@@ -44,7 +44,7 @@ export class Save extends React.Component {
     return (
       <div className="save-item">
         <Button tooltipPosition={this.props.tooltipPosition} buttonType='Action' mini={true} secondary={true} className={classNames('geonode-save', this.props.className)} style={styles.root} tooltip={tooltip} onTouchTap={this._openSaveModal.bind(this)}>{icon}</Button>
-        <SaveDetailModal ref='savemapmodal' />
+        <SaveContainer ref='savemapmodal' />
       </div>
     );
   }
