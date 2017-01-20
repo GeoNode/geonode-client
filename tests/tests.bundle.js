@@ -3,8 +3,10 @@ context.keys().forEach(context);
 module.exports = context;
 import 'phantomjs-polyfill-object-assign';
 import {assert} from 'chai';
+import td from 'testdouble';
 var chaiAsPromised = require("chai-as-promised");
+var tdChai = require("testdouble-chai");
 chai.use(chaiAsPromised);
+chai.use(tdChai(td));
 import raf from 'raf';
 raf.polyfill();
-
