@@ -1,13 +1,13 @@
-import {GET_SERVER, SET_SERVER} from '../actiontypes';
+import {GET_SERVER_URL, SET_SERVER_URL} from '../actiontypes';
 
-export function getServer() {
+export function getServerUrl() {
   return {
-    type: GET_SERVER
+    type: GET_SERVER_URL
   }
 }
-export function setServer(server) {
+export function setServerUrl(url) {
   return {
-    type: SET_SERVER,
-    server: server
+    type: SET_SERVER_URL,
+    url: url
   }
 }

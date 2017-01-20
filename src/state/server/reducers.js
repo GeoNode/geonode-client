@@ -1,16 +1,16 @@
-import {GET_SERVER, SET_SERVER} from '../actiontypes';
+import {GET_SERVER_URL, SET_SERVER_URL} from '../actiontypes';
 
 const defaultState = {
-  server: undefined
+  url: undefined
 }
 
 const server = (state = defaultState, action) => {
   switch(action.type) {
-    case GET_SERVER:
-      return state.server;
-    case SET_SERVER:
+    case GET_SERVER_URL:
+      return state.url;
+    case SET_SERVER_URL:
       return Object.assign({}, state, {
-        server: action.server
+        url: action.url
       });
     default:
       return state;
