@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock';
 
-import {saveToGeonode} from '../../src/services/geonode';
+import {saveToGeonode, getMapConfigFromMap, __RewireAPI__ as geonodeServiceRewireAPI} from '../../src/services/geonode';
 
 describe('saveToGeonode', () => {
   beforeEach(function() {
@@ -61,5 +61,22 @@ describe('saveToGeonode', () => {
         return assert.isRejected(saveToGeonode(server,{}, 1),'Not Found');
       });
     });
+  });
+});
+describe('#getMapConfigFromMap', () => {
+  beforeEach(() => {
+    geonodeServiceRewireAPI.__Rewire__('MapConfigTransformService', {
+      write: function() { return 'Test' }
+    });
+    geonodeServiceRewireAPI.__Rewire__('MapConfigService', {
+      save: function() { return 'Test' }
+    });
+  });
+  afterEach(() => {
+    geonodeServiceRewireAPI.__ResetDependency__('MapConfigService');
+    geonodeServiceRewireAPI.__ResetDependency__('MapConfigTransformService');
+  });
+  it('returns config', () => {
+    assert.equal(getMapConfigFromMap({}),'Test');
   });
 });

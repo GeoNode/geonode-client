@@ -1,3 +1,5 @@
+import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransformService';
+import MapConfigService from 'boundless-sdk/services/MapConfigService';
 import {getCRSFToken, removeTrailingSlash} from '../helper';
 const NEW_MAP_ENDPOINT = '/maps/new/data';
 const EDIT_MAP_ENDPOINT = '/maps/1/data';
@@ -35,4 +37,7 @@ export const saveToGeonode = (server,config, id = undefined) => {
     .then(checkStatus)
     .then((response) => response.json())
     .catch((ex) => Promise.reject(ex));
-}
+};
+export const getMapConfigFromMap = (map) => {
+  return MapConfigTransformService.write(MapConfigService.save(map));
+};
