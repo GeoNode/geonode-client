@@ -1,4 +1,10 @@
 {
 	"presets": ["react", "es2015"],
-	"plugins": ["react-hot-loader/babel", "rewire"]
+	"plugins": ["react-hot-loader/babel"],
+	"env": {
+		"test": {
+			"plugins": ["rewire"],
+			"presets": ["airbnb"]
+		}
+	}
 }

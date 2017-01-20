@@ -50,5 +50,11 @@ module.exports = {
       }
     ],
     noParse: [/dist\/ol.js/, /dist\/jspdf.debug.js/]
+  },
+  externals: {
+    'cheerio': 'window',
+    'react/addons': true,
+    'react/lib/ExecutionEnvironment': true,
+    'react/lib/ReactContext': true
   }
 };
