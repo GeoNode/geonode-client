@@ -96,7 +96,7 @@ export class SaveView extends React.Component {
     this.props.save(this.refs.maptitle.getValue(), this.refs.mapabstract.getValue());
   }
   _handleNewSave() {
-    this.props.save(this.refs.maptitle.getValue(), this.refs.mapabstract.getValue());
+    this.props.saveAsNew(this.refs.maptitle.getValue(), this.refs.mapabstract.getValue());
   }
   _handleClose() {
     this.props.close();
