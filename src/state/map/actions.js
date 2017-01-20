@@ -15,7 +15,7 @@ export function isEditing() {
 export function setMapId(id) {
   return {
     type: types.SET_MAP_ID,
-    id: id
+    mapId: id
   }
 }
 export function saveMapError(error) {

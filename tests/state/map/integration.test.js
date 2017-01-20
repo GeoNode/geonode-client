@@ -50,3 +50,15 @@ describe('after saveMapError', () => {
     });
   });
 });
+describe('setMapId', () => {
+  let store;
+  beforeEach(() => {
+    store = createStore(combineReducers({map, mapConfig}));
+    store.dispatch(setMapId(1));
+  })
+  describe('#getMapId', () => {
+    it('returns true', () => {
+      assert.equal(getMapId(store.getState()), 1);
+    });
+  });
+});

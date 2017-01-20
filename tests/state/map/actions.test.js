@@ -22,7 +22,7 @@ describe('#isEditing', () => {
 });
 describe('#setId', () => {
   it('should create an action for SET_MAP_ID', () => {
-    const expectedAction = {type: types.SET_MAP_ID, id: 1};
+    const expectedAction = {type: types.SET_MAP_ID, mapId: 1};
     assert.deepEqual(setMapId(1), expectedAction);
   });
 });

@@ -95,6 +95,9 @@ export class SaveView extends React.Component {
   _handleSave() {
     this.props.save(this.refs.maptitle.getValue(), this.refs.mapabstract.getValue());
   }
+  _handleNewSave() {
+    this.props.save(this.refs.maptitle.getValue(), this.refs.mapabstract.getValue());
+  }
   _handleClose() {
     this.props.close();
   }
@@ -131,7 +134,7 @@ export class SaveView extends React.Component {
     return (
       <div className='save-modal'>
         <Dialog className='save-map-modal'  actions={actions} autoScrollBodyContent={true} modal={true} title={formatMessage(messages.title)} open={this.props.open} onRequestClose={this._handleClose.bind(this)}>
-          <TextField ref='maptitle' floatingLabelText={formatMessage(messages.maptitle)}/><br/>
+          <TextField value={this.props.maptitle} ref='maptitle' floatingLabelText={formatMessage(messages.maptitle)}/><br/>
           <TextField ref='mapabstract' floatingLabelText={formatMessage(messages.mapabstract)} />
           {error}
           {success}
