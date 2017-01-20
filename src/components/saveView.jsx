@@ -5,7 +5,6 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Snackbar from 'material-ui/Snackbar';
-import Button from 'boundless-sdk/components/Button';
 
 const messages = defineMessages({
   title: {
@@ -61,16 +60,16 @@ export class SaveView extends React.Component {
     this.state = {
       open: this.props.open,
       maptititle: '',
-      mapabstract: '',
+      mapabstract: ''
     };
+  }
+  getChildContext() {
+    return {muiTheme: getMuiTheme()};
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.titleError) {
       this._setTitleError();
     }
-  }
-  getChildContext() {
-    return {muiTheme: getMuiTheme()};
   }
   _setTitleError() {
     const {formatMessage} = this.props.intl;
@@ -145,6 +144,7 @@ SaveView.propTypes = {
   save: React.PropTypes.func,
   close: React.PropTypes.func,
   open: React.PropTypes.bool,
+  editing: React.PropTypes.bool,
   titleError: React.PropTypes.bool,
   intl: intlShape.isRequired
 }

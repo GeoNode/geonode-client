@@ -2,11 +2,11 @@ import {isSaving, success, error, errorMessage} from '../../../src/state/map/sel
 
 describe('mapSelectors', () => {
   describe('#isSaving', () => {
-    it('returns true if it was successfull', () => {
-      assert.equal(isSaving({map: { save: { success: true}}}), true);
+    it('returns false if it was successfull', () => {
+      assert.equal(isSaving({map: { save: { success: true}}}), false);
     });
-    it('returns undefined if it was not successfull', () => {
-      assert.equal(isSaving({ map: {save: {}}}), undefined);
+    it('returns true if it was not successfull', () => {
+      assert.equal(isSaving({ map: {save: {}}}), true);
     });
   });
   describe('#success', () => {

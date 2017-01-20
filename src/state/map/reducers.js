@@ -6,7 +6,7 @@ const defaultState = {
     success: false,
     error: false,
     errorMessage: undefined
-  },
+  }
 };
 
 const map = (state = defaultState, action) => {
@@ -21,12 +21,12 @@ const map = (state = defaultState, action) => {
       return (state.id !== undefined);
     case SAVE_MAP_SUCCESS:
       return Object.assign({}, state, {
-        save: { success: true, error: false },
+        save: {success: true, error: false},
         id: action.result.id
       });
     case SAVE_MAP_ERROR:
       return Object.assign({}, state, {
-        save: {success: false, error: true, errorMessage: action.error},
+        save: {success: false, error: true, errorMessage: action.error}
       });
     default:
       return state;

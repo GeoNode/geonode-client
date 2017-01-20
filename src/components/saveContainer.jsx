@@ -6,7 +6,7 @@ import {saveMap} from '../state/map/actions';
 import * as selectors from '../state/map/selectors';
 import {connectAdvanced} from 'react-redux';
 
-import SaveView from './SaveView';
+import SaveView from './saveView';
 
 export class SaveContainer extends React.Component {
   constructor(props) {
@@ -70,9 +70,6 @@ function selectorFactory(dispatch) {
   const save = () => {
     dispatch(saveMap());
   }
-  const reset = () => {
-    dispatch(resetSave());
-  }
   return (nextState, nextOwnProps) => {
     const newState = {
       saveAbout,
@@ -91,6 +88,7 @@ function selectorFactory(dispatch) {
 SaveContainer.propTypes = {
   saveAbout: React.PropTypes.func,
   save: React.PropTypes.func,
+  id: React.PropTypes.number,
   intl: intlShape.isRequired
 }
 SaveContainer.childContextTypes = {

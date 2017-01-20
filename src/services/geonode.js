@@ -2,23 +2,22 @@ import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransform
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
 import {getCRSFToken, removeTrailingSlash} from '../helper';
 const NEW_MAP_ENDPOINT = '/maps/new/data';
-const EDIT_MAP_ENDPOINT = '/maps/1/data';
 
 import 'whatwg-fetch'
 
 const createRequestObject = function(body) {
-    var myInit = {
-      method: 'POST',
-      credentials: 'same-origin',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': getCRSFToken()
-      },
-      body: body
-    };
+  return {
+    method: 'POST',
+    credentials: 'same-origin',
+    headers: {
+      'Content-Type': 'application/json',
+      'X-CSRFToken': getCRSFToken()
+    },
+    body: body
+  };
 }
-const saveEndPoint = (id=undefined) => {
-  return id ? `/maps/${id}/data`: NEW_MAP_ENDPOINT;
+const saveEndPoint = (id = undefined) => {
+  return id ? `/maps/${id}/data` : NEW_MAP_ENDPOINT;
 }
 const checkStatus = (response) => {
   if(response.status >= 200 && response.status < 300) {
@@ -32,7 +31,7 @@ const checkStatus = (response) => {
 }
 export const saveToGeonode = (server,config, id = undefined) => {
   var request = createRequestObject(JSON.stringify(config));
-  var requestPath = removeTrailingSlash(server)+saveEndPoint(id);
+  var requestPath = removeTrailingSlash(server) + saveEndPoint(id);
   return fetch(requestPath,request)
     .then(checkStatus)
     .then((response) => response.json())

@@ -62,14 +62,12 @@ Save.propTypes = {
   intl: intlShape.isRequired
 }
 function selectorFactory(dispatch) {
-  let ownProps = {};
   let result = {};
-  const save= (config) => {
+  const save = (config) => {
     dispatch(setMapConfig(config));
   }
   return (nextState, nextOwnProps) => {
     const nextResult = Object.assign({}, nextOwnProps, {save});
-    ownProps = nextOwnProps;
     result = nextResult;
     return result;
   }
