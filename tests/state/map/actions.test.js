@@ -1,5 +1,6 @@
 import configureMockStore from 'redux-mock-store';
 import thunk from 'redux-thunk';
+import td from 'testdouble';
 
 import * as types from '../../../src/state/actiontypes'
 import {getId, isEditing, setMapId, getOl3Map, setOl3Map, saveMap, saveMapError, saveMapSuccess, __RewireAPI__ as actionsRewireAPI} from '../../../src/state/map/actions';
@@ -46,13 +47,25 @@ describe('saveMap', () => {
     actionsRewireAPI.__Rewire__('saveToGeonode', function() {
       return Promise.resolve(result);
     });
-    const store = mockStore();
+    const store = mockStore({server: { url: 'http://geonode.org'}, map: { id: undefined}});
     const expectedActions = [
       { type: types.SAVE_MAP_SUCCESS, result: { result: '' }}
     ];
     return store.dispatch(saveMap())
     .then(() => {
       assert.deepEqual(store.getActions(), expectedActions);
+    });
+  });
+  it('calls saveToGeonode with server url and mapconfig', () => {
+    let server;
+    actionsRewireAPI.__Rewire__('saveToGeonode', function(server, config, id) {
+      return Promise.resolve({server, config, id});
+    });
+    const store = mockStore({server: { url: 'http://geonode.org'}, mapConfig: { test: true }, map: { id: undefined}});
+    return store.dispatch(saveMap())
+    .then((result) => {
+      assert.equal(result.result.server, 'http://geonode.org');
+      assert.deepEqual(result.result.config, {test: true});
     });
   });
 });

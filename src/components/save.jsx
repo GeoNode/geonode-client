@@ -5,8 +5,9 @@ import Button from 'boundless-sdk/components/Button';
 import classNames from 'classnames';
 import SaveIcon from 'material-ui/svg-icons/content/save';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
-import SaveDetailModal from './saveDetailModal';
-import {setMapConfig} from '../reducers/actions';
+import SaveContainer from './saveContainer';
+import {setMapConfig} from '../state/mapConfig/actions';
+import {getMapConfigFromMap} from '../services/geonode';
 import {connectAdvanced} from 'react-redux';
 
 const messages = defineMessages({
@@ -24,7 +25,7 @@ export class Save extends React.Component {
     };
   }
   _openSaveModal() {
-    this.props.onClick();
+    this.props.save(getMapConfigFromMap(this.props.map));
     this.refs.savemapmodal.getWrappedInstance().refs.wrappedInstance.open();
   }
   getStyles() {
@@ -53,7 +54,7 @@ Save.contextTypes = {
   muiTheme: React.PropTypes.object
 };
 Save.propTypes = {
-  onClick: React.PropTypes.func,
+  save: React.PropTypes.func,
   map: React.PropTypes.instanceOf(ol.Map).isRequired,
   className: React.PropTypes.string,
   tooltipPosition: React.PropTypes.oneOf(['bottom', 'bottom-right', 'bottom-left', 'right', 'left', 'top-right', 'top', 'top-left']),
@@ -63,11 +64,11 @@ Save.propTypes = {
 function selectorFactory(dispatch) {
   let ownProps = {};
   let result = {};
-  const onClick = () => {
-    dispatch(setMapConfig(ownProps.map));
+  const save= (config) => {
+    dispatch(setMapConfig(config));
   }
   return (nextState, nextOwnProps) => {
-    const nextResult = Object.assign({}, nextOwnProps, {onClick});
+    const nextResult = Object.assign({}, nextOwnProps, {save});
     ownProps = nextOwnProps;
     result = nextResult;
     return result;

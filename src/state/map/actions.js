@@ -30,10 +30,10 @@ export function saveMapSuccess(result) {
     result
   }
 }
-export const saveMap = () => {
+export function saveMap() {
   return (dispatch, getState) => {
     let state = getState();
-    return saveToGeonode(state.server, state.mapConfig, state.id)
+    return saveToGeonode(state.server.url, state.mapConfig, state.map.id)
     .then((json) => dispatch(saveMapSuccess(json)))
     .catch(ex => dispatch(saveMapError(ex)));
   }
