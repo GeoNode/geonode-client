@@ -15,7 +15,7 @@ module.exports = function (config) {
     preprocessors: {
       'tests/tests.bundle.js': [ 'webpack', 'sourcemap' ]
     },
-    frameworks: ['intl-shim', 'mocha'],
+    frameworks: ['intl-shim', 'mocha', 'chai'],
     reporters: [ 'mocha', 'coverage' ],
     webpack: webpackConfig,
     webpackServer: {

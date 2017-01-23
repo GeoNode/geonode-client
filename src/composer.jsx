@@ -5,7 +5,9 @@ import enMessages from 'boundless-sdk/locale/en.js';
 import {IntlProvider} from 'react-intl';
 import {Provider} from 'react-redux';
 import configureStore from './configureStore';
-import {setServer} from './reducers/actions';
+import {setServerUrl} from './state/server/actions';
+import {setMapId} from './state/map/actions';
+import {setMapConfig} from './state/mapConfig/actions';
 
 const store = configureStore();
 
@@ -15,6 +17,7 @@ class Composer {
     this._mapConfig = undefined;
     this._server = server;
     this._proxy = undefined;
+    this._mapId = undefined;
   }
   set server(value) {
     this._server = value;
@@ -25,8 +28,13 @@ class Composer {
   set proxy(value) {
     this._proxy = value;
   }
+  set mapId(value) {
+    this._mapId = value;
+  }
   compose(layerSources) {
-    store.dispatch(setServer(this._server));
+    store.dispatch(setServerUrl(this._server));
+    store.dispatch(setMapId(this._mapId));
+    store.dispatch(setMapConfig(this._mapConfig));
     ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider></Provider>, document.getElementById(this._domId));
   }
 }

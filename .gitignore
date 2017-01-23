@@ -4,3 +4,7 @@ _build/
 *.swp
 geonode-client/static/geonode-client
 dist/
+.tmp
+coverage/
+reports/
+django_geonode_client.egg-info/

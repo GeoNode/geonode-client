@@ -1,4 +1,4 @@
-import {SETMAP, SETABOUT} from '../constants/actiontypes';
+import {SET_MAP_CONFIG, SET_ABOUT} from '../actiontypes';
 
 let initialConfig = {
   defaultSourceType: '',
@@ -8,11 +8,11 @@ let initialConfig = {
 };
 const mapConfig = (state = initialConfig, action) => {
   switch(action.type) {
-    case SETABOUT:
+    case SET_ABOUT:
       return Object.assign({}, state, {
         about: action.about
       });
-    case SETMAP:
+    case SET_MAP_CONFIG:
       return Object.assign({}, state, action.config);
     default:
       return state;

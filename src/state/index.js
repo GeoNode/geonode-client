@@ -1,12 +1,12 @@
 import {combineReducers} from 'redux';
-import mapConfig from './mapConfig';
-import server from './server';
-import saveMap from './save_map';
+import mapConfig from './mapConfig/reducers';
+import server from './server/reducers';
+import map from './map/reducers';
 
 const rootReducer = combineReducers({
   mapConfig,
   server,
-  saveMap
+  map
 });
 
 export default rootReducer;
