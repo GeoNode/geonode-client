@@ -11,7 +11,7 @@ describe('saveToGeonode', () => {
     describe('success', () => {
       beforeEach(() => {
         fetchMock
-        .mock('http://geonode.org/maps/new/data', {result: ''});
+        .post('http://geonode.org/maps/new/data', {result: ''});
       });
       afterEach(() => {
         fetchMock.restore();
@@ -24,7 +24,7 @@ describe('saveToGeonode', () => {
       beforeEach(() => {
         server = 'http://geonode.org';
         fetchMock
-        .mock('http://geonode.org/maps/new/data', 404);
+        .post('http://geonode.org/maps/new/data', 404);
       });
       afterEach(() => {
         fetchMock.restore();
@@ -39,7 +39,7 @@ describe('saveToGeonode', () => {
     describe('success', () => {
       beforeEach(() => {
         fetchMock
-        .mock('http://geonode.org/maps/1/data', {result: ''});
+        .put('http://geonode.org/maps/1/data', {result: ''});
       });
       afterEach(() => {
         fetchMock.restore();
@@ -52,7 +52,7 @@ describe('saveToGeonode', () => {
       beforeEach(() => {
         server = 'http://geonode.org';
         fetchMock
-        .mock('http://geonode.org/maps/1/data', 404);
+        .put('http://geonode.org/maps/1/data', 404);
       });
       afterEach(() => {
         fetchMock.restore();
