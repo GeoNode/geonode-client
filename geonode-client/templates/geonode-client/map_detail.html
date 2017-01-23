@@ -41,10 +41,11 @@
         tools: [{ptype: "gxp_getfeedfeatureinfo"}],
 		};
 		var config = Object.assign( defaultConfig, {{ config|safe }});
-    var viewer = new window.Viewer('the_map', config);
-    if(config.proxy !== '') {
-      viewer.proxy = "{{PROXY_URL}}";
+    var options = {mapConfig: config};
+    if (config.proxy !== '') {
+      options.proxy = "{{PROXY_URL}}";
     }
+    var viewer = new window.Viewer('the_map', options);
     viewer.view();
 	});
 </script>

@@ -12,12 +12,12 @@ import {setMapConfig} from './state/mapConfig/actions';
 const store = configureStore();
 
 class Composer {
-  constructor(domId, server) {
+  constructor(domId, options) {
     this._domId = domId;
-    this._mapConfig = undefined;
-    this._server = server;
-    this._proxy = undefined;
-    this._mapId = undefined;
+    this._mapConfig = options.mapConfig;
+    this._server = options.server;
+    this._proxy = options.proxy;
+    this._mapId = options.mapId;
   }
   set server(value) {
     this._server = value;
