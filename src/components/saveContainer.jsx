@@ -62,7 +62,7 @@ export class SaveContainer extends React.Component {
     let editing = this.props.mapId ? true : false;
     return (
       <div className="save-view">
-        <SaveView ref='saveview' close={this.close.bind(this)} titleError={this.state.titleError} save={this.save.bind(this)} open={this.state.open} error={this.state.error} editing={editing} maptitle={this.props.mapTitle} saveAsNew={this.saveAsNew.bind(this)}/>
+        <SaveView ref='saveview' close={this.close.bind(this)} titleError={this.state.titleError} save={this.save.bind(this)} open={this.state.open} error={this.state.error} editing={editing} maptitle={this.props.mapTitle} mapabstract={this.props.mapAbstract} saveAsNew={this.saveAsNew.bind(this)}/>
       </div>
     )
   }
