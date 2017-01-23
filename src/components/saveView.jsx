@@ -79,6 +79,7 @@ export class SaveView extends React.Component {
     this.setState({
       open: false
     });
+    this.props.close();
   }
   _handleRequestClose() {
     this.setState({
@@ -97,9 +98,6 @@ export class SaveView extends React.Component {
   }
   _handleNewSave() {
     this.props.saveAsNew(this.refs.maptitle.getValue(), this.refs.mapabstract.getValue());
-  }
-  _handleClose() {
-    this.props.close();
   }
   render() {
     const {formatMessage} = this.props.intl;
@@ -144,8 +142,8 @@ export class SaveView extends React.Component {
   }
 }
 SaveView.propTypes = {
-  save: React.PropTypes.func,
-  close: React.PropTypes.func,
+  save: React.PropTypes.func.iSRequired,
+  close: React.PropTypes.func.iSRequired,
   open: React.PropTypes.bool,
   editing: React.PropTypes.bool,
   titleError: React.PropTypes.bool,

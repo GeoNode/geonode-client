@@ -97,8 +97,8 @@ function selectorFactory(dispatch) {
   }
 }
 SaveContainer.propTypes = {
-  saveAbout: React.PropTypes.func,
-  save: React.PropTypes.func,
+  saveAbout: React.PropTypes.func.isRequired,
+  save: React.PropTypes.func.isRequired,
   mapId: React.PropTypes.number,
   intl: intlShape.isRequired
 }
