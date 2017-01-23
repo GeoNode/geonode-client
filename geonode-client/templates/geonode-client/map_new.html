@@ -4,12 +4,16 @@
 {% client_composer_js	%}
 
 <style>
+	body {
+		padding-top: 0px !important;
+	}
 	#content {
 		position: relative;
-		margin-top: 15px;
 	}
 	#client-composer-map {
-		height: 100%;
+		position: absolute;
+		top: 72px;
+		height: calc(100% - 72px);
 		width: 100%;
 	}
 </style>

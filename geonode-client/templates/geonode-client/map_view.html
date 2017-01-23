@@ -4,13 +4,18 @@
 {% client_viewer_js	%}
 
 <style>
-	#content {
-		margin-top: 50px;
-	}
-	#client-viewer-map {
-		height: 100%;
-		width: 100%;
-	}
+        body {
+                padding-top: 0px !important;
+        }
+        #content {
+                position: relative;
+        }
+        #client-viewer-map {
+                position: absolute;
+                top: 72px;
+                height: calc(100% - 72px);
+                width: 100%;
+        }
 </style>
 
 <script type="text/javascript">
