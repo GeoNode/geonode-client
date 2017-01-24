@@ -78,9 +78,6 @@ html, body {
   width: 50%;
   left: 25%;
 	height: 25px;
-	background: rgb(0, 188, 212);
-	color: #fff;
-	padding: 5px;
   text-align: center;
 }
 .map-url-wrapper.hide {
