@@ -142,8 +142,8 @@ export class SaveView extends React.Component {
   }
 }
 SaveView.propTypes = {
-  save: React.PropTypes.func.iSRequired,
-  close: React.PropTypes.func.iSRequired,
+  save: React.PropTypes.func.isRequired,
+  close: React.PropTypes.func.isRequired,
   open: React.PropTypes.bool,
   editing: React.PropTypes.bool,
   titleError: React.PropTypes.bool,
