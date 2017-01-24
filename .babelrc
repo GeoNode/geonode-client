@@ -3,7 +3,7 @@
 	"plugins": ["react-hot-loader/babel"],
 	"env": {
 		"test": {
-			"plugins": ["rewire"],
+			"plugins": ["istanbul", "rewire"],
 			"presets": ["airbnb"]
 		}
 	}
