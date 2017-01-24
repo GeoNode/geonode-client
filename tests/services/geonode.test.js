@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock';
 
-import {saveToGeonode, getMapConfigFromMap, __RewireAPI__ as geonodeServiceRewireAPI} from '../../src/services/geonode';
+import {saveToGeonode, getMapConfigFromMap, login, __RewireAPI__ as geonodeServiceRewireAPI} from '../../src/services/geonode';
 
 describe('saveToGeonode', () => {
   beforeEach(function() {
@@ -78,5 +78,18 @@ describe('#getMapConfigFromMap', () => {
   });
   it('returns config', () => {
     assert.equal(getMapConfigFromMap({}),'Test');
+  });
+});
+describe('#login', () => {
+  let server = 'http://geonode.org';
+  beforeEach(() => {
+    fetchMock
+    .post('http://geonode.org/account/ajax_login', { session: ''});
+  });
+  afterEach(() => {
+    fetchMock.restore();
+  });
+  it('returns the session', () => {
+    return assert.becomes(login(server,'admin', 'admin'), {session: ''});
   });
 });
