@@ -18,6 +18,7 @@ class Composer {
     this._server = options.server;
     this._proxy = options.proxy;
     this._mapId = options.mapId;
+    this._printLayouts = options.printLayouts;
   }
   set server(value) {
     this._server = value;
@@ -31,11 +32,14 @@ class Composer {
   set mapId(value) {
     this._mapId = value;
   }
+  set printLayouts(value) {
+    this._printLayouts = value;
+  }
   compose(layerSources) {
     store.dispatch(setServerUrl(this._server));
     store.dispatch(setMapId(this._mapId));
     store.dispatch(setMapConfig(this._mapConfig));
-    ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider></Provider>, document.getElementById(this._domId));
+    ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer printLayouts={this._printLayouts} addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider></Provider>, document.getElementById(this._domId));
   }
 }
 
