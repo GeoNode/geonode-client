@@ -72,6 +72,25 @@ html, body {
 .layer-tree-panel {
   max-height: 94vh !important;
 }
+.map-url-wrapper {
+	position: absolute;
+  top: 0;
+  width: 50%;
+  left: 25%;
+	height: 25px;
+	background: rgb(0, 188, 212);
+	color: #fff;
+	padding: 5px;
+  text-align: center;
+}
+.map-url-wrapper.hide {
+	display: none;
+}
+.map-url-wrapper a {
+	padding: 10px;
+	color: #fff;
+	font-size: 0.8em;
+}
 #debug {
   position: absolute;
   top: 0;
