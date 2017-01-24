@@ -1,4 +1,4 @@
-import {isSaving, success, error, errorMessage} from '../../../src/state/map/selectors';
+import {isSaving, success, error, errorMessage, getMapId, getMapViewUrl} from '../../../src/state/map/selectors';
 
 describe('mapSelectors', () => {
   describe('#isSaving', () => {
@@ -72,6 +72,11 @@ describe('mapSelectors', () => {
       it('returns false', () => {
         assert.equal(errorMessage(state), undefined);
       });
+    });
+  });
+  describe('#getMapViewUrl', () => {
+    it('returns the url', () => {
+      assert.equal(getMapViewUrl({map: {id: 1},server: {url: 'http://geonode.org'}}), 'http://geonode.org/maps/1');
     });
   });
 });
