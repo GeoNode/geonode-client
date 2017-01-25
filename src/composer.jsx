@@ -6,7 +6,7 @@ import {IntlProvider} from 'react-intl';
 import {Provider} from 'react-redux';
 import configureStore from './configureStore';
 import {setServerUrl} from './state/server/actions';
-import {setMapId} from './state/map/actions';
+import {setMapId, setUserLoggedIn} from './state/map/actions';
 import {setMapConfig} from './state/mapConfig/actions';
 
 const store = configureStore();
@@ -18,6 +18,7 @@ class Composer {
     this._server = options.server;
     this._proxy = options.proxy;
     this._mapId = options.mapId;
+    this._userLoggedIn = options.userLoggedIn || false;
   }
   set server(value) {
     this._server = value;
@@ -35,6 +36,7 @@ class Composer {
     store.dispatch(setServerUrl(this._server));
     store.dispatch(setMapId(this._mapId));
     store.dispatch(setMapConfig(this._mapConfig));
+    store.dispatch(setUserLoggedIn(this._userLoggedIn));
     ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider></Provider>, document.getElementById(this._domId));
   }
 }
