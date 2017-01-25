@@ -47,7 +47,7 @@
         tools: [{ptype: "gxp_getfeedfeatureinfo"}],
     };
 		var config = Object.assign( defaultConfig, {{ config|safe }});
-		var options = {server: "{{SITEURL}}"};
+		var options = {server: "{{SITEURL}}", wmsServer: "{{ GEOSERVER_BASE_URL }}ows/", layer: new URLSearchParams(window.location.search).get('layer')};
 		if (config.proxy !== '') {
 			options.proxy = "{{PROXY_URL}}";
 		}

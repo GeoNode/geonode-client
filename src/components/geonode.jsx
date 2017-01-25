@@ -19,6 +19,7 @@ import enLocaleData from 'react-intl/locale-data/en.js';
 import InfoPopup from 'boundless-sdk/components/InfoPopup';
 import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransformService';
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
+import WMSService from 'boundless-sdk/services/WMSService';
 import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
@@ -64,6 +65,10 @@ class GeoNodeViewer extends React.Component {
     this.updateMap(this.props);
     this.mode = this.props.mode || 'viewer';
     this.edit = (this.mode === 'composer');
+    if (this.props.layer) {
+      var layer = WMSService.createLayer({Name: this.props.layer}, this.props.wmsServer, {title: this.props.layer}, map.getView().getProjection(), this.props.proxy);
+      map.addLayer(layer);
+    }
   }
   componentWillReceiveProps(props) {
     this.updateMap(props);
@@ -150,7 +155,9 @@ GeoNodeViewer.props = {
     url: React.PropTypes.string.isRequired,
     type: React.PropTypes.string.isRequired
   })),
-  printLayouts: React.PropTypes.array
+  printLayouts: React.PropTypes.array,
+  wmsServer: React.PropTypes.string,
+  layer: React.PropTypes.string
 };
 
 GeoNodeViewer.defaultProps = {
