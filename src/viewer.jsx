@@ -11,6 +11,7 @@ class Viewer {
     this._proxy = options.proxy;
     this._zoomToLayer = options.zoomToLayer;
     this._printLayouts = options.printLayouts;
+    this._theme = options.theme;
   }
   set mapConfig(value) {
     this._mapConfig = value;
@@ -24,8 +25,11 @@ class Viewer {
   set printLayouts(value) {
     this._printLayouts = value;
   }
+  set theme(value) {
+    this._theme = value;
+  }
   view() {
-    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer printLayouts={this._printLayouts} zoomToLayer={this._zoomToLayer} config={this._mapConfig} proxy={this._proxy} /></IntlProvider>, document.getElementById(this._domId));
+    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer theme={this._theme} printLayouts={this._printLayouts} zoomToLayer={this._zoomToLayer} config={this._mapConfig} proxy={this._proxy} /></IntlProvider>, document.getElementById(this._domId));
   }
 }
 

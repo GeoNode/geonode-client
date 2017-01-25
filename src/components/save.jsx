@@ -1,6 +1,5 @@
 import React from 'react';
 import ol from 'openlayers';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import Button from 'boundless-sdk/components/Button';
 import classNames from 'classnames';
 import SaveIcon from 'material-ui/svg-icons/content/save';
@@ -18,41 +17,25 @@ const messages = defineMessages({
   }
 });
 export class Save extends React.Component {
-  constructor(props, context) {
+  constructor(props) {
     super(props);
-    this.state = {
-      muiTheme: context.muiTheme || getMuiTheme()
-    };
   }
   _openSaveModal() {
     this.props.save(getMapConfigFromMap(this.props.map));
     this.refs.savemapmodal.getWrappedInstance().refs.wrappedInstance.open();
   }
-  getStyles() {
-    const muiTheme = this.state.muiTheme;
-    const rawTheme = muiTheme.rawTheme;
-    return {
-      root: Object.assign(this.props.style || {}, {
-        background: rawTheme.palette.primary1Color
-      })
-    };
-  }
   render() {
     const {formatMessage} = this.props.intl;
     const tooltip = formatMessage(messages.savetext);
     const icon = <SaveIcon/>;
-    let styles = this.getStyles();
     return (
       <div className="save-item">
-        <Button tooltipPosition={this.props.tooltipPosition} buttonType='Action' mini={true} secondary={true} className={classNames('geonode-save', this.props.className)} style={styles.root} tooltip={tooltip} onTouchTap={this._openSaveModal.bind(this)}>{icon}</Button>
+        <Button tooltipPosition={this.props.tooltipPosition} buttonType='Action' mini={true} secondary={true} className={classNames('geonode-save', this.props.className)} tooltip={tooltip} onTouchTap={this._openSaveModal.bind(this)}>{icon}</Button>
         <SaveContainer ref='savemapmodal' />
       </div>
     );
   }
 }
-Save.contextTypes = {
-  muiTheme: React.PropTypes.object
-};
 Save.propTypes = {
   save: React.PropTypes.func,
   map: React.PropTypes.instanceOf(ol.Map).isRequired,
