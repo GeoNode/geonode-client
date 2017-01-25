@@ -10,8 +10,9 @@ import {connectAdvanced} from 'react-redux';
 import SaveView from './saveView';
 
 export class SaveContainer extends React.Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
+    this._muiTheme = context.muiTheme || getMuiTheme();
     this.state = {
       error: false,
       errorOpen: false,
@@ -22,7 +23,7 @@ export class SaveContainer extends React.Component {
     };
   }
   getChildContext() {
-    return {muiTheme: getMuiTheme()};
+    return {muiTheme: this._muiTheme};
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.success && !nextProps.isSaving && !this.state.saved) {
