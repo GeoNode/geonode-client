@@ -5,6 +5,7 @@ export const GET_OL_MAP = 'GET_OL_MAP';
 export const SET_OL_MAP = 'SET_OL_MAP';
 export const SAVE_MAP_ERROR = 'SAVE_MAP_ERROR';
 export const SAVE_MAP_SUCCESS = 'SAVE_MAP_SUCCESS';
+export const SET_USER_LOGGED_IN = 'SET_USER_LOGGED_IN';
 export const SAVE_SERVER_URL = 'SAVE_SERVER_URL';
 export const SET_SERVER_URL = 'SET_SERVER_URL';
 export const GET_SERVER_URL = 'GET_SERVER_URL';

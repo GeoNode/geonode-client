@@ -1,7 +1,8 @@
-import {GET_MAP_ID, SET_MAP_ID, GET_IS_EDITING, SAVE_MAP_SUCCESS, SAVE_MAP_ERROR} from '../actiontypes';
+import {GET_MAP_ID, SET_MAP_ID, GET_IS_EDITING, SAVE_MAP_SUCCESS, SAVE_MAP_ERROR, SET_USER_LOGGED_IN} from '../actiontypes';
 
 const defaultState = {
   id: undefined,
+  userLoggedIn: false,
   save: {
     success: false,
     error: false,
@@ -27,6 +28,10 @@ const map = (state = defaultState, action) => {
     case SAVE_MAP_ERROR:
       return Object.assign({}, state, {
         save: {success: false, error: true, errorMessage: action.error}
+      });
+    case SET_USER_LOGGED_IN:
+      return Object.assign({}, state, {
+        userLoggedIn: action.loggedIn
       });
     default:
       return state;

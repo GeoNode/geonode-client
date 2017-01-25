@@ -1,8 +1,8 @@
 
-import {getId, isEditing, setMapId, getOl3Map, setOl3Map, saveMap, saveMapError, saveMapSuccess, __RewireAPI__ as actionsRewireAPI} from '../../../src/state/map/actions';
+import {getId, isEditing, setMapId, getOl3Map, setOl3Map, saveMap, saveMapError, saveMapSuccess, setUserLoggedIn, __RewireAPI__ as actionsRewireAPI} from '../../../src/state/map/actions';
 import map from '../../../src/state/map/reducers';
 import mapConfig from '../../../src/state/mapConfig/reducers';
-import {isSaving, success, error, errorMessage, getMapId} from '../../../src/state/map/selectors';
+import {isSaving, success, error, errorMessage, getMapId, isUserLoggedIn} from '../../../src/state/map/selectors';
 import {createStore, combineReducers} from 'redux';
 
 
@@ -62,3 +62,20 @@ describe('setMapId', () => {
     });
   });
 });
+describe('#isUserLoggedIn', () => {
+  let store;
+  beforeEach(() => {
+    store = createStore(combineReducers({map, mapConfig}));
+  });
+  it('is false by default', () => {
+    assert.equal(isUserLoggedIn(store.getState()), false);
+  });
+  describe('user is logged in', () => {
+    beforeEach(() => {
+      store.dispatch(setUserLoggedIn(true));
+    });
+    it('returns true', () => {
+      assert.equal(isUserLoggedIn(store.getState()), true);
+    });
+  });
+  });

@@ -17,3 +17,6 @@ export function errorMessage(state) {
 export function getMapId(state) {
   return state.map.id;
 }
+export function isUserLoggedIn(state) {
+  return state.map.userLoggedIn;
+}

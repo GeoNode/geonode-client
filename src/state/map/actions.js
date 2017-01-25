@@ -30,6 +30,12 @@ export function saveMapSuccess(result) {
     result
   };
 }
+export function setUserLoggedIn(loggedIn) {
+  return {
+    type: types.SET_USER_LOGGED_IN,
+    loggedIn: loggedIn
+  };
+}
 export function saveMap() {
   return (dispatch, getState) => {
     let state = getState();
