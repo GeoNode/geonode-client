@@ -46,5 +46,5 @@ export const getMapConfigFromMap = (map) => {
 export const login = (server, username, password) => {
   const requestPath = removeTrailingSlash(server) + '/account/ajax_login'
   const request = createRequestObject('POST', JSON.stringify({username: username, password: password}));
-  return fetch(requestPath, request).then(checkStatus).then( (response) => response.json())
+  return fetch(requestPath, request).then(checkStatus).then((response) => response.json())
 }
