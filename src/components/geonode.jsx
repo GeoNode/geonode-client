@@ -23,6 +23,7 @@ import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
 import Save from './save';
+import MapUrlLink from '../containers/MapUrlLink';
 
 import '../css/app.css'
 import 'boundless-sdk/dist/css/components.css';
@@ -109,7 +110,7 @@ class GeoNodeViewer extends React.Component {
         onRequestClose={this._handleRequestClose.bind(this)}
       />);
     }
-    let layerList, save = undefined;
+    let layerList, save, mapUrl;
     if(this.edit) {
       layerList = {
         sources: this.props.addLayerSources,
@@ -117,6 +118,7 @@ class GeoNodeViewer extends React.Component {
       };
       if(this.props.server) {
         save = (<div id='save-button' className='geonode-save'><Save map={map} /></div>);
+        mapUrl = (<MapUrlLink />);
       }
     }
     return (
@@ -131,6 +133,7 @@ class GeoNodeViewer extends React.Component {
         <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
         {save}
+        {mapUrl}
       </div>
     );
   }
