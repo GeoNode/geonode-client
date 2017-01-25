@@ -2,12 +2,13 @@ import React from 'react';
 import {injectIntl, intlShape} from 'react-intl';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {setAbout} from '../state/mapConfig/actions';
-import {saveMap, setMapId} from '../state/map/actions';
+import {saveMap, setMapId, ajaxLogin} from '../state/map/actions';
 import * as selectors from '../state/map/selectors';
 import * as mapConfigSelectors from '../state/mapConfig/selectors';
 import {connectAdvanced} from 'react-redux';
 
 import SaveView from './saveView';
+import LoginView from './loginView';
 
 export class SaveContainer extends React.Component {
   constructor(props) {
@@ -18,7 +19,8 @@ export class SaveContainer extends React.Component {
       open: false,
       success: false,
       isSaving: false,
-      saved: false
+      saved: false,
+      loginOpen: false
     };
   }
   getChildContext() {
@@ -30,6 +32,9 @@ export class SaveContainer extends React.Component {
     }
     if(nextProps.error && nextProps.msg) {
       this._setError(nextProps.msg);
+    }
+    if (nextProps.userLoggedIn && this.state.loginOpen) {
+      this.setState({loginOpen: false, open: true, success: false});
     }
   }
   _setError(msg) {
@@ -43,11 +48,18 @@ export class SaveContainer extends React.Component {
     this.setState({open: false});
   }
   open() {
-    this.setState({open: true, isSaving: true});
+    if(this.props.checkLogin && !this.props.userLoggedIn) {
+      this.setState({loginOpen: true});
+    } else {
+      this.setState({open: true, isSaving: true});
+    }
   }
   saveAsNew(mapTitle, mapAbstract) {
     this.props.resetMapId();
     this.save(mapTitle, mapAbstract);
+  }
+  login(username, password) {
+    this.props.loginUser(username, password);
   }
   save(mapTitle, mapAbstract) {
     if(mapTitle) {
@@ -59,10 +71,15 @@ export class SaveContainer extends React.Component {
     }
   }
   render() {
+    let loginView;
     let editing = this.props.mapId ? true : false;
+    if(this.props.checkLogin) {
+      loginView = (<LoginView open={this.state.loginOpen} login={this.login.bind(this)} />)
+    }
     return (
       <div className="save-view">
         <SaveView ref='saveview' close={this.close.bind(this)} titleError={this.state.titleError} save={this.save.bind(this)} open={this.state.open} error={this.state.error} editing={editing} maptitle={this.props.mapTitle} mapabstract={this.props.mapAbstract} saveAsNew={this.saveAsNew.bind(this)}/>
+        {loginView}
       </div>
     )
   }
@@ -78,6 +95,9 @@ function selectorFactory(dispatch) {
   const save = () => {
     dispatch(saveMap());
   }
+  const loginUser = (username, password) => {
+    dispatch(ajaxLogin(username, password));
+  }
   return (nextState, nextOwnProps) => {
     const newProps = {
       saveAbout,
@@ -89,7 +109,10 @@ function selectorFactory(dispatch) {
       mapId: selectors.getMapId(nextState),
       mapTitle: mapConfigSelectors.getMapTitle(nextState),
       mapAbstract: mapConfigSelectors.getMapAbstract(nextState),
-      msg: selectors.errorMessage(nextState)
+      msg: selectors.errorMessage(nextState),
+      loginUser,
+      userLoggedIn: selectors.isUserLoggedIn(nextState),
+      checkLogin: selectors.checkLogin(nextState)
     };
     const nextResult = Object.assign({}, nextOwnProps, newProps);
     result = nextResult;
