@@ -151,6 +151,24 @@ GeoNodeViewer.props = {
 };
 
 GeoNodeViewer.defaultProps = {
+  theme: {
+    floatingActionButton: {
+      iconColor: '#fff',
+      color: '#2c689c'
+    },
+    palette: {
+      primary1Color: '#2c689c',
+      primary2Color: '#2c689c',
+      primary3Color: '#2c689c',
+      accent1Color: '#2c689c',
+      accent2Color: '#2c689c',
+      accent3Color: '#2c689c',
+      textColor: '#2E506D',
+      secondaryTextColor: '#fff',
+      alternateTextColor: '#fff',
+      canvasColor: '#fff'
+    }
+  },
   printLayouts: [{"width": 297.0, "elements": [{"name": "Title", "height": 12.105490848585688, "width": 143.0648918469218, "y": 2.7512479201331113, "x": 5.777620632279534, "font": "", "type": "label", "id": "cc8bd50f36e44ac3a3e5daf48d038f7c", "size": 18}, {"height": 187.0, "width": 286.0, "grid": {"intervalX": 0.0, "intervalY": 0.0, "annotationEnabled": false, "crs": ""}, "y": 17.0, "x": 6.0, "type": "map", "id": "3bde6dd61cdf480eae1a67db59d74035"}], "thumbnail": "geonode_thumbnail.png", "name": "geonode", "height": 210.0}]
 };
 
