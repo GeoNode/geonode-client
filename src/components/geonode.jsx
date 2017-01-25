@@ -33,36 +33,6 @@ import 'boundless-sdk/dist/css/components.css';
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-var printLayouts = [{
-  name: 'Layout 1',
-  width: 420.0,
-  elements: [{
-    name: 'Title',
-    height: 40.825440467359044,
-    width: 51.98353115727002,
-    y: 39.25222551928783,
-    x: 221.77507418397624,
-    font: 'Helvetica',
-    type: 'label',
-    id: '24160ce7-34a3-4f25-a077-8910e4889681',
-    size: 18
-  }, {
-    height: 167.0,
-    width: 171.0,
-    grid: {
-      intervalX: 0.0,
-      intervalY: 0.0,
-      annotationEnabled: false,
-      crs: ''
-    },
-    y: 19.0,
-    x: 16.0,
-    type: 'map',
-    id: '3d532cb9-0eca-4e50-9f0a-ce29b1c7f5a6'
-  }],
-  height: 297.0
-}];
-
 addLocaleData(
   enLocaleData
 );
@@ -154,7 +124,7 @@ class GeoNodeViewer extends React.Component {
         {error}
         <MapPanel useHistory={true} id='map' map={map} extent={this._extent} />
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
-        <div id='print-button'><QGISPrint menu={false} map={map} layouts={printLayouts} /></div>
+        <div id='print-button'><QGISPrint menu={false} map={map} layouts={this.props.printLayouts} /></div>
         <div id='home-button'><HomeButton extent={this._extent} tooltipPosition='right' map={map} /></div>
         <div><LayerList showZoomTo={true} addBaseMap={{tileServices: undefined}} addLayer={layerList} showTable={true} allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
@@ -175,7 +145,12 @@ GeoNodeViewer.props = {
     title: React.PropTypes.string.isRequired,
     url: React.PropTypes.string.isRequired,
     type: React.PropTypes.string.isRequired
-  }))
+  })),
+  printLayouts: React.PropTypes.array
+};
+
+GeoNodeViewer.defaultProps = {
+  printLayouts: [{"width": 297.0, "elements": [{"name": "Title", "height": 12.105490848585688, "width": 143.0648918469218, "y": 2.7512479201331113, "x": 5.777620632279534, "font": "", "type": "label", "id": "cc8bd50f36e44ac3a3e5daf48d038f7c", "size": 18}, {"height": 187.0, "width": 286.0, "grid": {"intervalX": 0.0, "intervalY": 0.0, "annotationEnabled": false, "crs": ""}, "y": 17.0, "x": 6.0, "type": "map", "id": "3bde6dd61cdf480eae1a67db59d74035"}], "thumbnail": "geonode_thumbnail.png", "name": "geonode", "height": 210.0}]
 };
 
 GeoNodeViewer.childContextTypes = {
