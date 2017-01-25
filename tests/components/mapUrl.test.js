@@ -3,13 +3,14 @@ import {shallowRender, shallowRenderOutput } from '../testhelper';
 import ReactTestUtils from 'react-addons-test-utils';
 
 describe('mapUrl', () => {
-  let mapUrlComponent, url;
+  let mapUrlComponent, url, muiTheme;
   beforeEach(function() {
     url = 'http://geonode.org';
-		mapUrlComponent = shallowRenderOutput( <MapUrl text="Test" url={url}/> );
+    muiTheme = { palette: { primary1Color: '', alternateTextColor: ''}};
+		mapUrlComponent = shallowRenderOutput( <MapUrl text='Test' url={url} muiTheme={muiTheme}/> );
   });
 	it('exists', () => {
-		mapUrlComponent = shallowRender( <MapUrl /> );
+		mapUrlComponent = shallowRender( <MapUrl muiTheme={muiTheme} url='' text=''/> );
 		assert.isDefined(ReactTestUtils.isCompositeComponent(mapUrlComponent));
 	});
 	it('has a link with class map-url', () => {

@@ -4,13 +4,11 @@ import muiThemeable from 'material-ui/styles/muiThemeable';
 
 export class MapUrl extends React.Component {
   render() {
-    const background = this.props.muiTheme ? this.props.muiTheme.palette.primary1Color : '#fff';
-    const textColor = this.props.muiTheme ? this.props.muiTheme.palette.alternateTextColor : '#000';
-    const showHideClass = this.props.show ? '' : 'hide'
+    const showHideClass = this.props.show ? '' : 'hide';
     const content=[(<a key="link" href={this.props.url} className='map-url'>{this.props.text}</a>)];
     const style = {
-      background: background,
-      color: textColor,
+      background: this.props.muiTheme.palette.primary1Color,
+      color: this.props.muiTheme.palette.alternateTextColor,
       padding: '5px'
     }
     return (
