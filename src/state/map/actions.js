@@ -36,6 +36,12 @@ export function setUserLoggedIn(loggedIn) {
     loggedIn: loggedIn
   };
 }
+export function setCheckLogin(check) {
+  return {
+    type: types.SET_CHECK_LOGIN,
+    check: check
+  };
+}
 export function saveMap() {
   return (dispatch, getState) => {
     let state = getState();

@@ -1,4 +1,4 @@
-import {isSaving, success, error, errorMessage, isUserLoggedIn} from '../../../src/state/map/selectors';
+import {isSaving, success, error, errorMessage, isUserLoggedIn, checkLogin} from '../../../src/state/map/selectors';
 
 describe('mapSelectors', () => {
   describe('#isSaving', () => {
@@ -80,6 +80,14 @@ describe('mapSelectors', () => {
     });
     it('returns true if it was not successfull', () => {
       assert.equal(isUserLoggedIn({map: { userLoggedIn: true}}), true);
+    });
+  });
+  describe('#checkLogin', () => {
+    it('returns false by default', () => {
+      assert.equal(checkLogin({map: { checkLogin: false}}), false);
+    });
+    it('returns true if it was set', () => {
+      assert.equal(checkLogin({map: { checkLogin: true}}), true);
     });
   });
 });

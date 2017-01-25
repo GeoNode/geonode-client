@@ -20,3 +20,6 @@ export function getMapId(state) {
 export function isUserLoggedIn(state) {
   return state.map.userLoggedIn;
 }
+export function checkLogin(state) {
+  return state.map.checkLogin;
+}
