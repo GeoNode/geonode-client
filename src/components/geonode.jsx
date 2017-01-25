@@ -156,6 +156,9 @@ GeoNodeViewer.defaultProps = {
       iconColor: '#fff',
       color: '#2c689c'
     },
+    toolbar: {
+      backgroundColor: '#333'
+    },
     palette: {
       primary1Color: '#2c689c',
       primary2Color: '#2c689c',
