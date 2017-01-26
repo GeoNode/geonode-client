@@ -66,12 +66,21 @@ class GeoNodeViewer extends React.Component {
     this.mode = this.props.mode || 'viewer';
     this.edit = (this.mode === 'composer');
     if (this.props.layer) {
-      var layer = WMSService.createLayer({Name: this.props.layer}, this.props.wmsServer, {title: this.props.layer}, map.getView().getProjection(), this.props.proxy);
-      map.addLayer(layer);
+      WMSService.getCapabilities(this.props.wmsServer, this._getLayerInfo.bind(this), function() {}, this.props.proxy);
     }
   }
   componentWillReceiveProps(props) {
     this.updateMap(props);
+  }
+  _getLayerInfo(layerInfo, getMapUrl) {
+    for (var i = 0, ii = layerInfo.Layer.length; i < ii; ++i) {
+      if (layerInfo.Layer[i].Name === this.props.layer) {
+        var layer = WMSService.createLayer(layerInfo.Layer[i], getMapUrl || this.props.wmsServer, {title: layerInfo.Layer[i].Title}, map.getView().getProjection(), this.props.proxy);
+        map.addLayer(layer);
+        map.getView().fit(ol.proj.transformExtent(layer.get('EX_GeographicBoundingBox'), 'EPSG:4326', map.getView().getProjection()), map.getSize(), {constrainResolution: false});
+        break;
+      }
+    }
   }
   updateMap(props) {
     if (props.config) {
