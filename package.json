@@ -40,7 +40,7 @@
     "react-dom": "15.3.2",
     "react-intl": "^2.1.5",
     "react-tap-event-plugin": "1.0.0",
-    "boundless-sdk": "^0.10.17",
+    "boundless-sdk": "^0.10.18",
     "material-ui": "0.16.4",
     "ol3-cesium": "3.9.4",
     "openlayers": "3.19.0",
