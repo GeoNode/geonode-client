@@ -21,20 +21,13 @@ addons:
 env:
   global:
     secure: DPq7+qJnkDPeIwNrGZuObzhGBlSdY+8MDRH69iFEO+KKfZqvKr1WPW066+3n584kFFgfyBsieVjB8hAYcED4yOazW0+SdtRWCqYzQUzPs7Xperomym8GO1cmWmxq5VvUUxPAViWj5HtEzu4E8EnI2oKwTfPqWADBJoyq+snMb9sZOXHmYvXKH4ubRvGKMChMRh0SWBQfVxCdfkHGnXW53ANTrlwxtlow3MiQk+GKBTc0e7wjAwI79kSw29U/9WFmcIF7AOftxr48W2UXa1DebuquuUpSW5WDVDXj1hs9cFPgPfJLbQlj/Nvwdu/f0LNRRnlT8TrjxoyXLxekIlpfTu8yQWzlKqCM0DogQBpWzxQcynVw/djPn5Vu+6TTuJoHXBODOVm5caspga3oppHEZ1gRfoZRTsjQUUeGSTCLhSE7sVdJvnfauvH8m5fyEVA6wm70H8sap0b37UBW7JW+f87tVcdOq3zxvRj2xmEoyy2FrE484fB42/KdUEsxevvICp7URPzo1kz29QzwpwdM++U535joa3jzoMM1HMJzlai6rs3E5s/eZrKb+9XUSzBw54IvjHHshWcRkchhTThyXijdT/1o5/eRAHPU8OoA5eXj1f1ZSUl9N1PA9RfyCbNOQpoCJI2mZAi5gHCKV+yqwOsgEVlqWvjq3QX0wZ7EBk0=
-before_deploy: make package
+before_deploy: npm run dist
 deploy:
-  - provider: pypi
-    user: milafrerichs
-    password:
-      secure: RHujuX5HBoIWB+o/nuHdsnKBzMqS6SzWKm5m5TJbxjBCkZUgx6yj1BcSrvci1RTHOR1gA/l9HV9UdKKmxjGN3NVMHoRupdhuYKJkavFVLb+2arHK03AL3cJ/zFpE+a6qC83KhXWw2+tszPFlkDIXs2c78bSdNxwLgkRMa2xBgTpYkIReNkipPim1Mfk9t2J1GOGnGg1kw1mA6lLFapH9/y6SmCaamWpiTLVSEchQv1JS1qiGNiO496toKtPLn/dmKedj+/JcSwGL8Mt80jAmqmJ6mlVFafl5CaEB8kGOaEaQ5CUXjlowkleluT8uEdWCTsVxKbZ53s4hXXqmEnc3tDX3fhGjceE6gR9+vf14IQWPM6LgVqmVt8nBDaFYQ93DwyKruN5pNLMSCn49+OopheCVDmO4M+46z+NutQlNW5WgO3qqJDTBnhHYHNmm2UpSqzyKj3y+tzijUQxGnN9wG+2aX7ak4lG7z3YaNF42HyeTHjx0egaJJiATQPxJrt9KuKvk0Tb03gSXndT9z4TlvChRQvkrPfiaCQraiJoP20+NenX9itCpH7LNEhi4enZF5gN6phXNybkf11mBlDnoJK9/cJ/ihIxrxXbTKA+WtTFQqpRmEnhXIOlaFq/D+BPWuJT8/cakY166fdBEzq/68BhL7FqFHAeYdZI/74r0P/w=
-    on:
-      tags: true
-      distributions: sdist bdist_wheel
-      repo: GeoNode/geonode-client
-  - provider: releases
-    api_key:
-      secure: HIeKaYyORz/y7g5QCOXlO9KGOAQJ8hNwrmn0iuXoCqPQihwOrG8T9A+V4uqL/PB9hGqzvpXXowH052OZQP4vXR3y5Fx3lz0f2MeZXnALgAyZzxVlHvpXlD8BBz66800hn5u8uCfQq7L9KTDHG/GRzrVxygRew67oNUeyXPXegr7JicwO3A1gbr81TDCO7QDcc/Ut03fVhHyyjIR/xi94byg4eB4+bZQxKmDMc+lIHX4DIzYtDTYodqC4XBDYumEpHe8//xDZeDUG2T+k9a8BA4pIKaImBG07RFpqoeXhP1z+OUO4LpebDNoBAsNjrQFoi5jnfiCxza/hMkycfBsIJ7osPfuMFMCBhbax1+peZfbPmloQ+VdfSgT/CF5zou77j5RwWD1LGH73wG2xxUn5HHoM440hzJ+tu2kwiyCcL41GkrreVqPZYvhIziJ4ENp81ZnQySTd1lKXw98mysKprzPxcShP/nEkGeWAk/CngdFa7loLKu+559Bi19Orq1doNCSLAW5cf2kF0TKh1GK11M/F3jzj3QygeqHXp2A9LDRwzkSDlEF3qtmWPY553S0szGr7zID4Z0duBRy0n53tfcn5+qpM220nsKPWvlu9N1Yz4dNuQi+zKnConl++LzctzthFalB/rQSJwa6VQ0rM4jaFfKzyDPpo8Qdjxp4LRa4=
-    file: ''
-    on:
-      repo: GeoNode/geonode-client
-      tags: true
+  provider: pypi
+  user: milafrerichs
+  password:
+    secure: RHujuX5HBoIWB+o/nuHdsnKBzMqS6SzWKm5m5TJbxjBCkZUgx6yj1BcSrvci1RTHOR1gA/l9HV9UdKKmxjGN3NVMHoRupdhuYKJkavFVLb+2arHK03AL3cJ/zFpE+a6qC83KhXWw2+tszPFlkDIXs2c78bSdNxwLgkRMa2xBgTpYkIReNkipPim1Mfk9t2J1GOGnGg1kw1mA6lLFapH9/y6SmCaamWpiTLVSEchQv1JS1qiGNiO496toKtPLn/dmKedj+/JcSwGL8Mt80jAmqmJ6mlVFafl5CaEB8kGOaEaQ5CUXjlowkleluT8uEdWCTsVxKbZ53s4hXXqmEnc3tDX3fhGjceE6gR9+vf14IQWPM6LgVqmVt8nBDaFYQ93DwyKruN5pNLMSCn49+OopheCVDmO4M+46z+NutQlNW5WgO3qqJDTBnhHYHNmm2UpSqzyKj3y+tzijUQxGnN9wG+2aX7ak4lG7z3YaNF42HyeTHjx0egaJJiATQPxJrt9KuKvk0Tb03gSXndT9z4TlvChRQvkrPfiaCQraiJoP20+NenX9itCpH7LNEhi4enZF5gN6phXNybkf11mBlDnoJK9/cJ/ihIxrxXbTKA+WtTFQqpRmEnhXIOlaFq/D+BPWuJT8/cakY166fdBEzq/68BhL7FqFHAeYdZI/74r0P/w=
+  on:
+    tags: true
+    distributions: sdist bdist_wheel
+    repo: GeoNode/geonode-client
