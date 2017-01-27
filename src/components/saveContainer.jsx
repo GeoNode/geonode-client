@@ -54,12 +54,15 @@ export class SaveContainer extends React.Component {
       this.setState({open: true, isSaving: true});
     }
   }
-  saveAsNew(mapTitle, mapAbstract) {
-    this.props.resetMapId();
-    this.save(mapTitle, mapAbstract);
+  closeLogin() {
+    this.setState({loginOpen: false});
   }
   login(username, password) {
     this.props.loginUser(username, password);
+  }
+  saveAsNew(mapTitle, mapAbstract) {
+    this.props.resetMapId();
+    this.save(mapTitle, mapAbstract);
   }
   save(mapTitle, mapAbstract) {
     if(mapTitle) {
@@ -74,7 +77,7 @@ export class SaveContainer extends React.Component {
     let loginView;
     let editing = this.props.mapId ? true : false;
     if(this.props.checkLogin) {
-      loginView = (<LoginView open={this.state.loginOpen} login={this.login.bind(this)} />)
+      loginView = (<LoginView close={this.closeLogin.bind(this)} open={this.state.loginOpen} login={this.login.bind(this)} />)
     }
     return (
       <div className="save-view">

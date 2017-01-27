@@ -61,4 +61,17 @@ describe('SaveContainer', () => {
     wrapper.setProps({success: false, error: true, msg: 'Error'});
     expect(wrapper.state('error')).to.equal(true);
   });
+  it('shows the savieView once logged in', () => {
+    const wrapper = shallowWithIntl(<SaveContainer open={false}/>, {});
+    wrapper.setState({loginOpen: true});
+    wrapper.setProps({userLoggedIn: true});
+    expect(wrapper.state('loginOpen')).to.equal(false);
+    expect(wrapper.state('open')).to.equal(true);
+  });
+  it('calls loginuser prop on login', () => {
+    const loginuser = td.function();
+    const wrapper = shallowWithIntl(<SaveContainer open={false} loginUser={loginuser}/>, {});
+    wrapper.instance().login();
+    expect(loginuser).to.have.been.called;
+  });
 });
