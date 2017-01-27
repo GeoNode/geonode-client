@@ -84,12 +84,12 @@ describe('#login', () => {
   let server = 'http://geonode.org';
   beforeEach(() => {
     fetchMock
-    .post('http://geonode.org/account/ajax_login', { session: ''});
+    .post('http://geonode.org/account/ajax_login', "successful login");
   });
   afterEach(() => {
     fetchMock.restore();
   });
   it('returns the session', () => {
-    return assert.becomes(login(server,'admin', 'admin'), {session: ''});
+    return assert.becomes(login(server,'admin', 'admin'), true);
   });
 });

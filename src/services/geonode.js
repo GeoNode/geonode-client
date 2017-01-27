@@ -5,12 +5,12 @@ const NEW_MAP_ENDPOINT = '/maps/new/data';
 
 import 'whatwg-fetch';
 
-const createRequestObject = function(method, body) {
+const createRequestObject = function(method, body, contentType = 'application/json') {
   return {
     method: method,
     credentials: 'same-origin',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': contentType,
       'X-CSRFToken': getCRSFToken()
     },
     body: body
@@ -45,6 +45,6 @@ export const getMapConfigFromMap = (map) => {
 
 export const login = (server, username, password) => {
   const requestPath = removeTrailingSlash(server) + '/account/ajax_login'
-  const request = createRequestObject('POST', JSON.stringify({username: username, password: password}));
-  return fetch(requestPath, request).then(checkStatus).then((response) => response.json())
+  const request = createRequestObject('POST', encodeURI(`csrfmiddlewaretoken=${getCRSFToken()}&username=${username}&password=${password}`), 'application/x-www-form-urlencoded');
+  return fetch(requestPath, request).then(checkStatus).then((response) => true)
 }

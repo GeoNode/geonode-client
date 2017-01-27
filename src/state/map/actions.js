@@ -30,9 +30,9 @@ export function saveMapSuccess(result) {
     result
   };
 }
-export function saveUserLoginSuccess(result) {
+export function saveUserLoginSuccess() {
   return {
-    type: types.SET_USER_LOGED_IN,
+    type: types.SET_USER_LOGGED_IN,
     loggedIn: true
   };
 }
@@ -52,7 +52,7 @@ export function ajaxLogin(username, password) {
   return (dispatch, getState) => {
     let state = getState();
     return login(state.server.url, username, password)
-    .then((json) => dispatch(saveUserLoginSuccess(json)))
+    .then(() => dispatch(saveUserLoginSuccess()))
   };
 }
 export function saveMap() {
