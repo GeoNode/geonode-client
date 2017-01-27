@@ -27,6 +27,8 @@ deploy:
   user: milafrerichs
   password:
     secure: RHujuX5HBoIWB+o/nuHdsnKBzMqS6SzWKm5m5TJbxjBCkZUgx6yj1BcSrvci1RTHOR1gA/l9HV9UdKKmxjGN3NVMHoRupdhuYKJkavFVLb+2arHK03AL3cJ/zFpE+a6qC83KhXWw2+tszPFlkDIXs2c78bSdNxwLgkRMa2xBgTpYkIReNkipPim1Mfk9t2J1GOGnGg1kw1mA6lLFapH9/y6SmCaamWpiTLVSEchQv1JS1qiGNiO496toKtPLn/dmKedj+/JcSwGL8Mt80jAmqmJ6mlVFafl5CaEB8kGOaEaQ5CUXjlowkleluT8uEdWCTsVxKbZ53s4hXXqmEnc3tDX3fhGjceE6gR9+vf14IQWPM6LgVqmVt8nBDaFYQ93DwyKruN5pNLMSCn49+OopheCVDmO4M+46z+NutQlNW5WgO3qqJDTBnhHYHNmm2UpSqzyKj3y+tzijUQxGnN9wG+2aX7ak4lG7z3YaNF42HyeTHjx0egaJJiATQPxJrt9KuKvk0Tb03gSXndT9z4TlvChRQvkrPfiaCQraiJoP20+NenX9itCpH7LNEhi4enZF5gN6phXNybkf11mBlDnoJK9/cJ/ihIxrxXbTKA+WtTFQqpRmEnhXIOlaFq/D+BPWuJT8/cakY166fdBEzq/68BhL7FqFHAeYdZI/74r0P/w=
+  skip_cleanup: true
+  skip_upload_docs: true
   on:
     tags: true
     distributions: sdist bdist_wheel
