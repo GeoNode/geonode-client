@@ -47,13 +47,12 @@
         tools: [{ptype: "gxp_getfeedfeatureinfo"}],
     };
 		var config = Object.assign( defaultConfig, {{ config|safe }});
-		var options = {server: "{{SITEURL}}", wmsServer: "{{ GEOSERVER_BASE_URL }}ows/", layer: new URLSearchParams(window.location.search).get('layer')};
+		var options = {baseUrl: "{{ GEOSERVER_BASE_URL }}", sources: config.sources, server: "{{SITEURL}}", wmsServer: "{{ GEOSERVER_BASE_URL }}ows/", layer: new URLSearchParams(window.location.search).get('layer')};
 		if (config.proxy !== '') {
 			options.proxy = "{{PROXY_URL}}";
 		}
 		var composer = new window.Composer('client-composer-map', options);
-    		var layerSources = [{title: 'Local GeoServer', url: "{{ GEOSERVER_BASE_URL }}ows/", type: 'WMS'}];
-    		composer.compose(layerSources);
+    		composer.compose();
 	});
 </script>
 <div id="client-composer-map">

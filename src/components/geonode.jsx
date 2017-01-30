@@ -25,6 +25,7 @@ global.enMessages = enMessages;
 
 import Save from './save';
 import MapUrlLink from '../containers/MapUrlLink';
+import {getLocalGeoServer} from '../services/geonode';
 
 import '../css/app.css'
 import 'boundless-sdk/dist/css/components.css';
@@ -54,6 +55,7 @@ class GeoNodeViewer extends React.Component {
       errors: [],
       errorOpen: false
     };
+    this._local = getLocalGeoServer(props.sources, props.baseUrl);
   }
   getChildContext() {
     return {
@@ -120,7 +122,7 @@ class GeoNodeViewer extends React.Component {
     let layerList, save, mapUrl;
     if(this.edit) {
       layerList = {
-        sources: this.props.addLayerSources,
+        sources: [{title: this._local.title, url: this._local.url, type: 'WMS'}],
         allowUserInput: true
       };
       if(this.props.server) {
@@ -152,11 +154,6 @@ GeoNodeViewer.props = {
   theme: React.PropTypes.object,
   mode: React.PropTypes.string,
   server: React.PropTypes.string,
-  addLayerSources: React.PropTypes.arrayOf(React.PropTypes.shape({
-    title: React.PropTypes.string.isRequired,
-    url: React.PropTypes.string.isRequired,
-    type: React.PropTypes.string.isRequired
-  })),
   printLayouts: React.PropTypes.array,
   wmsServer: React.PropTypes.string,
   layer: React.PropTypes.string

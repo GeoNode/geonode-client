@@ -42,3 +42,11 @@ export const saveToGeonode = (server,config, id = undefined) => {
 export const getMapConfigFromMap = (map) => {
   return MapConfigTransformService.write(MapConfigService.save(map));
 };
+export const getLocalGeoServer = (sources, baseUrl) => {
+  for (var key in sources) {
+    var source = sources[key];
+    if (source.ptype === 'gxp_wmscsource' && source.url.indexOf(baseUrl) === 0 && source.url.indexOf('access_token') !== -1) {
+      return source;
+    }
+  }
+};
