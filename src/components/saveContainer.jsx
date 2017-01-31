@@ -1,14 +1,14 @@
 import React from 'react';
-import {injectIntl, intlShape} from 'react-intl';
+import {addLocaleData, injectIntl, intlShape} from 'react-intl';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {setAbout} from '../state/mapConfig/actions';
 import {saveMap, setMapId, ajaxLogin} from '../state/map/actions';
 import * as selectors from '../state/map/selectors';
 import * as mapConfigSelectors from '../state/mapConfig/selectors';
 import {connectAdvanced} from 'react-redux';
+import LoginModal from 'boundless-sdk/components/LoginModal';
 
 import SaveView from './saveView';
-import LoginView from './loginView';
 
 export class SaveContainer extends React.Component {
   constructor(props, context) {
@@ -78,7 +78,7 @@ export class SaveContainer extends React.Component {
     let loginView;
     let editing = this.props.mapId ? true : false;
     if(this.props.checkLogin) {
-      loginView = (<LoginView close={this.closeLogin.bind(this)} open={this.state.loginOpen} login={this.login.bind(this)} />)
+      loginView = (<LoginModal close={this.closeLogin.bind(this)} open={this.state.loginOpen} login={this.login.bind(this)} />)
     }
     return (
       <div className="save-view">
