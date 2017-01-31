@@ -4,14 +4,14 @@ node_js:
 - '6'
 script:
 - npm run test
-- codeclimate-test-reporter < reports/coverage/lcov.info
 before_script:
 - git config --global user.email "mila.frerichs@gmail.com"
 - git config --global user.name "Mila Frerichs"
 - git remote rm origin
 - git remote add origin https://milafrerichs:${GH_TOKEN}@github.com/GeoNode/geonode-client.git
 after_success:
-- "./.travis/deploy.sh"
+- "[[ $TRAVIS_BRANCH =~ (master|^v[0-9]+.[0-9]+) && $TRAVIS_PULL_REQUEST == 'false']] && npm run deploy"
+- "[[ $TRAVIS_BRANCH =~ (master|^v[0-9]+.[0-9]+) ]] && codeclimate-test-reporter < reports/coverage/lcov.info"
 cache:
   directories:
   - node_modules
