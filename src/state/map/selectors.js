@@ -1,3 +1,6 @@
+import {getServerUrl} from '../server/selectors'
+import {removeTrailingSlash} from '../../helper';
+import {VIEW_MAP_ENDPOINT} from '../../constants/server';
 
 function isError(state) {
   return (state.map.save.error && !state.map.save.success) ? true : false;
@@ -22,4 +25,7 @@ export function isUserLoggedIn(state) {
 }
 export function checkLogin(state) {
   return state.map.checkLogin;
+}
+export function getMapViewUrl(state) {
+  return `${removeTrailingSlash(getServerUrl(state))}${VIEW_MAP_ENDPOINT}${getMapId(state)}`;
 }

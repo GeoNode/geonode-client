@@ -55,8 +55,9 @@ const messages = defineMessages({
 });
 
 export class SaveView extends React.Component {
-  constructor(props) {
+  constructor(props, context) {
     super(props);
+    this._muiTheme = context.muiTheme || getMuiTheme();
     this.state = {
       open: this.props.open,
       maptititle: '',
@@ -64,7 +65,7 @@ export class SaveView extends React.Component {
     };
   }
   getChildContext() {
-    return {muiTheme: getMuiTheme()};
+    return {muiTheme: this._muiTheme};
   }
   componentWillReceiveProps(nextProps) {
     if (nextProps.titleError) {

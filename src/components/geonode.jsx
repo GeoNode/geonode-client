@@ -23,6 +23,7 @@ import enMessages from 'boundless-sdk/locale/en.js';
 global.enMessages = enMessages;
 
 import Save from './save';
+import MapUrlLink from '../containers/MapUrlLink';
 
 import '../css/app.css'
 import 'boundless-sdk/dist/css/components.css';
@@ -32,36 +33,6 @@ import 'boundless-sdk/dist/css/components.css';
 // Check this repo:
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
-
-var printLayouts = [{
-  name: 'Layout 1',
-  width: 420.0,
-  elements: [{
-    name: 'Title',
-    height: 40.825440467359044,
-    width: 51.98353115727002,
-    y: 39.25222551928783,
-    x: 221.77507418397624,
-    font: 'Helvetica',
-    type: 'label',
-    id: '24160ce7-34a3-4f25-a077-8910e4889681',
-    size: 18
-  }, {
-    height: 167.0,
-    width: 171.0,
-    grid: {
-      intervalX: 0.0,
-      intervalY: 0.0,
-      annotationEnabled: false,
-      crs: ''
-    },
-    y: 19.0,
-    x: 16.0,
-    type: 'map',
-    id: '3d532cb9-0eca-4e50-9f0a-ce29b1c7f5a6'
-  }],
-  height: 297.0
-}];
 
 addLocaleData(
   enLocaleData
@@ -86,7 +57,7 @@ class GeoNodeViewer extends React.Component {
   getChildContext() {
     return {
       proxy: this.props.proxy,
-      muiTheme: getMuiTheme()
+      muiTheme: getMuiTheme(this.props.theme)
     };
   }
   componentWillMount() {
@@ -139,7 +110,7 @@ class GeoNodeViewer extends React.Component {
         onRequestClose={this._handleRequestClose.bind(this)}
       />);
     }
-    let layerList, save = undefined;
+    let layerList, save, mapUrl;
     if(this.edit) {
       layerList = {
         sources: this.props.addLayerSources,
@@ -147,6 +118,7 @@ class GeoNodeViewer extends React.Component {
       };
       if(this.props.server) {
         save = (<div id='save-button' className='geonode-save'><Save map={map} /></div>);
+        mapUrl = (<MapUrlLink />);
       }
     }
     return (
@@ -154,13 +126,14 @@ class GeoNodeViewer extends React.Component {
         {error}
         <MapPanel useHistory={true} id='map' map={map} extent={this._extent} />
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
-        <div id='print-button'><QGISPrint menu={false} map={map} layouts={printLayouts} /></div>
-        <div id='home-button'><HomeButton tooltipPosition='right' map={map} /></div>
+        <div id='print-button'><QGISPrint menu={false} map={map} layouts={this.props.printLayouts} /></div>
+        <div id='home-button'><HomeButton extent={this._extent} tooltipPosition='right' map={map} /></div>
         <div><LayerList showZoomTo={true} addBaseMap={{tileServices: undefined}} addLayer={layerList} showTable={true} allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
         <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
         {save}
+        {mapUrl}
       </div>
     );
   }
@@ -169,13 +142,40 @@ class GeoNodeViewer extends React.Component {
 GeoNodeViewer.props = {
   config: React.PropTypes.object,
   proxy: React.PropTypes.string,
+  theme: React.PropTypes.object,
   mode: React.PropTypes.string,
   server: React.PropTypes.string,
   addLayerSources: React.PropTypes.arrayOf(React.PropTypes.shape({
     title: React.PropTypes.string.isRequired,
     url: React.PropTypes.string.isRequired,
     type: React.PropTypes.string.isRequired
-  }))
+  })),
+  printLayouts: React.PropTypes.array
+};
+
+GeoNodeViewer.defaultProps = {
+  theme: {
+    floatingActionButton: {
+      iconColor: '#fff',
+      color: '#2c689c'
+    },
+    toolbar: {
+      backgroundColor: '#333'
+    },
+    palette: {
+      primary1Color: '#2c689c',
+      primary2Color: '#2c689c',
+      primary3Color: '#2c689c',
+      accent1Color: '#2c689c',
+      accent2Color: '#2c689c',
+      accent3Color: '#2c689c',
+      textColor: '#2E506D',
+      secondaryTextColor: '#fff',
+      alternateTextColor: '#fff',
+      canvasColor: '#fff'
+    }
+  },
+  printLayouts: [{"width": 297.0, "elements": [{"name": "Title", "height": 12.105490848585688, "width": 143.0648918469218, "y": 2.7512479201331113, "x": 5.777620632279534, "font": "", "type": "label", "id": "cc8bd50f36e44ac3a3e5daf48d038f7c", "size": 18}, {"height": 187.0, "width": 286.0, "grid": {"intervalX": 0.0, "intervalY": 0.0, "annotationEnabled": false, "crs": ""}, "y": 17.0, "x": 6.0, "type": "map", "id": "3bde6dd61cdf480eae1a67db59d74035"}], "thumbnail": "geonode_thumbnail.png", "name": "geonode", "height": 210.0}]
 };
 
 GeoNodeViewer.childContextTypes = {

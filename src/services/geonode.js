@@ -1,7 +1,7 @@
 import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransformService';
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
 import {getCRSFToken, removeTrailingSlash} from '../helper';
-const NEW_MAP_ENDPOINT = '/maps/new/data';
+import {edit_map_endpoint, NEW_MAP_ENDPOINT} from '../constants/server'
 
 import 'whatwg-fetch';
 
@@ -17,7 +17,7 @@ const createRequestObject = function(method, body, contentType = 'application/js
   };
 };
 const saveEndPoint = (id = undefined) => {
-  return id ? `/maps/${id}/data` : NEW_MAP_ENDPOINT;
+  return id ? edit_map_endpoint(id) : NEW_MAP_ENDPOINT;
 };
 const saveMethod = (id = undefined) => {
   return id ? 'PUT' : 'POST';

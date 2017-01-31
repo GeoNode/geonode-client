@@ -1,4 +1,4 @@
-import {isSaving, success, error, errorMessage, isUserLoggedIn, checkLogin} from '../../../src/state/map/selectors';
+import {isSaving, success, error, errorMessage, getMapId, getMapViewUrl, isUserLoggedIn, checkLogin} from '../../../src/state/map/selectors';
 
 describe('mapSelectors', () => {
   describe('#isSaving', () => {
@@ -88,6 +88,11 @@ describe('mapSelectors', () => {
     });
     it('returns true if it was set', () => {
       assert.equal(checkLogin({map: { checkLogin: true}}), true);
+    });
+  });
+  describe('#getMapViewUrl', () => {
+    it('returns the url', () => {
+      assert.equal(getMapViewUrl({map: {id: 1},server: {url: 'http://geonode.org'}}), 'http://geonode.org/maps/1');
     });
   });
 });
