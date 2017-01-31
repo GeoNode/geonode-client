@@ -1,8 +1,12 @@
 sudo: false
-language: node_js
+language: python
 node_js:
 - '6'
+python:
+- "2.7"
 script:
+- nvm use 6
+- npm install
 - npm run test
 before_script:
 - git config --global user.email "mila.frerichs@gmail.com"
