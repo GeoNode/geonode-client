@@ -10,7 +10,7 @@ before_script:
 - git remote rm origin
 - git remote add origin https://milafrerichs:${GH_TOKEN}@github.com/GeoNode/geonode-client.git
 after_success:
-- "[[ $TRAVIS_BRANCH =~ (master|^v[0-9]+.[0-9]+) && $TRAVIS_PULL_REQUEST == 'false']] && npm run deploy"
+- "if [[ $TRAVIS_BRANCH =~ (master|^v[0-9]+.[0-9]+)] && $TRAVIS_PULL_REQUEST == 'false' ]]; then npm run deploy; fi;"
 - "[[ $TRAVIS_BRANCH =~ (master|^v[0-9]+.[0-9]+) ]] && codeclimate-test-reporter < reports/coverage/lcov.info"
 cache:
   directories:
