@@ -5,6 +5,7 @@ node_js:
 python:
 - "2.7"
 script:
+- nvm install 6
 - nvm use 6
 - npm install
 - npm run test
