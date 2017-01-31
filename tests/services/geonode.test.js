@@ -1,6 +1,6 @@
 import fetchMock from 'fetch-mock';
 
-import {saveToGeonode, getMapConfigFromMap, login, __RewireAPI__ as geonodeServiceRewireAPI} from '../../src/services/geonode';
+import {saveToGeonode, getLocalGeoServer, getMapConfigFromMap, login,  __RewireAPI__ as geonodeServiceRewireAPI} from '../../src/services/geonode';
 
 describe('saveToGeonode', () => {
   beforeEach(function() {
@@ -91,5 +91,11 @@ describe('#login', () => {
   });
   it('returns the session', () => {
     return assert.becomes(login(server,'admin', 'admin'), true);
+  });
+});
+describe('#getLocalGeoServer', () => {
+  it('returns local geoserver', () => {
+    let sources = {"1": {"ptype": "gxp_olsource"}, "0": {"url": "http://localhost:8080/geoserver/wms?access_token=Qq039tZU0UhzRlK1qpVMY562jI3wAn", "restUrl": "/gs/rest", "ptype": "gxp_wmscsource", "title": "Local Geoserver"}, "3": {"url": "http://localhost:8080/geoserver/wms", "restUrl": "/gs/rest", "ptype": "gxp_wmscsource", "title": "Local Geoserver"}, "2": {"ptype": "gxp_osmsource"}};
+    assert.equal(getLocalGeoServer(sources, 'http://localhost:8080/geoserver/').url, 'http://localhost:8080/geoserver/wms?access_token=Qq039tZU0UhzRlK1qpVMY562jI3wAn');
   });
 });

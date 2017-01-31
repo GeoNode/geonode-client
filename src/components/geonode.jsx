@@ -19,12 +19,14 @@ import enLocaleData from 'react-intl/locale-data/en.js';
 import InfoPopup from 'boundless-sdk/components/InfoPopup';
 import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransformService';
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
+import WMSService from 'boundless-sdk/services/WMSService';
 import enMessages from 'boundless-sdk/locale/en.js';
 enMessages["loginmodal.helptext"] = "Login to GeoNode";
 global.enMessages = enMessages;
 
 import Save from './save';
 import MapUrlLink from '../containers/MapUrlLink';
+import {getLocalGeoServer} from '../services/geonode';
 
 import '../css/app.css'
 import 'boundless-sdk/dist/css/components.css';
@@ -54,6 +56,7 @@ class GeoNodeViewer extends React.Component {
       errors: [],
       errorOpen: false
     };
+    this._local = getLocalGeoServer(props.sources, props.baseUrl);
   }
   getChildContext() {
     return {
@@ -65,6 +68,12 @@ class GeoNodeViewer extends React.Component {
     this.updateMap(this.props);
     this.mode = this.props.mode || 'viewer';
     this.edit = (this.mode === 'composer');
+    if (this.props.layer) {
+      WMSService.createLayerFromGetCaps(this.props.wmsServer, this.props.layer, map.getView().getProjection(), function(layer) {
+        map.addLayer(layer);
+        map.getView().fit(ol.proj.transformExtent(layer.get('EX_GeographicBoundingBox'), 'EPSG:4326', map.getView().getProjection()), map.getSize(), {constrainResolution: false});
+      }, this.props.proxy);
+    }
   }
   componentWillReceiveProps(props) {
     this.updateMap(props);
@@ -112,9 +121,9 @@ class GeoNodeViewer extends React.Component {
       />);
     }
     let layerList, save, mapUrl;
-    if(this.edit) {
+    if(this.edit && this._local) {
       layerList = {
-        sources: this.props.addLayerSources,
+        sources: [{title: this._local.title, url: this._local.url, type: 'WMS'}],
         allowUserInput: true
       };
       if(this.props.server) {
@@ -146,12 +155,9 @@ GeoNodeViewer.props = {
   theme: React.PropTypes.object,
   mode: React.PropTypes.string,
   server: React.PropTypes.string,
-  addLayerSources: React.PropTypes.arrayOf(React.PropTypes.shape({
-    title: React.PropTypes.string.isRequired,
-    url: React.PropTypes.string.isRequired,
-    type: React.PropTypes.string.isRequired
-  })),
-  printLayouts: React.PropTypes.array
+  printLayouts: React.PropTypes.array,
+  wmsServer: React.PropTypes.string,
+  layer: React.PropTypes.string
 };
 
 GeoNodeViewer.defaultProps = {

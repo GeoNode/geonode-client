@@ -48,3 +48,12 @@ export const login = (server, username, password) => {
   const request = createRequestObject('POST', encodeURI(`csrfmiddlewaretoken=${getCRSFToken()}&username=${username}&password=${password}`), 'application/x-www-form-urlencoded');
   return fetch(requestPath, request).then(checkStatus).then((response) => true)
 }
+
+export const getLocalGeoServer = (sources, baseUrl) => {
+  for (var key in sources) {
+    var source = sources[key];
+    if (source.ptype === 'gxp_wmscsource' && source.url.indexOf(baseUrl) === 0 && source.url.indexOf('access_token') !== -1) {
+      return source;
+    }
+  }
+};
