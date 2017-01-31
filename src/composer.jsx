@@ -20,6 +20,8 @@ class Composer {
     this._mapId = options.mapId;
     this._printLayouts = options.printLayouts;
     this._theme = options.theme;
+    this._layer = options.layer;
+    this._wmsServer = options.wmsServer;
   }
   set server(value) {
     this._server = value;
@@ -39,11 +41,17 @@ class Composer {
   set theme(value) {
     this._theme = value;
   }
+  set layer(value) {
+    this._layer = value;
+  }
+  set wmsServer(value) {
+    this._wmsServer = value;
+  }
   compose(layerSources) {
     store.dispatch(setServerUrl(this._server));
     store.dispatch(setMapId(this._mapId));
     store.dispatch(setMapConfig(this._mapConfig));
-    ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer theme={this._theme} printLayouts={this._printLayouts} addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider></Provider>, document.getElementById(this._domId));
+    ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer theme={this._theme} wmsServer={this._wmsServer} layer={this._layer} printLayouts={this._printLayouts} addLayerSources={layerSources} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider></Provider>, document.getElementById(this._domId));
   }
 }
 
