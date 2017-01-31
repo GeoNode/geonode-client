@@ -120,7 +120,7 @@ class GeoNodeViewer extends React.Component {
       />);
     }
     let layerList, save, mapUrl;
-    if(this.edit) {
+    if(this.edit && this._local) {
       layerList = {
         sources: [{title: this._local.title, url: this._local.url, type: 'WMS'}],
         allowUserInput: true
