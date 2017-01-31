@@ -1,5 +1,5 @@
 import React from 'react';
-import {addLocaleData, injectIntl, intlShape} from 'react-intl';
+import {injectIntl, intlShape} from 'react-intl';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {setAbout} from '../state/mapConfig/actions';
 import {saveMap, setMapId, ajaxLogin} from '../state/map/actions';
