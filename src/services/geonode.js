@@ -5,12 +5,12 @@ import {edit_map_endpoint, NEW_MAP_ENDPOINT} from '../constants/server'
 
 import 'whatwg-fetch';
 
-const createRequestObject = function(method, body) {
+const createRequestObject = function(method, body, contentType = 'application/json') {
   return {
     method: method,
     credentials: 'same-origin',
     headers: {
-      'Content-Type': 'application/json',
+      'Content-Type': contentType,
       'X-CSRFToken': getCRSFToken()
     },
     body: body
@@ -42,6 +42,13 @@ export const saveToGeonode = (server,config, id = undefined) => {
 export const getMapConfigFromMap = (map) => {
   return MapConfigTransformService.write(MapConfigService.save(map));
 };
+
+export const login = (server, username, password) => {
+  const requestPath = removeTrailingSlash(server) + '/account/ajax_login'
+  const request = createRequestObject('POST', encodeURI(`csrfmiddlewaretoken=${getCRSFToken()}&username=${username}&password=${password}`), 'application/x-www-form-urlencoded');
+  return fetch(requestPath, request).then(checkStatus).then((response) => true)
+}
+
 export const getLocalGeoServer = (sources, baseUrl) => {
   for (var key in sources) {
     var source = sources[key];

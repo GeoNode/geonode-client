@@ -1,5 +1,5 @@
 import * as types from '../actiontypes';
-import {saveToGeonode} from '../../services/geonode';
+import {saveToGeonode, login} from '../../services/geonode';
 
 
 export function getId() {
@@ -28,6 +28,31 @@ export function saveMapSuccess(result) {
   return {
     type: types.SAVE_MAP_SUCCESS,
     result
+  };
+}
+export function saveUserLoginSuccess() {
+  return {
+    type: types.SET_USER_LOGGED_IN,
+    loggedIn: true
+  };
+}
+export function setUserLoggedIn(loggedIn) {
+  return {
+    type: types.SET_USER_LOGGED_IN,
+    loggedIn: loggedIn
+  };
+}
+export function setCheckLogin(check) {
+  return {
+    type: types.SET_CHECK_LOGIN,
+    check: check
+  };
+}
+export function ajaxLogin(username, password) {
+  return (dispatch, getState) => {
+    let state = getState();
+    return login(state.server.url, username, password)
+    .then(() => dispatch(saveUserLoginSuccess()))
   };
 }
 export function saveMap() {

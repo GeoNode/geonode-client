@@ -1,10 +1,12 @@
 import map from '../../../src/state/map/reducers';
-import {GET_MAP_ID, SET_MAP_ID, GET_IS_EDITING, GET_OL3_MAP, SET_OL3_MAP, SAVE_MAP_SUCCESS, SAVE_MAP_ERROR} from '../../../src/state/actiontypes';
+import {GET_MAP_ID, SET_MAP_ID, GET_IS_EDITING, GET_OL3_MAP, SET_OL3_MAP, SAVE_MAP_SUCCESS, SAVE_MAP_ERROR, SET_USER_LOGGED_IN, SET_CHECK_LOGIN} from '../../../src/state/actiontypes';
 describe('map', () => {
   let defaultState;
   beforeEach(function() {
     defaultState = {
       id: undefined,
+      userLoggedIn: false,
+      checkLogin: false,
       save: {
         success: false,
         error: false,
@@ -57,6 +59,20 @@ describe('map', () => {
     it('sets the errorMessage and error', () => {
       let action = { type: SAVE_MAP_ERROR, error: {text: 'Failure'}};
       let state = Object.assign({}, defaultState, { save: { success: false, error: true, errorMessage: { text: 'Failure'}}});
+      assert.deepEqual(map(undefined, action), state);
+    });
+  });
+  describe('SET_USER_LOGGED_IN', () => {
+    it('sets if the user is logged in', () => {
+      let action = {type: SET_USER_LOGGED_IN, loggedIn: true};
+      let state = Object.assign({}, defaultState, { userLoggedIn: true});
+      assert.deepEqual(map(undefined, action), state);
+    });
+  });
+  describe('SET_CHECK_LOGIN', () => {
+    it('sets if the user is logged in', () => {
+      let action = {type: SET_CHECK_LOGIN, check: true};
+      let state = Object.assign({}, defaultState, { checkLogin: true});
       assert.deepEqual(map(undefined, action), state);
     });
   });

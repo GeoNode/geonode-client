@@ -21,6 +21,7 @@ import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransform
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
 import WMSService from 'boundless-sdk/services/WMSService';
 import enMessages from 'boundless-sdk/locale/en.js';
+enMessages["loginmodal.helptext"] = "Login to GeoNode";
 global.enMessages = enMessages;
 
 import Save from './save';

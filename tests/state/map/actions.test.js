@@ -3,7 +3,7 @@ import thunk from 'redux-thunk';
 import td from 'testdouble';
 
 import * as types from '../../../src/state/actiontypes'
-import {getId, isEditing, setMapId, getOl3Map, setOl3Map, saveMap, saveMapError, saveMapSuccess, __RewireAPI__ as actionsRewireAPI} from '../../../src/state/map/actions';
+import {getId, isEditing, setMapId, getOl3Map, setOl3Map, saveMap, saveMapError, saveMapSuccess, setUserLoggedIn, setCheckLogin, __RewireAPI__ as actionsRewireAPI} from '../../../src/state/map/actions';
 
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
@@ -67,5 +67,17 @@ describe('saveMap', () => {
       assert.equal(result.result.server, 'http://geonode.org');
       assert.deepEqual(result.result.config, {test: true});
     });
+  });
+});
+describe('#setUserLoggedIn', () => {
+  it('should create an action for SET_USER_LOGGED_IN', () => {
+    const expectedAction = {type: types.SET_USER_LOGGED_IN, loggedIn: true};
+    assert.deepEqual(setUserLoggedIn(true), expectedAction);
+  });
+});
+describe('#setCheckLogin', () => {
+  it('should create an action for SET_CHECK_LOGIN', () => {
+    const expectedAction = {type: types.SET_CHECK_LOGIN, check: true};
+    assert.deepEqual(setCheckLogin(true), expectedAction);
   });
 });
