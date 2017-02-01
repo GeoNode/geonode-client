@@ -26,7 +26,7 @@ global.enMessages = enMessages;
 
 import Save from './save';
 import MapUrlLink from '../containers/MapUrlLink';
-import {getLocalGeoServer} from '../services/geonode';
+import {getLocalGeoServer, getThumbnail} from '../services/geonode';
 
 import '../css/app.css'
 import 'boundless-sdk/dist/css/components.css';
@@ -48,6 +48,10 @@ var map = new ol.Map({
   ],
   view: new ol.View({center: [0, 0], zoom: 3})
 });
+
+global.createMapThumbnail = function() {
+  getThumbnail(map);
+};
 
 class GeoNodeViewer extends React.Component {
   constructor(props) {

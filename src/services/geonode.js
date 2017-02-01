@@ -57,3 +57,11 @@ export const getLocalGeoServer = (sources, baseUrl) => {
     }
   }
 };
+export const getThumbnail = (map) => {
+  map.once('postcompose', function(event) {
+    var canvas = event.context.canvas;
+    var data = canvas.toDataURL('image/png');
+    // TODO send to Django
+  });
+  map.renderSync();
+};
