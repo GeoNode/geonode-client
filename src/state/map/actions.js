@@ -1,5 +1,5 @@
 import * as types from '../actiontypes';
-import {saveToGeonode, login} from '../../services/geonode';
+import {saveToGeonode, login, saveThumbnail} from '../../services/geonode';
 
 
 export function getId() {
@@ -60,6 +60,7 @@ export function saveMap() {
     let state = getState();
     return saveToGeonode(state.server.url, state.mapConfig, state.map.id)
     .then((json) => dispatch(saveMapSuccess(json)))
+    .then((json) => saveThumbnail(state.olMap, json.result.id))
     .catch(ex => dispatch(saveMapError(ex)));
   };
 }

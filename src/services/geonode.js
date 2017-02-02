@@ -58,8 +58,11 @@ export const getLocalGeoServer = (sources, baseUrl) => {
     }
   }
 };
-export const getThumbnail = (map) => {
+export const getThumbnail = (map, opt_id) => {
   let url = new URL(window.location.href);
+  if (opt_id !== undefined) {
+    url.set('pathname', url.pathname.replace('new', opt_id));
+  }
   map.once('postcompose', function(event) {
     let canvas = event.context.canvas;
     let data = canvas.toDataURL('image/png');
