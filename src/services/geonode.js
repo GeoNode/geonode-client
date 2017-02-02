@@ -58,7 +58,7 @@ export const getLocalGeoServer = (sources, baseUrl) => {
     }
   }
 };
-export const getThumbnail = (map, opt_id) => {
+export const saveThumbnail = (map, opt_id) => {
   let url = new URL(window.location.href);
   if (opt_id !== undefined) {
     url.set('pathname', url.pathname.replace('new', opt_id));
