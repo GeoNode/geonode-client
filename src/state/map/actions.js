@@ -60,7 +60,20 @@ export function saveMap() {
     let state = getState();
     return saveToGeonode(state.server.url, state.mapConfig, state.map.id)
     .then((json) => dispatch(saveMapSuccess(json)))
-    .then((json) => saveThumbnail(state.olMap, json.result.id))
     .catch(ex => dispatch(saveMapError(ex)));
+  };
+}
+export function saveThumbnail() {
+  return (dispatch, getState) => {
+    let state = getState();
+    return saveThumbnail(state.olMap, state.map.id);
+  };
+}
+export function saveMapAndThumbnail() {
+  return (dispatch, getState) => {
+    return dispatch(saveMap()).then(() => {
+      let state = getState();
+      return dispatch(saveThumbnail());
+    });
   };
 }
