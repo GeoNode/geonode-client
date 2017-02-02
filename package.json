@@ -18,9 +18,9 @@
     "test:lint": "eslint src --ext .jsx,.js",
     "test:unit": "NODE_ENV=test ./node_modules/karma/bin/karma start --browsers PhantomJS --auto-watch",
     "deploy": "npm run build:gh-pages && git-directory-deploy --directory _build --branch gh-pages",
-		"geonode:mkdir": "mkdir -p geonode-client/static && mkdir -p geonode-client/static/geonode-client && mkdir -p geonode-client/static/geonode-client/js && mkdir -p geonode-client/static/geonode-client/cesium",
-		"geonode:cp": "cp dist/Viewer.min.js geonode-client/static/geonode-client/js/viewer.min.js && cp dist/Composer.min.js geonode-client/static/geonode-client/js/composer.min.js && cp -R dist/cesium/* geonode-client/static/geonode-client/cesium/",
-		"geonode:deploy": "npm run geonode:mkdir && npm run geonode:cp"
+    "geonode:mkdir": "mkdir -p geonode-client/static && mkdir -p geonode-client/static/geonode-client && mkdir -p geonode-client/static/geonode-client/js && mkdir -p geonode-client/static/geonode-client/cesium",
+    "geonode:cp": "cp dist/Viewer.min.js geonode-client/static/geonode-client/js/viewer.min.js && cp dist/Composer.min.js geonode-client/static/geonode-client/js/composer.min.js && cp -R dist/cesium/* geonode-client/static/geonode-client/cesium/",
+    "geonode:deploy": "npm run geonode:mkdir && npm run geonode:cp"
   },
   "main": "dist/viewer.js",
   "browser": "dist/viewer.js",
@@ -36,16 +36,17 @@
     "node": ">6"
   },
   "dependencies": {
-    "react": "15.3.2",
-    "react-dom": "15.3.2",
-    "react-intl": "^2.1.5",
-    "react-tap-event-plugin": "1.0.0",
     "boundless-sdk": "^0.10.20",
     "material-ui": "0.16.4",
     "ol3-cesium": "3.9.4",
     "openlayers": "3.19.0",
+    "react": "15.3.2",
+    "react-dom": "15.3.2",
+    "react-intl": "^2.1.5",
     "react-redux": "^5.0.0",
+    "react-tap-event-plugin": "1.0.0",
     "redux-thunk": "^2.1.0",
+    "url-parse": "^1.1.7",
     "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {

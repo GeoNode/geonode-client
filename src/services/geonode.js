@@ -2,6 +2,7 @@ import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransform
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
 import {getCRSFToken, removeTrailingSlash} from '../helper';
 import {edit_map_endpoint, NEW_MAP_ENDPOINT} from '../constants/server'
+import URL from 'url-parse';
 
 import 'whatwg-fetch';
 
@@ -58,10 +59,20 @@ export const getLocalGeoServer = (sources, baseUrl) => {
   }
 };
 export const getThumbnail = (map) => {
+  let url = new URL(window.location.href);
   map.once('postcompose', function(event) {
-    var canvas = event.context.canvas;
-    var data = canvas.toDataURL('image/png');
-    // TODO send to Django
+    let canvas = event.context.canvas;
+    let data = canvas.toDataURL('image/png');
+    let config = {
+      image: true,
+      data: data
+    };
+    var request = createRequestObject('POST', JSON.stringify(config));
+    var requestPath = removeTrailingSlash(url.pathname) + '/thumbnail';
+    return fetch(requestPath,request)
+      .then(checkStatus)
+      .then((response) => response.json())
+      .catch((ex) => Promise.reject(ex));
   });
   map.renderSync();
 };
