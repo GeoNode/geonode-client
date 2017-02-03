@@ -152,7 +152,7 @@ class GeoNodeViewer extends React.Component {
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div id='print-button'><QGISPrint menu={false} map={map} layouts={this.props.printLayouts} /></div>
         <div id='home-button'><HomeButton extent={this._extent} tooltipPosition='right' map={map} /></div>
-        <div><LayerList showZoomTo={true} addBaseMap={{tileServices: undefined}} addLayer={layerList} showTable={true} allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit} map={map} /></div>
+        <div><LayerList showZoomTo={true} addBaseMap={{tileServices: undefined}} addLayer={layerList} showTable={true} allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit || this.props.zoomToLayer} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
         <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
