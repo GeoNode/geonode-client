@@ -27,6 +27,7 @@ global.enMessages = enMessages;
 import Save from './save';
 import MapUrlLink from '../containers/MapUrlLink';
 import {getLocalGeoServer} from '../services/geonode';
+import {getCRSFToken} from '../helper';
 
 import '../css/app.css'
 import 'boundless-sdk/dist/css/components.css';
@@ -61,6 +62,7 @@ class GeoNodeViewer extends React.Component {
   getChildContext() {
     return {
       proxy: this.props.proxy,
+      requestHeaders: {'X-CSRFToken': getCRSFToken()},
       muiTheme: getMuiTheme(this.props.theme)
     };
   }
@@ -187,6 +189,7 @@ GeoNodeViewer.defaultProps = {
 
 GeoNodeViewer.childContextTypes = {
   proxy: React.PropTypes.string,
+  requestHeaders: React.PropTypes.object,
   muiTheme: React.PropTypes.object
 };
 
