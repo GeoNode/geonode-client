@@ -1,21 +1,26 @@
-{% include "geonode/ext_header.html" %}
-{% include "geonode/app_header.html" %}
-{% include "geonode/geo_header.html" %}
+{% load geonode_client_tags %}
+{% load url from future %}
 
-{% client_viewer_js	%}
+{% client_composer_js	%}
+
 <style>
+	body {
+		padding-top: 0px !important;
+	}
 	#content {
 		position: relative;
 	}
-	#map {
-		height: 600px;
+	#client-composer-map {
+		position: absolute;
+		top: 72px;
+		height: calc(100% - 72px);
+		width: 100%;
 	}
 </style>
 
 <script type="text/javascript">
-Ext.onReady(function() {
-{% autoescape off %}
-    var config = Ext.apply({
+	document.addEventListener('DOMContentLoaded', function () {
+    var defaultConfig = {
         authStatus: {% if user.is_authenticated %} 200{% else %} 401{% endif %},
         proxy: '{{ PROXY_URL }}',
         {% if MAPFISH_PRINT_ENABLED %}
@@ -40,9 +45,18 @@ Ext.onReady(function() {
         localCSWBaseUrl: "{{ CATALOGUE_BASE_URL }}",
         csrfToken: "{{ csrf_token }}",
         tools: [{ptype: "gxp_getfeedfeatureinfo"}],
-    }, {{ viewer }});
-    var viewer = new this.viewer('preview_map', config);
-    viewer.view();
-{% endautoescape %}
-});
+    };
+		var config = Object.assign( defaultConfig, {{ config|safe }});
+		var options = {baseUrl: "{{ GEOSERVER_BASE_URL }}", sources: config.sources, server: "{{SITEURL}}", wmsServer: "{{ GEOSERVER_BASE_URL }}ows/", mapConfig: config, mapId: "{{mapId}}"};
+		if (config.proxy !== '') {
+			options.proxy = "{{PROXY_URL}}";
+		}
+		{% if user.is_authenticated %}
+		options.userLoggedIn = true;
+		{% endif %}
+		var composer = new window.Composer('client-composer-map', options);
+		composer.compose();
+	});
 </script>
+<div id="client-composer-map">
+</div>
