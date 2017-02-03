@@ -2,6 +2,7 @@ import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransform
 import MapConfigService from 'boundless-sdk/services/MapConfigService';
 import {getCRSFToken, removeTrailingSlash} from '../helper';
 import {edit_map_endpoint, NEW_MAP_ENDPOINT} from '../constants/server'
+import URL from 'url-parse';
 
 import 'whatwg-fetch';
 
@@ -56,4 +57,25 @@ export const getLocalGeoServer = (sources, baseUrl) => {
       return source;
     }
   }
+};
+export const saveThumbnail = (map, opt_id) => {
+  let url = new URL(window.location.href);
+  if (opt_id !== undefined) {
+    url.set('pathname', url.pathname.replace('new', opt_id));
+  }
+  map.once('postcompose', function(event) {
+    let canvas = event.context.canvas;
+    let data = canvas.toDataURL('image/png');
+    let config = {
+      image: true,
+      data: data
+    };
+    var request = createRequestObject('POST', JSON.stringify(config));
+    var requestPath = removeTrailingSlash(url.pathname) + '/thumbnail';
+    return fetch(requestPath,request)
+      .then(checkStatus)
+      .then((response) => response.json())
+      .catch((ex) => Promise.reject(ex));
+  });
+  map.renderSync();
 };
