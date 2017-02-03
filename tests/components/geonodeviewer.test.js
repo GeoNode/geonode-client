@@ -5,6 +5,9 @@ import {assert} from 'chai';
 import ol from 'openlayers';
 
 import ReactTestUtils from 'react-addons-test-utils';
+import {shallowWithIntl} from '../testhelper';
+
+import LayerList from 'boundless-sdk/components/LayerList';
 
 import GeoNodeViewer from '../../src/components/geonode';
 import rendererWithIntl from '../../helper/renderWithIntl.js';
@@ -90,14 +93,43 @@ describe('GeoNodeViewer', () => {
     });
     describe('composer', () => {
       it('can remove layers', () => {
-        const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer mode='composer' addLayerSources={layerSources} config={config}/></IntlProvider>);
-        var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-item-remove');
-				assert.equal(contents.length, 1);
+        const wrapper = shallowWithIntl(<GeoNodeViewer mode='composer' config={config}/>, {});
+        assert.equal(wrapper.find(LayerList).prop('allowRemove'),true);
       });
       it('can add layers', () => {
-        const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer mode='composer' addLayerSources={layerSources} config={config}/></IntlProvider>);
+        const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer mode='composer' config={config}/></IntlProvider>);
         var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-add');
 				assert.equal(contents.length, 1);
+      });
+      it('does allow styling of layers', () => {
+        const wrapper = shallowWithIntl(<GeoNodeViewer mode='composer' config={config}/>, {});
+        assert.equal(wrapper.find(LayerList).prop('allowStyling'),true);
+      });
+      it('has addLayer list and uses server correctly', () => {
+        const layerList = {
+          sources: [{title: 'Local Geoserver', url: 'http://geonode.org/geoserver/wms', type: 'WMS'}],
+          allowUserInput: true
+        };
+        const wrapper = shallowWithIntl(<GeoNodeViewer mode='composer' server='http://geonode.org' config={config}/>, {});
+        assert.deepEqual(wrapper.find(LayerList).prop('addLayer'),layerList);
+      });
+      it('as addLayer list', () => {
+        const layerList = {
+          sources: [{title: 'Local Geoserver', url: 'undefined/geoserver/wms', type: 'WMS'}],
+          allowUserInput: true
+        };
+        const wrapper = shallowWithIntl(<GeoNodeViewer mode='composer' config={config}/>, {});
+        assert.deepEqual(wrapper.find(LayerList).prop('addLayer'),layerList);
+      });
+      it('as addLayer list', () => {
+        const sources = {'0': { ptype: 'gxp_wmscsource', url: 'http://geonode.org?access_token=1', title: 'test'}}
+        const baseUrl = 'http://geonode.org'
+        const layerList = {
+          sources: [{title: 'test', url: 'http://geonode.org?access_token=1', type: 'WMS'}],
+          allowUserInput: true
+        };
+        const wrapper = shallowWithIntl(<GeoNodeViewer mode='composer' sources={sources} baseUrl={baseUrl} config={config}/>, {});
+        assert.deepEqual(wrapper.find(LayerList).prop('addLayer'),layerList);
       });
     });
   });

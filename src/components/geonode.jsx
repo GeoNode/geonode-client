@@ -106,6 +106,21 @@ class GeoNodeViewer extends React.Component {
       errorOpen: false
     });
   }
+  _createLayerList() {
+    let layerList;
+    if(this._local) {
+      layerList = {
+        sources: [{title: this._local.title, url: this._local.url, type: 'WMS'}],
+        allowUserInput: true
+      };
+    } else {
+      layerList = {
+        sources: [{title: 'Local Geoserver', url: this.props.server+'/geoserver/wms', type: 'WMS'}],
+        allowUserInput: true
+      };
+    }
+    return layerList;
+  }
   render() {
     var error;
     if (this.state.errors.length > 0) {
@@ -121,11 +136,8 @@ class GeoNodeViewer extends React.Component {
       />);
     }
     let layerList, save, mapUrl;
-    if(this.edit && this._local) {
-      layerList = {
-        sources: [{title: this._local.title, url: this._local.url, type: 'WMS'}],
-        allowUserInput: true
-      };
+    if(this.edit) {
+      layerList = this._createLayerList();
       if(this.props.server) {
         save = (<div id='save-button' className='geonode-save'><Save map={map} /></div>);
         mapUrl = (<MapUrlLink />);
