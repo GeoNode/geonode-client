@@ -122,13 +122,13 @@ describe('GeoNodeViewer', () => {
         assert.deepEqual(wrapper.find(LayerList).prop('addLayer'),layerList);
       });
       it('as addLayer list', () => {
-        const sources = {'0': { ptype: 'gxp_wmscsource', url: 'http://geonode.org?access_token=1', title: 'test'}}
+        config.sources['0'] = {ptype: 'gxp_wmscsource', url: 'http://geonode.org?access_token=1', title: 'test'};
         const baseUrl = 'http://geonode.org'
         const layerList = {
           sources: [{title: 'test', url: 'http://geonode.org?access_token=1', type: 'WMS'}],
           allowUserInput: true
         };
-        const wrapper = shallowWithIntl(<GeoNodeViewer mode='composer' sources={sources} baseUrl={baseUrl} config={config}/>, {});
+        const wrapper = shallowWithIntl(<GeoNodeViewer mode='composer' baseUrl={baseUrl} config={config}/>, {});
         assert.deepEqual(wrapper.find(LayerList).prop('addLayer'),layerList);
       });
     });

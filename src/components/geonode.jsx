@@ -54,10 +54,11 @@ class GeoNodeViewer extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      tileServices: undefined,
       errors: [],
       errorOpen: false
     };
-    this._local = getLocalGeoServer(props.sources, props.baseUrl);
+    this._local = getLocalGeoServer(props.config.sources, props.baseUrl);
   }
   getChildContext() {
     return {
@@ -70,24 +71,19 @@ class GeoNodeViewer extends React.Component {
     this.updateMap(this.props);
     this.mode = this.props.mode || 'viewer';
     this.edit = (this.mode === 'composer');
-    if (this.props.layer) {
-      WMSService.createLayerFromGetCaps(this.props.wmsServer, this.props.layer, map.getView().getProjection(), function(layer) {
-        map.addLayer(layer);
-        map.getView().fit(ol.proj.transformExtent(layer.get('EX_GeographicBoundingBox'), 'EPSG:4326', map.getView().getProjection()), map.getSize(), {constrainResolution: false});
-      }, this.props.proxy);
-    }
   }
   componentWillReceiveProps(props) {
     this.updateMap(props);
   }
   updateMap(props) {
     if (props.config) {
+      var tileServices = [];
       var errors = [];
       var filteredErrors = [];
       if (props.zoomToLayer && props.config.map.layers[props.config.map.layers.length - 1].bbox) {
         this._extent = props.config.map.layers[props.config.map.layers.length - 1].bbox;
       }
-      MapConfigService.load(MapConfigTransformService.transform(props.config, errors), map, this.props.proxy);
+      MapConfigService.load(MapConfigTransformService.transform(props.config, errors, tileServices), map, this.props.proxy);
       for (var i = 0, ii = errors.length; i < ii; ++i) {
         // ignore the empty baselayer since we have checkbox now for base layer group
         if (errors[i].layer.type !== 'OpenLayers.Layer') {
@@ -99,7 +95,8 @@ class GeoNodeViewer extends React.Component {
       }
       this.setState({
         errors: filteredErrors,
-        errorOpen: true
+        errorOpen: true,
+        tileServices: tileServices
       });
     }
   }
@@ -152,7 +149,7 @@ class GeoNodeViewer extends React.Component {
         <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
         <div id='print-button'><QGISPrint menu={false} map={map} layouts={this.props.printLayouts} /></div>
         <div id='home-button'><HomeButton extent={this._extent} tooltipPosition='right' map={map} /></div>
-        <div><LayerList showZoomTo={true} addBaseMap={{tileServices: undefined}} addLayer={layerList} showTable={true} allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit || this.props.zoomToLayer} map={map} /></div>
+        <div><LayerList showZoomTo={true} addBaseMap={{tileServices: this.state.tileServices}} addLayer={layerList} showTable={true} allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit || this.props.zoomToLayer} map={map} /></div>
         <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
         <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
         <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
@@ -165,13 +162,12 @@ class GeoNodeViewer extends React.Component {
 
 GeoNodeViewer.props = {
   config: React.PropTypes.object,
+  loadMapConfig: React.PropTypes.bool,
   proxy: React.PropTypes.string,
   theme: React.PropTypes.object,
   mode: React.PropTypes.string,
   server: React.PropTypes.string,
-  printLayouts: React.PropTypes.array,
-  wmsServer: React.PropTypes.string,
-  layer: React.PropTypes.string
+  printLayouts: React.PropTypes.array
 };
 
 GeoNodeViewer.defaultProps = {

@@ -47,7 +47,7 @@
         tools: [{ptype: "gxp_getfeedfeatureinfo"}],
     };
 		var config = Object.assign( defaultConfig, {{ config|safe }});
-		var options = {baseUrl: "{{ GEOSERVER_BASE_URL }}", sources: config.sources, server: "{{SITEURL}}", wmsServer: "{{ GEOSERVER_BASE_URL }}ows/", layer: new URLSearchParams(window.location.search).get('layer')};
+		var options = {mapConfig: config, baseUrl: "{{ GEOSERVER_BASE_URL }}", sources: config.sources, server: "{{SITEURL}}", wmsServer: "{{ GEOSERVER_BASE_URL }}ows/"};
 		{% if user.is_authenticated %}
 			options.userLoggedIn = true;
 		{% endif %}

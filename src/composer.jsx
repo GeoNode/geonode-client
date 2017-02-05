@@ -22,9 +22,6 @@ class Composer {
     this._checkLogin = options.checkLogin || false;
     this._printLayouts = options.printLayouts;
     this._theme = options.theme;
-    this._layer = options.layer;
-    this._wmsServer = options.wmsServer;
-    this._sources = options.sources;
     this._baseUrl = options.baseUrl;
   }
   set server(value) {
@@ -45,19 +42,13 @@ class Composer {
   set theme(value) {
     this._theme = value;
   }
-  set layer(value) {
-    this._layer = value;
-  }
-  set wmsServer(value) {
-    this._wmsServer = value;
-  }
   compose() {
     store.dispatch(setServerUrl(this._server));
     store.dispatch(setMapId(this._mapId));
     store.dispatch(setMapConfig(this._mapConfig));
     store.dispatch(setCheckLogin(this._checkLogin));
     store.dispatch(setUserLoggedIn(this._userLoggedIn));
-    ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer baseUrl={this._baseUrl} sources={this._sources} theme={this._theme} wmsServer={this._wmsServer} layer={this._layer} printLayouts={this._printLayouts} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider></Provider>, document.getElementById(this._domId));
+    ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer baseUrl={this._baseUrl} theme={this._theme} printLayouts={this._printLayouts} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider></Provider>, document.getElementById(this._domId));
   }
 }
 
