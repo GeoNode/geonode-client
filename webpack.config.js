@@ -6,7 +6,6 @@ var APP_DIR = path.resolve(__dirname, '.');
 
 var plugins = [
   new webpack.ProvidePlugin({
-    'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
     'Intl': 'imports?this=>global!exports?global.Intl!intl'
   })
 ];
