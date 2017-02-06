@@ -2,6 +2,7 @@ import React from 'react';
 global.React = React;
 import ReactDOM from 'react-dom';
 global.ReactDOM = ReactDOM;
+import 'core-js/fn/object/assign';
 import ol from 'openlayers';
 import {addLocaleData, IntlProvider} from 'react-intl';
 global.IntlProvider = IntlProvider;
