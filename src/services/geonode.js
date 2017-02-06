@@ -3,8 +3,6 @@ import MapConfigService from 'boundless-sdk/services/MapConfigService';
 import {getCRSFToken, removeTrailingSlash} from '../helper';
 import {edit_map_endpoint, NEW_MAP_ENDPOINT} from '../constants/server'
 
-import 'whatwg-fetch';
-
 const createRequestObject = function(method, body, contentType = 'application/json') {
   return {
     method: method,

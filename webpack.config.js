@@ -4,7 +4,12 @@ var path = require('path');
 var BUILD_DIR = path.resolve(__dirname, 'dist');
 var APP_DIR = path.resolve(__dirname, '.');
 
-var plugins = [];
+var plugins = [
+  new webpack.ProvidePlugin({
+    'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+    'Intl': 'imports?this=>global!exports?global.Intl!intl'
+  })
+];
 var filename = '[name].js';
 var PROD = JSON.parse(process.env.BUILD_PROD || false);
 if(PROD) {
