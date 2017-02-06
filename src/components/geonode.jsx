@@ -87,7 +87,8 @@ class GeoNodeViewer extends React.Component {
       MapConfigService.load(MapConfigTransformService.transform(props.config, errors, tileServices), map, this.props.proxy);
       for (var i = 0, ii = errors.length; i < ii; ++i) {
         // ignore the empty baselayer since we have checkbox now for base layer group
-        if (errors[i].layer.type !== 'OpenLayers.Layer') {
+        // ignore the empty layer from the local source
+        if (errors[i].layer.type !== 'OpenLayers.Layer' && errors[i].msg !== 'Unable to load layer undefined') {
           if (window.console && window.console.warn) {
             window.console.warn(errors[i]);
           }
