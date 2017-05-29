@@ -27,7 +27,7 @@ global.enMessages = enMessages;
 
 import Save from './save';
 import MapUrlLink from '../containers/MapUrlLink';
-import {getLocalGeoServer} from '../services/geonode';
+import {getLocalGeoServer,createThumbnail} from '../services/geonode';
 import {getCRSFToken} from '../helper';
 
 import '../css/app.css'
@@ -55,34 +55,7 @@ var map = new ol.Map({
   })
 });
 window.setThumbnail = function(obj_id) {
-  map.once('postcompose', function(evt) {
-    var canvas = evt.context.canvas;
-    canvas.toBlob(function(blob) {
-      var url = window.location.pathname.replace('/view', '');
-
-      if (typeof obj_id != 'undefined' && url.indexOf('new')) {
-        url = url.replace('new', obj_id);
-      }
-      url += '/thumbnail/react';
-      var reader = new window.FileReader();
-      reader.readAsDataURL(blob);
-      reader.onloadend = function() {
-        fetch(url, {
-          method: 'POST',
-          credentials: "same-origin",
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-            "X-CSRFToken": getCRSFToken()
-          },
-          body: JSON.stringify({image: reader.result})
-        })
-      }
-
-    });
-  });
-  map.renderSync();
-
+    createThumbnail(obj_id,map)
 }
 
 class GeoNodeViewer extends React.Component {
