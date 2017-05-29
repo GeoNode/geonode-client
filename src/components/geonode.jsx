@@ -39,17 +39,51 @@ import 'boundless-sdk/dist/css/components.css';
 // https://github.com/zilverline/react-tap-event-plugin
 injectTapEventPlugin();
 
-addLocaleData(
-  enLocaleData
-);
+addLocaleData(enLocaleData);
 
 var map = new ol.Map({
-  controls: [new ol.control.Attribution({collapsible: false}), new ol.control.ScaleLine()],
-  layers: [
-    new ol.layer.Tile({title: 'OSM Streets', type: 'base', source: new ol.source.OSM()})
+  controls: [
+    new ol.control.Attribution({collapsible: false}),
+    new ol.control.ScaleLine()
   ],
-  view: new ol.View({center: [0, 0], zoom: 3})
+  layers: [new ol.layer.Tile({title: 'OSM Streets', type: 'base', source: new ol.source.OSM()})],
+  view: new ol.View({
+    center: [
+      0, 0
+    ],
+    zoom: 3
+  })
 });
+window.setThumbnail = function(obj_id) {
+  map.once('postcompose', function(evt) {
+    var canvas = evt.context.canvas;
+    canvas.toBlob(function(blob) {
+      var url = window.location.pathname.replace('/view', '');
+
+      if (typeof obj_id != 'undefined' && url.indexOf('new')) {
+        url = url.replace('new', obj_id);
+      }
+      url += '/thumbnail/react';
+      var reader = new window.FileReader();
+      reader.readAsDataURL(blob);
+      reader.onloadend = function() {
+        fetch(url, {
+          method: 'POST',
+          credentials: "same-origin",
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            "X-CSRFToken": getCRSFToken()
+          },
+          body: JSON.stringify({image: reader.result})
+        })
+      }
+
+    });
+  });
+  map.renderSync();
+
+}
 
 class GeoNodeViewer extends React.Component {
   constructor(props) {
@@ -64,7 +98,9 @@ class GeoNodeViewer extends React.Component {
   getChildContext() {
     return {
       proxy: this.props.proxy,
-      requestHeaders: {'X-CSRFToken': getCRSFToken()},
+      requestHeaders: {
+        'X-CSRFToken': getCRSFToken()
+      },
       muiTheme: getMuiTheme(this.props.theme)
     };
   }
@@ -95,28 +131,34 @@ class GeoNodeViewer extends React.Component {
           filteredErrors.push(errors[i]);
         }
       }
-      this.setState({
-        errors: filteredErrors,
-        errorOpen: true,
-        tileServices: tileServices
-      });
+      this.setState({errors: filteredErrors, errorOpen: true, tileServices: tileServices});
     }
   }
   _handleRequestClose() {
-    this.setState({
-      errorOpen: false
-    });
+    this.setState({errorOpen: false});
   }
   _createLayerList() {
     let layerList;
-    if(this._local) {
+    if (this._local) {
       layerList = {
-        sources: [{title: this._local.title, url: this._local.url, type: 'WMS'}],
+        sources: [
+          {
+            title: this._local.title,
+            url: this._local.url,
+            type: 'WMS'
+          }
+        ],
         allowUserInput: true
       };
     } else {
       layerList = {
-        sources: [{title: 'Local Geoserver', url: this.props.server+'/geoserver/wms', type: 'WMS'}],
+        sources: [
+          {
+            title: 'Local Geoserver',
+            url: this.props.server + '/geoserver/wms',
+            type: 'WMS'
+          }
+        ],
         allowUserInput: true
       };
     }
@@ -129,32 +171,33 @@ class GeoNodeViewer extends React.Component {
       for (var i = 0, ii = this.state.errors.length; i < ii; i++) {
         msg += this.state.errors[i].msg + '. ';
       }
-      error = (<Snackbar
-        autoHideDuration={5000}
-        open={this.state.errorOpen}
-        message={msg}
-        onRequestClose={this._handleRequestClose.bind(this)}
-      />);
+      error = (<Snackbar autoHideDuration={5000} open={this.state.errorOpen} message={msg} onRequestClose={this._handleRequestClose.bind(this)}/>);
     }
-    let layerList, save, mapUrl;
-    if(this.edit) {
+    let layerList,
+      save,
+      mapUrl;
+    if (this.edit) {
       layerList = this._createLayerList();
-      if(this.props.server) {
-        save = (<div id='save-button' className='geonode-save'><Save map={map} /></div>);
-        mapUrl = (<MapUrlLink />);
+      if (this.props.server) {
+        save = (
+          <div id='save-button' className='geonode-save'><Save map={map}/></div>
+        );
+        mapUrl = (<MapUrlLink/>);
       }
     }
     return (
-       <div id='content'>
+      <div id='content'>
         {error}
-        <MapPanel useHistory={true} id='map' map={map} extent={this._extent} />
-        <div id='globe-button'><Globe tooltipPosition='right' map={map} /></div>
-        <div id='print-button'><QGISPrint menu={false} map={map} layouts={this.props.printLayouts} /></div>
-        <div id='home-button'><HomeButton extent={this._extent} tooltipPosition='right' map={map} /></div>
-        <div><LayerList showZoomTo={true} addBaseMap={{tileServices: this.state.tileServices}} addLayer={layerList} showTable={true} allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit || this.props.zoomToLayer} map={map} /></div>
-        <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map} /></div>
-        <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map} /></div>
-        <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map} /></div>
+        <MapPanel useHistory={true} id='map' map={map} extent={this._extent}/>
+        <div id='globe-button'><Globe tooltipPosition='right' map={map}/></div>
+        <div id='print-button'><QGISPrint menu={false} map={map} layouts={this.props.printLayouts}/></div>
+        <div id='home-button'><HomeButton extent={this._extent} tooltipPosition='right' map={map}/></div>
+        <div><LayerList showZoomTo={true} addBaseMap={{
+        tileServices: this.state.tileServices
+      }} addLayer={layerList} showTable={true} allowReordering={true} includeLegend={true} allowRemove={this.edit} tooltipPosition='left' allowStyling={this.edit || this.props.zoomToLayer} map={map}/></div>
+        <div id='zoom-buttons'><Zoom tooltipPosition='right' map={map}/></div>
+        <div id='rotate-button'><Rotate autoHide={true} tooltipPosition='right' map={map}/></div>
+        <div id='popup' className='ol-popup'><InfoPopup toggleGroup='navigation' toolId='nav' infoFormat='application/vnd.ogc.gml' map={map}/></div>
         {save}
         {mapUrl}
       </div>
@@ -194,7 +237,40 @@ GeoNodeViewer.defaultProps = {
       canvasColor: '#fff'
     }
   },
-  printLayouts: [{"width": 297.0, "elements": [{"name": "Title", "height": 12.105490848585688, "width": 143.0648918469218, "y": 2.7512479201331113, "x": 5.777620632279534, "font": "", "type": "label", "id": "cc8bd50f36e44ac3a3e5daf48d038f7c", "size": 18}, {"height": 187.0, "width": 286.0, "grid": {"intervalX": 0.0, "intervalY": 0.0, "annotationEnabled": false, "crs": ""}, "y": 17.0, "x": 6.0, "type": "map", "id": "3bde6dd61cdf480eae1a67db59d74035"}], "thumbnail": "geonode_thumbnail.png", "name": "geonode", "height": 210.0}]
+  printLayouts: [
+    {
+      "width": 297.0,
+      "elements": [
+        {
+          "name": "Title",
+          "height": 12.105490848585688,
+          "width": 143.0648918469218,
+          "y": 2.7512479201331113,
+          "x": 5.777620632279534,
+          "font": "",
+          "type": "label",
+          "id": "cc8bd50f36e44ac3a3e5daf48d038f7c",
+          "size": 18
+        }, {
+          "height": 187.0,
+          "width": 286.0,
+          "grid": {
+            "intervalX": 0.0,
+            "intervalY": 0.0,
+            "annotationEnabled": false,
+            "crs": ""
+          },
+          "y": 17.0,
+          "x": 6.0,
+          "type": "map",
+          "id": "3bde6dd61cdf480eae1a67db59d74035"
+        }
+      ],
+      "thumbnail": "geonode_thumbnail.png",
+      "name": "geonode",
+      "height": 210.0
+    }
+  ]
 };
 
 GeoNodeViewer.childContextTypes = {
