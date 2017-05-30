@@ -72,7 +72,7 @@ export const createThumbnail = (obj_id, map) => {
       if (typeof obj_id != 'undefined' && url.indexOf('new')) {
         url = url.replace('new', obj_id);
       }
-      url += '/thumbnail/react';
+      url += '/thumbnail';
       var reader = new window.FileReader();
       reader.readAsDataURL(blob);
       reader.onloadend = function() {
@@ -85,7 +85,8 @@ export const createThumbnail = (obj_id, map) => {
             "X-CSRFToken": getCRSFToken()
           },
           body: JSON.stringify({
-            image: reader.result
+            image: reader.result,
+            preview:"react"
           })
         })
       }
