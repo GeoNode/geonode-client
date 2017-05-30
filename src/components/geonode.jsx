@@ -27,7 +27,7 @@ global.enMessages = enMessages;
 
 import Save from './save';
 import MapUrlLink from '../containers/MapUrlLink';
-import {getLocalGeoServer, createThumbnail} from '../services/geonode';
+import {getLocalGeoServer,createThumbnail} from '../services/geonode';
 import {getCRSFToken} from '../helper';
 
 import '../css/app.css'
@@ -55,7 +55,7 @@ var map = new ol.Map({
   })
 });
 window.setThumbnail = function(obj_id) {
-  createThumbnail(obj_id, map)
+    createThumbnail(obj_id,map)
 }
 
 class GeoNodeViewer extends React.Component {
@@ -87,16 +87,7 @@ class GeoNodeViewer extends React.Component {
   }
   updateMap(props) {
     if (props.config) {
-      var tileServices = [
-        {
-          name: 'Satellite',
-          description: 'ESRI world imagery',
-          endpoint: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',
-          standard: 'XYZ',
-          attribution: 'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community',
-          thumbnail: 'http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/0/0/0'
-        }
-      ];
+      var tileServices = [];
       var errors = [];
       var filteredErrors = [];
       if (props.zoomToLayer && props.config.map.layers[props.config.map.layers.length - 1].bbox) {
@@ -167,7 +158,6 @@ class GeoNodeViewer extends React.Component {
         mapUrl = (<MapUrlLink/>);
       }
     }
-    console.log(this.state);
     return (
       <div id='content'>
         {error}
