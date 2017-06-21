@@ -1,13 +1,32 @@
 import os
 from setuptools import setup, find_packages
+import subprocess
 
 here = os.path.abspath(os.path.dirname(__file__))
-with open(os.path.join(here, 'VERSION')) as version_file:
-        version = version_file.read().strip()
+
+
+def get_version(version=None):
+    "Returns a version number with commit id if the git repo is present"
+    with open(os.path.join(here, 'VERSION')) as version_file:
+            version = version_file.read().strip()
+    commit = None
+    repo_dir = os.path.dirname(os.path.abspath(__file__))
+    _commit = subprocess.Popen(
+        'git rev-parse --short HEAD',
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
+        shell=True,
+        cwd=repo_dir,
+        universal_newlines=True
+    )
+    commit = _commit.communicate()[0].partition('\n')[0]
+    if commit:
+        version = "%s.%s" % (version, commit)
+    return version
 
 setup(
     name='django-geonode-client',
-    version=version,
+    version=get_version(),
     author='Mila Frerichs',
     author_email='mila.frerichs@gmail.com',
     url='https://github.com/GeoNode/geonode-client',
