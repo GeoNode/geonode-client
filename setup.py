@@ -11,17 +11,20 @@ def get_version(version=None):
             version = version_file.read().strip()
     commit = None
     repo_dir = os.path.dirname(os.path.abspath(__file__))
-    _commit = subprocess.Popen(
-        'git rev-parse --short HEAD',
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-        shell=True,
-        cwd=repo_dir,
-        universal_newlines=True
-    )
-    commit = _commit.communicate()[0].partition('\n')[0]
+    try:
+        _commit = subprocess.Popen(
+            'git rev-parse --short HEAD',
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            shell=True,
+            cwd=repo_dir,
+            universal_newlines=True
+        )
+        commit = _commit.communicate()[0].partition('\n')[0]
+    except:
+        continue
     if commit:
-        version = "%s.%s" % (version, commit)
+        version = "{}.{}".format(version, commit)
     return version
 
 setup(
