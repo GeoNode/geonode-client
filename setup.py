@@ -9,7 +9,6 @@ def get_version(version=None):
     "Returns a version number with commit id if the git repo is present"
     with open(os.path.join(here, 'VERSION')) as version_file:
             version = version_file.read().strip()
-    commit = None
     repo_dir = os.path.dirname(os.path.abspath(__file__))
     try:
         _commit = subprocess.Popen(
@@ -22,7 +21,7 @@ def get_version(version=None):
         )
         commit = _commit.communicate()[0].partition('\n')[0]
     except:
-        continue
+        commit = None
     if commit:
         version = "{}.{}".format(version, commit)
     return version
