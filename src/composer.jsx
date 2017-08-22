@@ -23,6 +23,7 @@ class Composer {
     this._printLayouts = options.printLayouts;
     this._theme = options.theme;
     this._baseUrl = options.baseUrl;
+    this._crossOriginCredentials = options.crossOriginCredentials;
   }
   set server(value) {
     this._server = value;
@@ -48,7 +49,7 @@ class Composer {
     store.dispatch(setMapConfig(this._mapConfig));
     store.dispatch(setCheckLogin(this._checkLogin));
     store.dispatch(setUserLoggedIn(this._userLoggedIn));
-    ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer baseUrl={this._baseUrl} theme={this._theme} printLayouts={this._printLayouts} mode='composer' config={this._mapConfig} proxy={this._proxy} /></IntlProvider></Provider>, document.getElementById(this._domId));
+    ReactDOM.render(<Provider store={store}><IntlProvider locale='en' messages={enMessages}><GeonodeComposer baseUrl={this._baseUrl} theme={this._theme} printLayouts={this._printLayouts} mode='composer' config={this._mapConfig} proxy={this._proxy} crossOriginCredentials={this._crossOriginCredentials} /></IntlProvider></Provider>, document.getElementById(this._domId));
   }
 }
 

@@ -54,6 +54,11 @@
 		if (config.proxy !== '') {
 			options.proxy = "{{PROXY_URL}}";
 		}
+        if ("{{ MAP_CLIENT_USE_CROSS_ORIGIN_CREDENTIALS }}" == 'True') {
+          options.crossOriginCredentials = true;
+        } else {
+          options.crossOriginCredentials = false;
+        }
 		var composer = new window.Composer('client-composer-map', options);
     		composer.compose();
 	});
