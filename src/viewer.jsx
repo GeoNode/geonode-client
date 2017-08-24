@@ -12,6 +12,7 @@ class Viewer {
     this._zoomToLayer = options.zoomToLayer;
     this._printLayouts = options.printLayouts;
     this._theme = options.theme;
+    this._crossOriginCredentials = options.crossOriginCredentials;
   }
   set mapConfig(value) {
     this._mapConfig = value;
@@ -29,7 +30,7 @@ class Viewer {
     this._theme = value;
   }
   view() {
-    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer theme={this._theme} printLayouts={this._printLayouts} zoomToLayer={this._zoomToLayer} config={this._mapConfig} proxy={this._proxy} /></IntlProvider>, document.getElementById(this._domId));
+    ReactDOM.render(<IntlProvider locale='en' messages={enMessages}><GeoNodeViewer theme={this._theme} printLayouts={this._printLayouts} zoomToLayer={this._zoomToLayer} config={this._mapConfig} proxy={this._proxy} crossOriginCredentials={this._crossOriginCredentials} /></IntlProvider>, document.getElementById(this._domId));
   }
 }
 

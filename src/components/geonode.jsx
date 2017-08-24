@@ -93,7 +93,7 @@ class GeoNodeViewer extends React.Component {
       if (props.zoomToLayer && props.config.map.layers[props.config.map.layers.length - 1].bbox) {
         this._extent = props.config.map.layers[props.config.map.layers.length - 1].bbox;
       }
-      MapConfigService.load(MapConfigTransformService.transform(props.config, errors, tileServices), map, this.props.proxy);
+      MapConfigService.load(MapConfigTransformService.transform(props.config, errors, tileServices, props.crossOriginCredentials), map, this.props.proxy);
       for (var i = 0, ii = errors.length; i < ii; ++i) {
         // ignore the empty baselayer since we have checkbox now for base layer group
         // ignore the empty layer from the local source
@@ -185,7 +185,8 @@ GeoNodeViewer.props = {
   theme: React.PropTypes.object,
   mode: React.PropTypes.string,
   server: React.PropTypes.string,
-  printLayouts: React.PropTypes.array
+  printLayouts: React.PropTypes.array,
+  crossOriginCredentials: React.PropTypes.bool
 };
 
 GeoNodeViewer.defaultProps = {

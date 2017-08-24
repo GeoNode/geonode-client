@@ -45,6 +45,11 @@
     if (config.proxy !== '') {
       options.proxy = "{{PROXY_URL}}";
     }
+    if ("{{ MAP_CLIENT_USE_CROSS_ORIGIN_CREDENTIALS }}" == 'True') {
+      options.crossOriginCredentials = true;
+    } else {
+      options.crossOriginCredentials = false;
+    }
     var viewer = new window.Viewer('the_map', options);
     viewer.view();
 	});
