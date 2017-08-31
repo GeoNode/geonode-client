@@ -1,5 +1,5 @@
-import MapConfigTransformService from 'boundless-sdk/services/MapConfigTransformService';
-import MapConfigService from 'boundless-sdk/services/MapConfigService';
+import MapConfigTransformService from '@boundlessgeo/sdk/services/MapConfigTransformService';
+import MapConfigService from '@boundlessgeo/sdk/services/MapConfigService';
 import {
   getCRSFToken,
   removeTrailingSlash

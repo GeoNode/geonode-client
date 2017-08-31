@@ -36,12 +36,12 @@
     "node": ">6"
   },
   "dependencies": {
-    "boundless-sdk": "0.10.24",
+    "@boundlessgeo/sdk": "1.0.3",
     "core-js": "^2.4.1",
     "intl": "^1.2.5",
     "material-ui": "0.16.4",
     "ol3-cesium": "3.9.4",
-    "openlayers": "4.0.1",
+    "openlayers": "4.2.0",
     "react": "15.3.2",
     "react-dom": "15.3.2",
     "react-intl": "^2.1.5",
