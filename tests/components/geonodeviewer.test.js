@@ -57,7 +57,7 @@ describe('GeoNodeViewer', () => {
 		});
     it('the layer list includes layers name', () => {
 			const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer config={config}/></IntlProvider>);
-      var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-item');
+      var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-name');
 			assert.equal(contents[0].textContent,'Sprint_85');
     });
 		describe('two layers', () => {
@@ -87,7 +87,7 @@ describe('GeoNodeViewer', () => {
     describe('viewer (default)', () => {
       it('the layer list includes layers name', () => {
         const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer config={config}/></IntlProvider>);
-        var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-item');
+        var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-name');
         assert.equal(contents[0].textContent,'Sprint_85');
       });
     });
@@ -98,7 +98,7 @@ describe('GeoNodeViewer', () => {
       });
       it('can add layers', () => {
         const geonodeviewer = ReactTestUtils.renderIntoDocument(<IntlProvider locale="en"><GeoNodeViewer mode='composer' config={config}/></IntlProvider>);
-        var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'layer-list-add');
+        var contents = ReactTestUtils.scryRenderedDOMComponentsWithClass(geonodeviewer, 'ms-ogc-web-services');
 				assert.equal(contents.length, 1);
       });
       it('does allow styling of layers', () => {
