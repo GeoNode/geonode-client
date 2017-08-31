@@ -7,7 +7,7 @@ import ol from 'openlayers';
 import ReactTestUtils from 'react-addons-test-utils';
 import {shallowWithIntl} from '../testhelper';
 
-import LayerList from 'boundless-sdk/components/LayerList';
+import LayerList from '@boundlessgeo/sdk/components/LayerList';
 
 import GeoNodeViewer from '../../src/components/geonode';
 import rendererWithIntl from '../../helper/renderWithIntl.js';
