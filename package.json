@@ -1,6 +1,6 @@
 {
   "name": "geonode-viewer",
-  "version": "0.0.23",
+  "version": "1.0.0",
   "scripts": {
     "start": "mkdir -p dist && node_modules/.bin/webpack-dev-server --progress --colors --hot --inline",
     "build:js": "webpack",
