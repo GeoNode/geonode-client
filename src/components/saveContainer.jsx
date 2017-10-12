@@ -6,7 +6,7 @@ import {saveMap, setMapId, ajaxLogin} from '../state/map/actions';
 import * as selectors from '../state/map/selectors';
 import * as mapConfigSelectors from '../state/mapConfig/selectors';
 import {connectAdvanced} from 'react-redux';
-import LoginModal from 'boundless-sdk/components/LoginModal';
+import LoginModal from '@boundlessgeo/sdk/components/LoginModal';
 
 import SaveView from './saveView';
 

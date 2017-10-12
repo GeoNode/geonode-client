@@ -38,8 +38,18 @@ html, body {
   position: absolute;
   top: 20px;
 }
-.layer-list {
-  top: 74px !important;
+#layerlist {
+  position: absolute;
+  right: 0px;
+  top: 20px;
+}
+.layer-tree-panel {
+  margin-right: 70px;
+}
+.layerlistbutton {
+  position: absolute !important;
+  right: 20px;
+  top: 0px;
 }
 #rotate-button {
   top: 366px;

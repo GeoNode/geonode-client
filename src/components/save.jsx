@@ -1,6 +1,6 @@
 import React from 'react';
 import ol from 'openlayers';
-import Button from 'boundless-sdk/components/Button';
+import Button from '@boundlessgeo/sdk/components/Button';
 import classNames from 'classnames';
 import SaveIcon from 'material-ui/svg-icons/content/save';
 import {defineMessages, injectIntl, intlShape} from 'react-intl';
