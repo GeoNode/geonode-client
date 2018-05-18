@@ -1,6 +1,6 @@
 {
   "name": "geonode-viewer",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "start": "mkdir -p dist && node_modules/.bin/webpack-dev-server --progress --colors --hot --inline",
     "build:js": "webpack",
@@ -36,7 +36,7 @@
     "node": ">6"
   },
   "dependencies": {
-    "@boundlessgeo/sdk": "1.0.9",
+    "@boundlessgeo/sdk": "1.1.0",
     "core-js": "^2.4.1",
     "intl": "^1.2.5",
     "material-ui": "0.16.4",
