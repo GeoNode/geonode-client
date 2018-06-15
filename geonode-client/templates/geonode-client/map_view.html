@@ -52,7 +52,51 @@
       options.proxy = "{{PROXY_URL}}";
     }
     if ("{{ MAP_CLIENT_USE_CROSS_ORIGIN_CREDENTIALS }}" == 'True') {
+      var checkUrlCORSCompatible = function(url) {
+        return new Promise(function(resolve, reject) {
+          var xhr = new XMLHttpRequest();
+          var response;
+          xhr.open("GET", url, true);
+          xhr.withCredentials = true;
+          xhr.onload = function() {
+            if (this.status >= 200 && this.status < 400 && xhr.response != null) {
+              // We don't care as long as it worked
+              resolve(true);
+            } else {
+              reject({
+                status: this.status,
+                statusText: this.statusText
+              });
+            }
+          };
+          xhr.onerror = function() {
+            reject({
+              status: this.status,
+              statusText: this.statusText
+            });
+          };
+          xhr.send();
+        });
+      };
       options.crossOriginCredentials = true;
+      var layers = [], urls = [];
+      {% for layer in layers %}
+      layers[{{ forloop.counter0 }}] = '{{ layer.name }}';
+      urls[{{ forloop.counter0 }}] = '{{ layer.ows_url }}';
+      {% endfor %}
+      for (var i = 0; i < urls.length; i++) {
+        // TODO: More robust solution requires CORS policy per layer instead of for whole map
+        if (options.crossOriginCredentials == true && urls[i] != 'None') {
+            checkUrlCORSCompatible(urls[i]).then(function(response) {
+                continue;
+            }).catch(function(err){
+                console.log("Layer " + layers[i] + "'s service (url: " + urls[i] + ") is not CORS compatible.");
+                console.log("Status error: ", err.statusText);
+                console.log("Therefore, making all requests anonymously instead of with credentials");
+                options.crossOriginCredentials = false;
+            });
+        }
+      }
     } else {
       options.crossOriginCredentials = false;
     }
