@@ -52,32 +52,6 @@
       options.proxy = "{{PROXY_URL}}";
     }
     if ("{{ MAP_CLIENT_USE_CROSS_ORIGIN_CREDENTIALS }}" == 'True') {
-      var checkUrlCORSCompatible = function(url) {
-        return new Promise(function(resolve, reject) {
-          var xhr = new XMLHttpRequest();
-          var response;
-          xhr.open("GET", url, true);
-          xhr.withCredentials = true;
-          xhr.onload = function() {
-            if (this.status >= 200 && this.status < 400 && xhr.response != null) {
-              // We don't care as long as it worked
-              resolve(true);
-            } else {
-              reject({
-                status: this.status,
-                statusText: this.statusText
-              });
-            }
-          };
-          xhr.onerror = function() {
-            reject({
-              status: this.status,
-              statusText: this.statusText
-            });
-          };
-          xhr.send();
-        });
-      };
       options.crossOriginCredentials = true;
       var layers = [], urls = [];
       {% for layer in layers %}
