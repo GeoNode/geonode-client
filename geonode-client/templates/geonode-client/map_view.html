@@ -53,6 +53,24 @@
     }
     if ("{{ MAP_CLIENT_USE_CROSS_ORIGIN_CREDENTIALS }}" == 'True') {
       options.crossOriginCredentials = true;
+      var layers = [], urls = [];
+      {% for layer in layers %}
+      layers[{{ forloop.counter0 }}] = '{{ layer.name }}';
+      urls[{{ forloop.counter0 }}] = '{{ layer.ows_url }}';
+      {% endfor %}
+      for (var i = 0; i < urls.length; i++) {
+        // TODO: More robust solution requires CORS policy per layer instead of for whole map
+        if (options.crossOriginCredentials == true && urls[i] != 'None') {
+            checkUrlCORSCompatible(urls[i]).then(function(response) {
+                continue;
+            }).catch(function(err){
+                console.log("Layer " + layers[i] + "'s service (url: " + urls[i] + ") is not CORS compatible.");
+                console.log("Status error: ", err.statusText);
+                console.log("Therefore, making all requests anonymously instead of with credentials");
+                options.crossOriginCredentials = false;
+            });
+        }
+      }
     } else {
       options.crossOriginCredentials = false;
     }

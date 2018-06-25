@@ -33,6 +33,33 @@ import {getCRSFToken} from '../helper';
 import '../css/app.css'
 import '@boundlessgeo/sdk/dist/css/components.css';
 
+global.checkUrlCORSCompatible = function(url) {
+  return new Promise(function(resolve, reject) {
+    var xhr = new XMLHttpRequest();
+    var response;
+    xhr.open("GET", url, true);
+    xhr.withCredentials = true;
+    xhr.onload = function() {
+      if (this.status >= 200 && this.status < 400 && xhr.response != null) {
+        // We don't care as long as it worked
+        resolve(true);
+      } else {
+        reject({
+          status: this.status,
+          statusText: this.statusText
+        });
+      }
+    };
+    xhr.onerror = function() {
+      reject({
+        status: this.status,
+        statusText: this.statusText
+      });
+    };
+    xhr.send();
+  });
+};
+
 // Needed for onTouchTap
 // Can go away when react 1.0 release
 // Check this repo:

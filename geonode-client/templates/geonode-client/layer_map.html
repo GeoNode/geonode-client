@@ -44,7 +44,14 @@
       options.proxy = "{{PROXY_URL}}";
     }
     if ("{{ MAP_CLIENT_USE_CROSS_ORIGIN_CREDENTIALS }}" == 'True') {
-      options.crossOriginCredentials = true;
+      var checkUrl = "{{ resource.service.base_url }}";
+      checkUrlCORSCompatible(checkUrl).then(function(response) {
+        options.crossOriginCredentials = true;
+      }).catch(function(err) {
+        console.log("Service {{ resource.service }} is not CORS compatible. Status error: ", err.statusText);
+        console.log("Therefore, making requests anonymously instead of with credentials");
+        options.crossOriginCredentials = false;
+      });
     } else {
       options.crossOriginCredentials = false;
     }
