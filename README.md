@@ -1,4 +1,6 @@
-# geonode-client [![Build Status](https://travis-ci.org/GeoNode/geonode-client.svg?branch=master)](https://travis-ci.org/GeoNode/geonode-client) [![Code Climate](https://codeclimate.com/github/GeoNode/geonode-viewer/badges/gpa.svg)](https://codeclimate.com/github/GeoNode/geonode-viewer) [![Test Coverage](https://codeclimate.com/github/GeoNode/geonode-viewer/badges/coverage.svg)](https://codeclimate.com/github/GeoNode/geonode-viewer/coverage)
+# geonode-client [![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+⛔️ **This project is deprecated and not actively maintained**
 
 OL3 - React map viewer for GeoNode
 
